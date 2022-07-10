@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 let port = process.env.PORT || 3000;
 
+
+const users = require("./route/users");
+
 //accession au path du server
 const path = require("path");
 
@@ -12,6 +15,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
 });
+
 // __dirname c://user/desktop/projet
 // path.join(__dirname, 'images') == __dirname + '/' + '/image';
 app.use("/images", express.static(path.join(__dirname, 'images')));
@@ -20,11 +24,12 @@ app.use("/images", express.static(path.join(__dirname, 'images')));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/users", users);
 app.get('/', (req, res) => {
     console.log("Greeting (clg) from route get");
     res.send('Hello World (res.send) from get');
-  });
+});
 
 app.listen(port, () => {
-    console.log('Server is listening on port ' + 3000);
-  });
+    console.log('http://localhost:3000 Server is listening on port ' + 3000);
+});
