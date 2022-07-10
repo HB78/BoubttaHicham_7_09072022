@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 let port = process.env.PORT || 3000;
 
+//connexion à la BDD
+const db = require("./dataBase/db");
+
 const users = require("./route/users");
 
 //accession au path du server
@@ -24,6 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", users);
+
 app.get('/', (req, res) => {
     console.log("Greeting (clg) from route get");
     res.send('Hello World (res.send) from get');

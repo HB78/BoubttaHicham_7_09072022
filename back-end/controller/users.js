@@ -1,5 +1,3 @@
-const db = require("../db");
-
 exports.getusers = async (req, res) => {
   let query = 'SELECT * FROM users';
   let [rows,fields] = await db.query(query);
