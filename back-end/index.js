@@ -2,10 +2,12 @@ const express = require("express");
 const app = express();
 let port = process.env.PORT || 3000;
 
+// const test = require("./route/test")
+
 //connexion à la BDD
 const db = require("./dataBase/db");
 
-const users = require("./route/users");
+const users = require("./route/usersRoute");
 
 //accession au path du server
 const path = require("path");
@@ -27,6 +29,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", users);
+
+//routes test
+// app.use("/test", test);
 
 app.get('/', (req, res) => {
     console.log("Greeting (clg) from route get");

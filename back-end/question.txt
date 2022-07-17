@@ -1,0 +1,63 @@
+le user doit pouvoir créer un compte
+il doit pouvoir se connecter à un son compte avec un login et un mdp
+il doit pouvoir se deconnecter
+la session doit pouvoir se maintenir si il ne s'est pas deconnecté
+
+le user doit etre capable de modifier son mot de passe et les infos de son profil (email, mdp, photo, description)
+
+dans la main page le user doit pouvoir :
+.créer des posts avec un titre et une image si il le souhaite
+.commenter des posts
+.liker ou disliker des posts
+.recevoir des notifications
+.rechercher un utilisateur dans une barre de recherche
+
+************************************** commandes ************************************
+Uniforme sur : 
+	- la langue (pas mélanger Fr et EN)
+	- Comment tu appelle tes variables (pas "texte" d'un coté et "contenu" de l'autre par exemple)
+	- la forme de tes attribits (respecter la meme syntaxe : id_user ou idUser (soit tirets soit CamelCase))
+
+CREATE TABLE users (
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100)NOT NULL,
+    name VARCHAR(100),
+    image_profil varchar(500)
+);
+
+CREATE TABLE publication (
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100),
+    contenu VARCHAR(400) NOT NULL,
+    image_path varchar(500),
+    date_publi DATETIME,
+    id_user INTEGER,
+    FOREIGN KEY (id_user) references users(id)
+);
+
+CREATE TABLE commentaire (
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    contenu VARCHAR(400) NOT NULL,
+    date_comment DATETIME,
+    id_user INTEGER,
+    id_publi INTEGER,
+    FOREIGN KEY (id_user) references users(id),
+    FOREIGN KEY (id_publi) references publication(id)
+);
+
+CREATE TABLE reaction (
+    date_reaction DATETIME,
+    id_publi INTEGER,
+    FOREIGN KEY (id_publi) references publication(id),
+    id_user INTEGER,
+    FOREIGN KEY (id_user) references users(id),
+    PRIMARY KEY (id_publi, id_user, date_reaction)
+);
+
+--> le probleme de cette table c'est que le user ne peut commente et liker qu'une fois.
+
+créer trois tables pour gérer les autorisations:
+-> le groupe d'utilisateur : un ensemble de personnes (le nom du groupe d'utilisateur (varchar) + une clef primaire)
+-> les droits d'accès: clef primaire, clef etrangère pour acceder aux autres tables
+-> 
