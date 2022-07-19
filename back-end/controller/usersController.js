@@ -141,6 +141,14 @@ exports.getOneUser = async (req, res, next) => {
 
 exports.updatePasswordOfUser = async (req, res, next) => {
     try {
+        let idOfUser = `SELECT id FROM users WHERE id= '${req.params.id}';`
+        let [row, field] = await db.query(idOfUser);
+
+        //pour ne pas qu'il modifie le mdp d'un compte inexistant
+        if(!row.length > 0) {
+            return res.status(400).json("l'utilisateur n'existe pas");
+        }
+        //si le compte existe on peut modifier son mot de passe
         const hash = bcrypt.hashSync(req.body.password, 10);
         let updatePassword = `UPDATE users SET password = '${hash}' WHERE id = '${req.params.id}';`;
         let [rows, fields] = await db.query(updatePassword);
@@ -203,5 +211,24 @@ exports.deleteUser = async (req, res, next) => {
         res.status(500).json(error);
     }
 };
+
+//recherche d'un utilisateur dans la barre de recherche
+
+exports.searchUser = async (req, res) => {
+    try {
+        let search = `SELECT id, name, poste, image_profil FROM users WHERE name like "%" + ${req.query.name} + "%" ;`;
+        let [rows, fields] = await db.query(deleteCountOfUser);
+
+        if(!rows.length > 0) {
+            res.status(404).json("utilisateur non trouvé parmis les employés");
+
+        }else {
+            res.status(200).json("employé trouvé parmis les utilisateurs")
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 
 //comment gérer le compte admin ?
