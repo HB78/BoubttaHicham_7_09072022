@@ -50,16 +50,72 @@ CREATE TABLE commentaire (
 
 CREATE TABLE reaction (
     date_reaction DATETIME,
+    love INTEGER,
     id_publi INTEGER,
     FOREIGN KEY (id_publi) references publication(id),
     id_user INTEGER,
     FOREIGN KEY (id_user) references users(id),
-    PRIMARY KEY (id_publi, id_user, date_reaction)
+    PRIMARY KEY (id_publi, id_user)
 );
+    PRIMARY KEY (id_publi, id_user, date_reaction)
 
---> le probleme de cette table c'est que le user ne peut commente et liker qu'une fois.
+**a analyser
+etape 1 
+SELECT * FROM publication p, users u WHERE p.id_user = u.id;
+
+etape 2
+SELECT p.title, p.contenu, p.image_path, p.id, u.name, u.image_profil FROM publication p, users u WHERE p.id_user = u.id;
+
+etape 3 
+SELECT p.title, p.contenu, p.image_path, p.id, u.name, u.image_profil FROM publication p, users u, reaction r WHERE p.id_user = u.id;
 
 créer trois tables pour gérer les autorisations:
 -> le groupe d'utilisateur : un ensemble de personnes (le nom du groupe d'utilisateur (varchar) + une clef primaire)
 -> les droits d'accès: clef primaire, clef etrangère pour acceder aux autres tables
 -> 
+
+/* JIM */
+
+SELECT W.client_id client_id,validation,password,username,client_code FROM dg_web_comptes W, dg_clients C WHERE W.client_id=C.client_id AND username='" + req.body.email + "'";
+
+
+JOINTURE entre les tables pour "croiser" les données des différentes tables
+SELECT * FROM reaction join users on users.id = reaction.id_user join publication on reaction.id_publi = publication.id;
+
+
+requete pourt .....
+select .....
+
+/* COMMANDE A ETUDIER */
+
+--> NORMALEMENT POUR AFFICHER LA PUBLICATION D'UN USER ET SON CONTENU
+SELECT contenu, date_publi, name FROM reaction join users on users.id = reaction.id_user join publication on reaction.id_publi = publication.id where users.id=2;
+
+AJOUT D'UN LIKE OU D'UN DISLIKE
+INSERT INTO `reaction`(`id`, `date_reaction`, `love`, `id_publi`, `id_user`) VALUES (1,'2022-01-01',1, 1, 1), (2,'2022-01-02',-1, 1, 2), (3,'2022-01-02',1, 2, 2);
+
+SELECT * FROM `reaction` WHERE 1;
+SELECT * FROM reaction join users;
+SELECT * FROM reaction join users on reaction.id_user = users.id WHERE 1;
+SELECT * FROM reaction join users on users.id = reaction.id_user join publication on reaction.id_publi = publication.id;
+SELECT * FROM `commentaire` WHERE 1;
+SELECT * FROM `commentaire` WHERE 1;
+select * from reaction where reaction.id_publi=1;
+
+select count(id) from reaction where reaction.id_publi=1;
+
+SELECT * FROM reaction join users on users.id = reaction.id_user join publication on reaction.id_publi = publication.id;
+
+SELECT contenu FROM reaction join users on users.id = reaction.id_user join publication on reaction.id_publi = publication.id where users.id=2;
+
+** MES RECHERCHES **
+
+pour afficher tous le contenu d'une publication ??
+ce qui est bien c'est que cela selectionne meme les publi sans titre
+il faut faire les choses en 2 partie dans le code je crois
+--> selectionner toutes les infos d'une publi
+--> compter les likes
+--> mais comment enchevetrer les deux logiques ?
+SELECT contenu, date_publi, name, reaction.love, title FROM publication join users on users.id = publication.id_user JOIN reaction on reaction.id_user = publication.id_user;
+
+

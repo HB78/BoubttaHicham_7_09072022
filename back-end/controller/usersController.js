@@ -92,13 +92,13 @@ exports.login = async (req, res, next) => {
             return res.status(401).json({ error: "mot de passe incorrect" })
         } else {
             console.log("C'est le bon MDP")
-            res.status(200).json("le mot de passe est correct");
             const token = jwt.sign({ userEmail: rows[0].email }, process.env.KEY, { expiresIn: "77d" });
             const objResponse = {
                 userEmail: rows[0].email,
                 token: token,
             }
             console.log(objResponse)
+            return res.status(200).json("le mot de passe est correct");
         }
     } catch (error) {
         res.status(500).json(error);
@@ -162,9 +162,10 @@ exports.updatePasswordOfUser = async (req, res, next) => {
 
 exports.updatePhotoProfil = async (req, res, next) => {
     try {
+        console.log("photo de profil ajouter peut etre");
         let photoProfil = `UPDATE users SET image_profil = '${req.protocol}://${req.get('host')}/images/${req.file.filename}' WHERE id = '${req.params.id}';`;
         let [rows, fields] = await db.query(updatePhotoProfil);
-        return res.status(201).json("photo de profil modifiée");
+        return res.status(200).json("photo de profil modifiée");
     } catch (error) {
         res.status(500).json(error);
     }
@@ -221,14 +222,28 @@ exports.searchUser = async (req, res) => {
 
         if(!rows.length > 0) {
             res.status(404).json("utilisateur non trouvé parmis les employés");
-
+            return
         }else {
-            res.status(200).json("employé trouvé parmis les utilisateurs")
+            res.status(200).json("employé trouvé parmis les utilisateurs");
+            return
         }
     } catch (error) {
         res.status(500).json(error);
     }
-}
+};
 
+//afficher toutes les publications d'un utilisateur
+
+exports.getAllPublicationOfUser = async (req, res, next) => {
+    try {
+        let allPublicationOfUser = `SELECT id.users, nom.users, image_profil.users AS users, publication.id, publication.title, publication.contenu, publication.image_path, publication.date_publi AS publication,   
+        id.commentaire, contenu.commentaire, date_comment.commentaire AS commentaire, id.reaction, id.niveau AS likes WHERE '${req.params.id}';`;
+        let [rows, fields] = await db.query(allPublicationOfUser);
+        console.log(rows)
+        return res.status(200).json("toutes les publications du user sont affichées");
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
 
 //comment gérer le compte admin ?

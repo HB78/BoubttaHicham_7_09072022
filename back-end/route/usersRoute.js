@@ -1,6 +1,9 @@
 express = require("express");
 const router = express.Router();
 
+//authentification par token
+const auth = require("../middleware/auth");
+
 const {UpdateDescription} = require("../controller/usersController");
 
 const {updatePoste} = require("../controller/usersController");
@@ -21,11 +24,15 @@ const {updatePhotoProfil} = require("../controller/usersController");
 
 const {searchUser} = require("../controller/usersController");
 
+const {getAllPublicationOfUser} = require("../controller/usersController");
+
 //importation de multer
 const multer = require("../middleware/multer");
 
+//TODO: il faut revoir tous les endpoints des routes
+
 //la page qui va afficher l'organigramme de l'entreprise
-router.get("/organigrame", getAllUsers);
+router.get("/organigrame", auth, getAllUsers);
 
 //recherche d'un utilisateur dans la barre de recherche
 router.get("/search", searchUser);
@@ -41,7 +48,7 @@ router.get("/:id", multer, getOneUser);
 router.put("/:id", updatePasswordOfUser);
 
 //changement de la photo de profil du user
-router.put("/:id", multer, updatePhotoProfil);
+router.put("/:id/photo", multer, updatePhotoProfil);
 
 //mise à jour de la description
 router.put("/:id/description", UpdateDescription);
@@ -49,8 +56,10 @@ router.put("/:id/description", UpdateDescription);
 //l'utilisateur a changé de poste
 router.put("/:id/poste", updatePoste);
 
+//afficher toutes les publications du user dans son profil
+router.get("/profil", getAllPublicationOfUser);
+
 //suppression du compte utilisateur
 router.delete("/:id", deleteUser);
-
 
 module.exports = router;

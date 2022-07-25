@@ -9,6 +9,10 @@ const db = require("./dataBase/db");
 
 const users = require("./route/usersRoute");
 
+// const actualite = require("./controller/publicationController");
+
+// const message = require("./controller/commentController");
+
 //accession au path du server
 const path = require("path");
 
@@ -29,6 +33,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", users);
+
+// app.use("/actualite", actualite);
+
+// app.use("/commentaires", message);
 
 //routes test
 // app.use("/test", test);
