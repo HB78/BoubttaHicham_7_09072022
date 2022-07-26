@@ -119,3 +119,24 @@ il faut faire les choses en 2 partie dans le code je crois
 SELECT contenu, date_publi, name, reaction.love, title FROM publication join users on users.id = publication.id_user JOIN reaction on reaction.id_user = publication.id_user;
 
 
+******************************************** LA SOLUTION ***********************************
+--> RECUPERATION DES PUBLICATIONS AVEC LES LIKES ET LES NOMS DE LA BDD
+
+SELECT publication.id, publication.title, publication.date_publi, users.name AS userName, COUNT(likeTable.love) AS liked, COUNT(dislikeTable.love) AS disliked
+FROM publication
+LEFT JOIN reaction AS likeTable ON likeTable.id_publi=publication.id AND likeTable.love=1
+LEFT JOIN reaction AS dislikeTable ON dislikeTable.id_publi=publication.id AND dislikeTable.love=0
+INNER JOIN users ON users.id=publication.id_user
+GROUP BY publication.id
+ORDER BY publication.date_publi DESC;
+
+--> RECUPERATION DES PUBLICATIONS AVEC LES LIKES ET LES NOMS DE LA BDD D'UN SEUL USER
+
+SELECT publication.id, publication.title, publication.date_publi, users.name AS userName, COUNT(likeTable.love) AS liked, COUNT(dislikeTable.love) AS disliked
+FROM publication
+LEFT JOIN reaction AS likeTable ON likeTable.id_publi=publication.id AND likeTable.love=1
+LEFT JOIN reaction AS dislikeTable ON dislikeTable.id_publi=publication.id AND dislikeTable.love=0
+INNER JOIN users ON users.id=publication.id_user
+WHERE users.id = req.params.id
+GROUP BY publication.id
+ORDER BY publication.date_publi DESC;

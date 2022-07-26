@@ -12,4 +12,7 @@ router.put("/message", commentaire.updateMessage);
 
 router.post("/message", commentaire.createMessage);
 
-router.get("/message", commentaire.deleteMessage);
+router.delete("/message", commentaire.deleteMessage);
+
+//on exporte tous les routers que l'on a coder ici
+module.exports = router;

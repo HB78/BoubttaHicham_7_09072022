@@ -7,7 +7,7 @@
 exports.getAllPublication = async (req, res, next) => {
     try {
         //les publications sans commentaires vont elles s'afficher ?
-        let publications = `SELECT id.users, nom.users, image_profil.users AS users, publication.id, publication.title, publication.contenu, publication.image_path, publication.date_publi AS publication,   
+        let publications = `SELECT users.id, users.nom, users.image_profil AS users, publication.id, publication.title, publication.contenu, publication.image_path, publication.date_publi AS publication,   
         id.commentaire, contenu.commentaire, date_comment.commentaire AS commentaire, id.reaction, love.reaction AS likes;`;
         let [rows, fields] = await db.query(publications);
         console.log("--> dans le rows il y a tt les publications", rows)
@@ -46,7 +46,7 @@ exports.createPublication = async (req, res, next) => {
 //effacer une publication
 exports.deletePublication = async (req, res) => {
     try {
-        let deletePost = `DELETE FROM publication WHERE id = '${req.params.id}';`;
+        let deletePost = `DELETE FROM publication WHERE publication.id = '${req.params.publication.id}';`;
         let [rows, fields] = await db.query(deletePost);
         console.log("--> test delete publication", rows)
         return res.status(200).json("la publication a été effacée");

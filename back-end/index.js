@@ -2,16 +2,14 @@ const express = require("express");
 const app = express();
 let port = process.env.PORT || 3000;
 
-// const test = require("./route/test")
-
 //connexion à la BDD
 const db = require("./dataBase/db");
 
 const users = require("./route/usersRoute");
 
-// const actualite = require("./controller/publicationController");
+const actualite = require("./route/publicationRoute");
 
-// const message = require("./controller/commentController");
+const messageInPublication = require("./route/commentRoute");
 
 //accession au path du server
 const path = require("path");
@@ -34,12 +32,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", users);
 
-// app.use("/actualite", actualite);
+app.use("/actualite", actualite);
 
-// app.use("/commentaires", message);
-
-//routes test
-// app.use("/test", test);
+app.use("/commentaires", messageInPublication);
 
 app.get('/', (req, res) => {
     console.log("Greeting (clg) from route get");
