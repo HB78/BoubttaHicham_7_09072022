@@ -57,7 +57,35 @@ CREATE TABLE reaction (
     FOREIGN KEY (id_user) references users(id),
     PRIMARY KEY (id_publi, id_user)
 );
+
+CREATE TABLE notifications(
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    contenu VARCHAR ETC
+    date_reaction DATETIME,
+    id_user INTEGER,
+    FOREIGN KEY (id_user) references users(id),
+    id_publi INTEGER,
+    FOREIGN KEY (id_publi) references publication(id),
+    id_comment INTEGER,
+    FOREIGN KEY (id_comment) references commentaire(id),
+    id_reaction,
+    FOREIGN KEY (id_reaction) references reaction(PRIMARY KEY)
+);
     PRIMARY KEY (id_publi, id_user, date_reaction)
+
+notification : 
+    - id : integer
+    - contenu : texte
+    - id user (qui est notifié)
+    - ouverte : boolean
+
+    (
+    - id_likeur FOREIGN key (NULLABLE)
+    - id_publi  FOREIGN key (NULLABLE)
+    - id_commentaire  FOREIGN key (NULLABLE)
+    )
+select id_user, count(id) from notification where overte = false group by id_user and id_user = ....
+
 
 **a analyser
 etape 1 
@@ -122,13 +150,22 @@ SELECT contenu, date_publi, name, reaction.love, title FROM publication join use
 ******************************************** LA SOLUTION ***********************************
 --> RECUPERATION DES PUBLICATIONS AVEC LES LIKES ET LES NOMS DE LA BDD
 
-SELECT publication.id, publication.title, publication.date_publi, users.name AS userName, COUNT(likeTable.love) AS liked, COUNT(dislikeTable.love) AS disliked
-FROM publication
-LEFT JOIN reaction AS likeTable ON likeTable.id_publi=publication.id AND likeTable.love=1
-LEFT JOIN reaction AS dislikeTable ON dislikeTable.id_publi=publication.id AND dislikeTable.love=0
-INNER JOIN users ON users.id=publication.id_user
-GROUP BY publication.id
-ORDER BY publication.date_publi DESC;
+SELECT DISTINCT publication.id, publication.title, publication.date_publi, users.name AS userName, 
+	(
+        select count(*) 
+        from reaction 
+        WHERE reaction.love = 1 
+        and reaction.id_publi = publication.id
+    ) as alike,
+    (
+        select count(*) 
+        from reaction 
+        WHERE reaction.love = -1
+        and reaction.id_publi = publication.id
+    ) as dislike
+from publication
+left join reaction on reaction.id_publi = publication.id
+left join users on reaction.id_publi = users.id;
 
 --> RECUPERATION DES PUBLICATIONS AVEC LES LIKES ET LES NOMS DE LA BDD D'UN SEUL USER
 
@@ -140,3 +177,69 @@ INNER JOIN users ON users.id=publication.id_user
 WHERE users.id = req.params.id
 GROUP BY publication.id
 ORDER BY publication.date_publi DESC;
+
+--> RECUPERATION DES NOMS ET DES COMMENTAIRES DES PUBLICATIONS
+
+SELECT commentaire.id, commentaire.id_user, commentaire.id_publi, commentaire.contenu, users.name 
+FROM commentaire
+JOIN publication ON commentaire.id_publi = publication.id
+JOIN users ON users.id = commentaire.id_user
+GROUP BY commentaire.id
+ORDER BY commentaire.date_comment DESC;
+
+--> EFFACER UNE PUBLICATION 
+
+DELETE FROM publication WHERE publication.id = 14;
+
+--> CREATION D'UNE PUBLICATION
+
+INSERT INTO `publication` (`title`, `contenu`, `image_path`, `date_publi`, `id_user`) VALUES ('TEST CREATION DE POST', 'TEST CREATION POST', NULL, '2022-07-07', '8');
+
+--> MISE A JOUR D'UNE PUBLICATION SANS PHOTO
+
+UPDATE `publication` SET `title` = 'TEST CREATION DE POST 2', `contenu` = 'TEST CREATION POST 2' WHERE `publication`.`id` = 15;
+
+
+--> MISE A JOUR D'UNE PUBLICATION AVEC PHOTO
+
+`UPDATE publication SET image_path = '${req.protocol}://${req.get('host')}/images/${req.file.filename}',
+title ='${req.params.title}', contenu = '${req.params.contenu}', date_publi = '${req.params.date_publi}'  WHERE id = '${req.params.id}';`;
+
+************ SOLUTION COMMENTAIRE ******
+
+--> CREER UN COMMENTAIRE
+
+INSERT INTO `commentaire` (`contenu`, `date_comment`, `id_user`, `id_publi`) VALUES ('Je suis d\'accord avec toi', '2022-02-02', '6', '5');
+
+--> EFFACER UN COMMENTAIRE
+
+DELETE FROM `commentaire` WHERE `commentaire`.`id` = 8
+
+--> MISE A JOUR D'UN COMMENTAIRE
+
+UPDATE `commentaire` SET `contenu` = 'bruce lee est le meilleur au kung fu' WHERE `commentaire`.`id` = 3;
+
+--> DOIT ON AFFICHER LES COMMENTAIRE QUAND ON LA FAIT DANS LA PARTIE PUBLICATION ?
+
+SELECT commentaire.id, commentaire.contenu, commentaire.date_comment,commentaire.date_comment, publication.id, users.name
+FROM commentaire
+INNER JOIN publication ON commentaire.id_user=publication.id_user
+INNER JOIN users ON users.id = commentaire.id_user
+GROUP BY commentaire.id
+ORDER BY commentaire.date_comment DESC;
+
+********* LIKE DISLIKE SOLUTION *****************
+
+--> AJOUT D'UN LIKE ET DISLIKE
+
+INSERT INTO `reaction` (`love`, `id_publi`, `id_user`) VALUES ('1', '4', '7');
+
+--> ENLEVER UN LIKE 
+
+******* question *******
+--> peut on récupérer les likes, commentaire, publication et le name du users dans une seule commande ?ok
+--> je n'arrive pas a recuperer le like et le disliked ok
+--> comment mettre en place la table notification ?
+
+----> pour mettre en place la pagination (pagination décalé et asynchrone)
+select * from publication limit 3 OFFSET 3;
