@@ -90,16 +90,19 @@ exports.login = async (req, res, next) => {
         if (passwordCompare == false) {
             console.log("C'est pas le bon MDP")
             return res.status(401).json({ error: "mot de passe incorrect" })
-        } else {
-            console.log("C'est le bon MDP")
-            const token = jwt.sign({ userEmail: rows[0].email }, process.env.KEY, { expiresIn: "77d" });
-            const objResponse = {
-                userEmail: rows[0].email,
-                token: token,
-            }
-            console.log(objResponse)
-            return res.status(200).json("le mot de passe est correct");
+        } 
+        console.log("C'est le bon MDP")
+        let jwtBody = {
+            email: rows[0].email,
+            id: rows[0].id,
         }
+        const token = jwt.sign(jwtBody, process.env.KEY, { expiresIn: "77d" });
+        const objResponse = {
+            jwtBody: jwtBody,
+            token: token,
+        }
+        console.log("--> info token", objResponse)
+        return res.status(200).json({token: token});
     } catch (error) {
         res.status(500).json(error);
     }
@@ -109,7 +112,7 @@ exports.login = async (req, res, next) => {
 
 exports.getAllUsers = async (req, res) => {
     try {
-        let query = 'SELECT name, image_profil, poste FROM users';
+        let query = 'SELECT id, name, image_profil, poste FROM users';
         let [rows, fields] = await db.query(query);
         let id = rows[0].id;
         console.log(rows)

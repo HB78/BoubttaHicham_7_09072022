@@ -7,7 +7,7 @@ const db = require("./dataBase/db");
 
 const users = require("./route/usersRoute");
 
-const actualite = require("./route/publicationRoute");
+const publication = require("./route/publicationRoute");
 
 const messageInPublication = require("./route/commentRoute");
 
@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", users);
 
-app.use("/actualite", actualite);
+app.use("/publication", publication);
 
 app.use("/commentaires", messageInPublication);
 

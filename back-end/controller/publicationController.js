@@ -4,8 +4,12 @@ const db = require("../dataBase/db");
 
 //TODO: afficher les publications avec leur like, message et contenu
 
-exports.getAllPublication = async (req, res, next) => {
+exports.getLastPublication = async (req, res, next) => {
     try {
+        //ici on gère la pagination, on veut qu'il nous affiche les 10 premieres publications
+        //on ne peut pas lui dire de tout nous donner car il peut y avoir des miliers de publications
+        let START = req.body.start || 0;
+        let NB_PUBLI = 10;
         //les publications sans commentaires vont elles s'afficher ?
         let query = `SELECT DISTINCT publication.id, publication.title, publication.date_publi, users.name AS userName, 
             (
@@ -22,47 +26,47 @@ exports.getAllPublication = async (req, res, next) => {
             ) as dislike
         from publication
         left join reaction on reaction.id_publi = publication.id
-        left join users on reaction.id_publi = users.id;`;
+        left join users on reaction.id_publi = users.id;
+        ORDER BY publication.date_publi DESC
+        LIMIT '${START}', '${NB_PUBLI}'`;
         let [publications, fields] = await db.query(query);
-        // console.log("--> dans le rows il y a tt les publications", rows)
+        return res.status(200).json(publications);
 
-        console.log(publications[4])
+        // console.log(publications[4])
 
-        for (let i = 0 ; i < publications.length ; i++) {
-            const publi = publications[i]
-            const publi_id = publi.id
-            const requete = `select commentaire.id, contenu, date_comment, users.name from commentaire join users on users.id = commentaire.id_user where id_publi = ` + publi_id 
-            let [res_commentaires, fields] = await db.query(requete);
+        // for (let i = 0 ; i < publications.length ; i++) {
+        //     const publi = publications[i]
+        //     const publi_id = publi.id
+        //     const requete = `select commentaire.id, contenu, date_comment, users.name from commentaire join users on users.id = commentaire.id_user where id_publi = ` + publi_id 
+        //     let [res_commentaires, fields] = await db.query(requete);
    
-            publications[i].commentaires = res_commentaires
-        }
-        console.log(publications[4])
-        return res.status(200).json("toutes les publications sont affichées");
+        //     publications[i].commentaires = res_commentaires
+        // }
+        // console.log(publications[4])
+        // return res.status(200).json("toutes les publications sont affichées");
+
     } catch (error) {
         res.status(500).json(error);
     }
 };
 
+// Auth avec => req.body.decodedToken.id
+
 //créer une publication
 exports.createPublication = async (req, res, next) => {
     try {
-        let createPostWithImage = `INSERT INTO publication (title, contenu, image_path, date_publi) VALUES 
-        '${req.body.title}', '${req.body.contenu}', '${req.protocol}://${req.get('host')}/images/${req.file.filename}', 
-        '${req.body.date_publi};`;
-
-        let createPostWithNoImage = `INSERT INTO publication (title, contenu, date_publi) VALUES 
-        '${req.body.title}', '${req.body.contenu}','${req.body.date_publi}';`;
+        let imgUrl = null;
+        if (req.file && req.file.filename) {
+            imgUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        }
+        let createPost = `INSERT INTO publication (title, contenu, image_path, date_publi, id_user) VALUES 
+        '${req.body.title}', '${req.body.contenu}', '${imgUrl}', 
+        '${Date.now()}, '${req.body.decodedToken.id}';`;
 
         //si la requète contient un fichier
-        if(req.file) {
-            let [rows, fields] = await db.query(createPostWithImage);
-            console.log("--> une image a ete ajouté dans la publication", rows)
-            return res.status(201).json("publication créee avec ajout d'une image");
-        } else {
-            let [rows, fields] = await db.query(createPostWithNoImage);
-            console.log("--> publication ajoutée sans image", rows)
-            return res.status(201).json("publication créee sans ajout d'image");
-        }
+        let [rows, fields] = await db.query(createPost);
+
+        return res.status(201).json("publication créee sans ajout d'image");
 
     } catch (error) {
         res.status(500).json(error);
@@ -70,12 +74,15 @@ exports.createPublication = async (req, res, next) => {
 };
 
 //effacer une publication
+/* DELETE http://localhost:3000/publication/5
+*/
 exports.deletePublication = async (req, res) => {
+    console.log("req.body.decodedToken", req.body.decodedToken);
     try {
         let deletePost = `DELETE FROM publication WHERE publication.id = '${req.params.id}';`;
         let [rows, fields] = await db.query(deletePost);
         console.log("--> test delete publication", rows)
-        return res.status(200).json("la publication a été effacée");
+        return res.status(200).json({rows: rows, info: "la publication a été effacée"});
     } catch (error) {
         res.status(500).json(error);
     }
@@ -84,22 +91,16 @@ exports.deletePublication = async (req, res) => {
 //mettre à jour une publication
 exports.updatePublication = async (req, res) => {
     try {
-        //si la req contient une image on efface d'abord celle stocker dans la BDD
-        if(req.file) {
-            let deletephoto = `DELETE image_path FROM publication;`;
-            let updatePost = `UPDATE publication SET image_path = '${req.protocol}://${req.get('host')}/images/${req.file.filename}',
-            title ='${req.params.title}', contenu = '${req.params.contenu}', date_publi = '${req.params.date_publi}'  WHERE id = '${req.params.id}';`;
-            let [rows, fields] = await db.query(updatePost);
-
-            
-
-            console.log("--> update publi with photo", rows)
-        }else {
-            let updatePostNoImage = `UPDATE publication SET title ='${req.params.title}', contenu = '${req.params.contenu}', 
-            date_publi = '${req.params.date_publi}'  WHERE id = '${req.params.id}';`;
-            let [rows, fields] = await db.query(updatePostNoImage);
-            console.log("--> update publi with NO photo", rows)
+        /** Requete SQL dynamique générer en fonction de si l'utilisateur a voulu modifier l'image de sa Publication */
+        let requestPartImg = "";
+        if(req.file && req.file.filename) {
+            requestPartImg = `image_path = '${req.protocol}://${req.get('host')}/images/${req.file.filename}',`
         }
+        let request = `UPDATE publication SET ${requestPartImg} title ='${req.body.title}', 
+        contenu = '${req.body.contenu}', date_publi = '${Date.now()}' 
+        WHERE id = '${req.params.id}' AND publication.id_user = '${req.body.decodedToken.id}';`
+        let [rows, fields] = await db.query(request);
+        return res.status(200).json({rows: rows, info: "la publication a été update"});
     } catch (error) {
         res.status(500).json(error);
     }

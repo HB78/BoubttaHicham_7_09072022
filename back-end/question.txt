@@ -219,7 +219,7 @@ DELETE FROM `commentaire` WHERE `commentaire`.`id` = 8
 
 UPDATE `commentaire` SET `contenu` = 'bruce lee est le meilleur au kung fu' WHERE `commentaire`.`id` = 3;
 
---> DOIT ON AFFICHER LES COMMENTAIRE QUAND ON LA FAIT DANS LA PARTIE PUBLICATION ?
+--> DOIT ON AFFICHER LES COMMENTAIRE QUAND ON L'A FAIT DANS LA PARTIE PUBLICATION ?
 
 SELECT commentaire.id, commentaire.contenu, commentaire.date_comment,commentaire.date_comment, publication.id, users.name
 FROM commentaire

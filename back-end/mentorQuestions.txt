@@ -1,0 +1,25 @@
+--> poser la question sur le fichier auth qui ne fonctionne pas
+
+--> comment organiser le SQL dans les fichiers ?
+dans le fichier publication on ne recupere que les publications sans faire de jointure ?
+dans le fichier commentaire on ne recupère que les commentaires sans lien avec les publication ?
+dans le fichier reaction on ne récupère que les likes et dislikes sans les lier avec les com' et les public' ?
+
+--> au final comment va s'organiser l'interaction entre les différentes données ?
+--> comment savoir qui a fait quoi ?
+
+--> poser une question sur le date.now, fautil utiliser le package moment ?
+
+--> j'ai du mal a differencier req.params.id et req.body.id
+
+--> comment faire avec le fichier des likes, que faut-il faire dedans ?
+
+--> j'ai fait des jointures dans les fichiers commentaire et publication faut il les enlever ?
+
+--> montrer au mentor la fonction createMessage dans le controller commentaire pour evoquer l'id_publi
+
+--> j'ai du mal avec postman quand il s'agit de lancer une route avec authentification
+
+--> BONUS : comment bien créer une table pour les notifications ?
+
+----> comment faire au final pour récuperer toutes les publications d'un seul utilisateur ?

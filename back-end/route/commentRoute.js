@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 
 const commentaire = require("../controller/commentController");
 
-router.get("/message", commentaire.getAllComment);
+router.get("/message", commentaire.getCommentByPublication);
 
 router.put("/message", commentaire.updateMessage);
 
