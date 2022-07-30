@@ -4,6 +4,7 @@
 //on joint la table like et publication dans publicationCTRL.js ??
 //on joint la table publication et message dans commentCTRL.js ??
 
+//afficher tous les commentaires
 exports.getCommentByPublication = async (req,res) => {
     try {
         //si le commentaire n'est lié à aucune publication
@@ -16,7 +17,7 @@ exports.getCommentByPublication = async (req,res) => {
         let START = req.body.start || 0;
         let NB_COMMENT = 10;
         //on veut afficher tous les commentaires des publications
-        let allcomment = `SELECT id, contenu, date_comment, users.name FROM commentaire 
+        let allcomment = `SELECT commentaire.id, contenu, date_comment, users.name FROM commentaire 
         INNER JOIN users ON 
         commentaire.id_user = users.id 
         WHERE id_publi =  ${req.body.id_publi}
@@ -28,7 +29,6 @@ exports.getCommentByPublication = async (req,res) => {
         res.status(500).json(error);
     }
 };
-//afficher un commentaire --> sa sert a quelque chose ???
 
 //créer un commentaire
 exports.createMessage = async (req, res) => {
@@ -58,7 +58,7 @@ exports.deleteMessage = async (req, res) => {
 //mettre à jour un commentaire
 exports.updateMessage = async (req, res) => {
     try {
-        let updateComment= `UPDATE users SET contenu = '${req.body.contenu}', date_comment = '${Date.now}' 
+        let updateComment= `UPDATE commentaire SET contenu = '${req.body.contenu}', date_comment = '${Date.now}' 
         WHERE commentaire.id = '${req.params.id}' AND publication.id_user = '${req.body.decodedToken.id}';`;
         let [rows, fields] = await db.query(updateComment);
         console.log('rows: --> message modifié', rows)

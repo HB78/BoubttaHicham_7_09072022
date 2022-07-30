@@ -11,24 +11,13 @@ exports.getLastPublication = async (req, res, next) => {
         let START = req.body.start || 0;
         let NB_PUBLI = 10;
         //les publications sans commentaires vont elles s'afficher ?
-        let query = `SELECT DISTINCT publication.id, publication.title, publication.date_publi, users.name AS userName, 
-            (
-                select count(*) 
-                from reaction 
-                WHERE reaction.love = 1 
-                and reaction.id_publi = publication.id
-            ) as alike,
-            (
-                select count(*) 
-                from reaction 
-                WHERE reaction.love = -1
-                and reaction.id_publi = publication.id
-            ) as dislike
-        from publication
-        left join reaction on reaction.id_publi = publication.id
-        left join users on reaction.id_publi = users.id;
+        let query = `SELECT publication.id, publication.title, 
+        publication.date_publi, users.name AS userName 
+        FROM publication
+        JOIN users on publication.id_user = users.id
         ORDER BY publication.date_publi DESC
-        LIMIT '${START}', '${NB_PUBLI}'`;
+        LIMIT '${START}', '${NB_PUBLI};`;
+
         let [publications, fields] = await db.query(query);
         return res.status(200).json(publications);
 
@@ -50,6 +39,25 @@ exports.getLastPublication = async (req, res, next) => {
     }
 };
 
+exports.getLastPublicationOfUser = async (req, res) => {
+    try {
+        let publicationsOfOneUser = `SELECT publication.id, publication.title, 
+        publication.date_publi, users.name AS userName 
+        from publication
+        join users on publication.id_user = users.id
+        WHERE users.id = '${req.body.decodedToken.id}'
+        ORDER BY publication.date_publi DESC;`
+
+        let [rows, fields] = await db.query(publicationsOfOneUser)
+        if(!rows.length > 0) {
+            return res.status(404).json("l'utilisateur n'a encore rien publié");
+        }
+        return res.status(200).json(rows);
+
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
 // Auth avec => req.body.decodedToken.id
 
 //créer une publication
@@ -92,7 +100,7 @@ exports.deletePublication = async (req, res) => {
 exports.updatePublication = async (req, res) => {
     try {
         /** Requete SQL dynamique générer en fonction de si l'utilisateur a voulu modifier l'image de sa Publication */
-        let requestPartImg = "";
+        let requestPartImg = null;
         if(req.file && req.file.filename) {
             requestPartImg = `image_path = '${req.protocol}://${req.get('host')}/images/${req.file.filename}',`
         }
