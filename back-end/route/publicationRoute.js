@@ -20,7 +20,7 @@ router.put("/:id", publication.updatePublication);
    *  jwt: dfsfdsfds.fds1585ds.edfsdf
    * }
    */
-router.delete("/:id", publication.deletePublication);
+router.delete("/:id", auth, publication.deletePublication);
 
 //on exporte tous les routers que l'on a coder ici
 module.exports = router;

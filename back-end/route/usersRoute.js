@@ -24,7 +24,7 @@ const {updatePhotoProfil} = require("../controller/usersController");
 
 const {searchUser} = require("../controller/usersController");
 
-const {getAllPublicationOfUser} = require("../controller/usersController");
+const {getLastPublicationOfUser} = require("../controller/usersController");
 
 //importation de multer
 const multer = require("../middleware/multer");
@@ -45,21 +45,21 @@ router.post("/login", login);
 router.get("/:id", multer, getOneUser);
 
 //changement du mot de passe du user
-router.put("/:id", updatePasswordOfUser);
+router.put("/:id", auth, updatePasswordOfUser);
 
 //changement de la photo de profil du user
-router.put("/:id/photo", multer, updatePhotoProfil);
+router.put("/:id/photo", auth, multer, updatePhotoProfil);
 
 //mise à jour de la description
-router.put("/:id/description", UpdateDescription);
+router.put("/:id/description", auth, UpdateDescription);
 
 //l'utilisateur a changé de poste
-router.put("/:id/poste", updatePoste);
-
-//afficher toutes les publications du user dans son profil
-router.get("/profil", getAllPublicationOfUser);
+router.put("/:id/poste", auth, updatePoste);
 
 //suppression du compte utilisateur
-router.delete("/:id", deleteUser);
+router.delete("/:id", auth, deleteUser);
+
+//affichage des publicationss du users dans son profil
+router.get("/:id/profil", getLastPublicationOfUser);
 
 module.exports = router;

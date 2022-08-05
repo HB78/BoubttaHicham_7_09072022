@@ -9,6 +9,8 @@ const users = require("./route/usersRoute");
 
 const publication = require("./route/publicationRoute");
 
+const reaction = require("./route/reactionRoute");
+
 const messageInPublication = require("./route/commentRoute");
 
 //accession au path du server
@@ -30,11 +32,17 @@ app.use("/images", express.static(path.join(__dirname, 'images')));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
+//route users
 app.use("/users", users);
 
+//route publication
 app.use("/publication", publication);
 
+//route commentaire
 app.use("/commentaires", messageInPublication);
+
+//route reaction
+app.use("/publication", reaction);
 
 app.get('/', (req, res) => {
     console.log("Greeting (clg) from route get");

@@ -235,18 +235,25 @@ exports.searchUser = async (req, res) => {
     }
 };
 
-//afficher toutes les publications d'un utilisateur
-
-exports.getAllPublicationOfUser = async (req, res, next) => {
+//les publications du user
+exports.getLastPublicationOfUser = async (req, res) => {
     try {
-        let allPublicationOfUser = `SELECT id.users, nom.users, image_profil.users AS users, publication.id, publication.title, publication.contenu, publication.image_path, publication.date_publi AS publication,   
-        id.commentaire, contenu.commentaire, date_comment.commentaire AS commentaire, id.reaction, id.niveau AS likes WHERE '${req.params.id}';`;
-        let [rows, fields] = await db.query(allPublicationOfUser);
-        console.log(rows)
-        return res.status(200).json("toutes les publications du user sont affichées");
+        let publicationsOfOneUser = `SELECT publication.id, publication.title, 
+        publication.date_publi, users.name AS userName 
+        from publication
+        join users on publication.id_user = users.id
+        WHERE users.id = '${req.params.id}'
+        ORDER BY publication.date_publi DESC
+        LIMIT 0, 5;`
+
+        let [rows, fields] = await db.query(publicationsOfOneUser)
+        if(!rows.length > 0) {
+            return res.status(404).json("l'utilisateur n'a encore rien publié");
+        }
+        return res.status(200).json(rows);
+
     } catch (error) {
         res.status(500).json(error);
     }
 };
-
 //comment gérer le compte admin ?
