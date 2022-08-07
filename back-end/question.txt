@@ -243,3 +243,21 @@ INSERT INTO `reaction` (`love`, `id_publi`, `id_user`) VALUES ('1', '4', '7');
 
 ----> pour mettre en place la pagination (pagination décalé et asynchrone)
 select * from publication limit 3 OFFSET 3;
+
+
+--------> SESSION CORRECTION DU BACK-END <---------------
+
++++> comment recuperer l'id de la publication dans le commentController ?/
+
++++> correction des updates dans le fichier userController(on doit faire un ou plusieurs update ?)
+
++++> correction du controller reaction
+
++++> correctif de Multer qui ne marche pas
+
++++> comment mettre en place un compte administrateur ?
+
++++> doit on iterer dans la fonction qui recupere toutes les publications d'un users dans userController ?
+(derniere question concernant le back-end)
+
++++> intro React (connexion à la BDD, props, usestate, useEffect, formulaire)

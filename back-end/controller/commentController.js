@@ -4,6 +4,12 @@
 //on joint la table like et publication dans publicationCTRL.js ??
 //on joint la table publication et message dans commentCTRL.js ??
 
+//importation de la base de donnée
+const db = require("../dataBase/db");
+
+//importation de moment
+var moment = require('moment'); // require
+
 //afficher tous les commentaires
 exports.getCommentByPublication = async (req,res) => {
     try {
@@ -20,8 +26,8 @@ exports.getCommentByPublication = async (req,res) => {
         let allcomment = `SELECT commentaire.id, contenu, date_comment, users.name FROM commentaire 
         INNER JOIN users ON 
         commentaire.id_user = users.id 
-        WHERE id_publi =  ${req.body.id_publi}
-        ORDER BY commentaire.date_comment DESC LIMIT  '${START}', '${NB_COMMENT}';`
+        WHERE commentaire.id_publi =  ${req.body.id_publi}
+        ORDER BY commentaire.date_comment DESC LIMIT  0, 10;`
         let [rows, fields] = await db.query(allcomment);
         // console.log("--> les messages affiché", rows);
         return res.status(200).json(rows);
@@ -30,11 +36,45 @@ exports.getCommentByPublication = async (req,res) => {
     }
 };
 
+// A l'aide dd'un tab d'id de publication obtenire un tableau de tabeau de commentaire (limit 10)
+exports.getCommentByPublications = async (req,res) => {
+    try {
+        let err = false;
+        if (!req.body.tab_id_publi || Array.isArray(req.body.tab_id_publi))  {
+            res.status(400).json("Requète mal formaté ajoutez id_publi");
+        }
+        req.body.tab_id_publi.map(id =>{
+            if (typeof id != 'number') {
+                err = true;
+            }
+        });
+        if (err) {
+            res.status(400).json("Requète mal formaté ajoutez tab_id_publi not number");
+            return;
+        }
+        // requette bien formater
+        let tab_comments = []
+        req.body.tab_id_publi.forEach(async (id_pub) =>{
+            let allcomment = `SELECT commentaire.id, contenu, date_comment, users.name FROM commentaire 
+            INNER JOIN users ON 
+            commentaire.id_user = users.id 
+            WHERE commentaire.id_publi =  ${id_pub}
+            ORDER BY commentaire.date_comment DESC LIMIT  0, 2;`
+            let [rows, fields] = await db.query(allcomment);
+            tab_comments.push({rows, id_pub});
+        });
+        return res.status(200).json(tab_comments);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
 //créer un commentaire
 exports.createMessage = async (req, res) => {
     try {
+        let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
         let createComment = `INSERT INTO commentaire (contenu, date_comment, id_user, id_publi) VALUES '${req.body.contenu}', 
-        '${Date.now}, '${req.body.decodedToken.id}', '${req.body.id_publi}';`;
+        '${now}, '${req.body.decodedToken.id}', '${req.body.id_publi}';`;
         let [rows, fields] = await db.query(createComment);
         console.log("--> le message a été créee", rows);
         return res.status(200).json("--> le message a été créee", rows);
@@ -58,7 +98,8 @@ exports.deleteMessage = async (req, res) => {
 //mettre à jour un commentaire
 exports.updateMessage = async (req, res) => {
     try {
-        let updateComment= `UPDATE commentaire SET contenu = '${req.body.contenu}', date_comment = '${Date.now}' 
+        let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+        let updateComment= `UPDATE commentaire SET contenu = '${req.body.contenu}', date_comment = '${now}' 
         WHERE commentaire.id = '${req.params.id}' AND publication.id_user = '${req.body.decodedToken.id}';`;
         let [rows, fields] = await db.query(updateComment);
         console.log('rows: --> message modifié', rows)
@@ -67,4 +108,3 @@ exports.updateMessage = async (req, res) => {
         res.status(500).json(error);
     }
 };
-

@@ -1,8 +1,8 @@
 //c'est la page principale qui va afficher toutes les publications
 const db = require("../dataBase/db");
-//afficher toutes les publications
 
 //TODO: afficher les publications avec leur like, message et contenu
+var moment = require('moment'); // require
 
 exports.getLastPublication = async (req, res, next) => {
     try {
@@ -17,10 +17,10 @@ exports.getLastPublication = async (req, res, next) => {
         JOIN users on publication.id_user = users.id
         ORDER BY publication.date_publi DESC
         LIMIT 0, 5;`;
-
+        
         let [publications, fields] = await db.query(query);
         return res.status(200).json(publications);
-
+    
     } catch (error) {
         res.status(500).json(error);
     }
@@ -30,19 +30,22 @@ exports.getLastPublication = async (req, res, next) => {
 
 //créer une publication
 exports.createPublication = async (req, res, next) => {
+    console.log("start create pub")
     try {
         let imgUrl = null;
         if (req.file && req.file.filename) {
             imgUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         }
-        let createPost = `INSERT INTO publication (title, contenu, image_path, date_publi, id_user) VALUES 
-        '${req.body.title}', '${req.body.contenu}', '${imgUrl}', 
-        '${Date.now()}, '${req.body.decodedToken.id}';`;
-
+        let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+        let createPost = `INSERT INTO publication (title, contenu, image_path, date_publi, id_user) 
+        VALUES
+        ('${req.body.title}', '${req.body.contenu}', '${imgUrl}',
+        '${now}', '${res.locals.decodedToken.id}');`;
         //si la requète contient un fichier
+        console.log('createPost ', createPost )
         let [rows, fields] = await db.query(createPost);
 
-        return res.status(201).json("publication créee sans ajout d'image");
+        return res.status(201).json("publication créee avec succès");
 
     } catch (error) {
         res.status(500).json(error);
@@ -71,11 +74,12 @@ exports.updatePublication = async (req, res) => {
     try {
         /** Requete SQL dynamique générer en fonction de si l'utilisateur a voulu modifier l'image de sa Publication */
         let requestPartImg = null;
+        let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
         if(req.file && req.file.filename) {
             requestPartImg = `image_path = '${req.protocol}://${req.get('host')}/images/${req.file.filename}',`
         }
         let request = `UPDATE publication SET ${requestPartImg} title ='${req.body.title}', 
-        contenu = '${req.body.contenu}', date_publi = '${Date.now()}' 
+        contenu = '${req.body.contenu}', date_publi = '${now}' 
         WHERE id = '${req.params.id}' AND publication.id_user = '${req.body.decodedToken.id}';`
         let [rows, fields] = await db.query(request);
         return res.status(200).json({rows: rows, info: "la publication a été update"});

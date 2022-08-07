@@ -32,7 +32,7 @@ exports.getDislikeOfPublication = async (req, res) => {
     }
 };
 
-//selectionner les publications sans like
+//selectionner les publications sans like IL FAUT L4ENLEVER 
 exports.getNoLikeOfPublication = async (req, res) => {
     try {
         let getNoLike = `select count(*)
@@ -48,25 +48,48 @@ exports.getNoLikeOfPublication = async (req, res) => {
     }
 };
 
-//ajouter un like
 exports.addLike = async (req, res) => {
     try {
-        let moreLike = `UPDATE reaction SET love= 1 WHERE reaction.id_publi ='${req.params.id}';`;
+        let selectLike = `SELECT love, id_publi, id_user FROM reaction 
+        WHERE id_publi = '${req.body.id_publi}' AND id_user ='${req.body.decodedToken.id}';`;
 
-        let [rows, fields] = await db.query(moreLike);
-        res.status(201).json("like ajouté à la publication", rows);
+        let createLike = `INSERT INTO reaction (love, id_publi, id_user) 
+        VALUES (${req.body.love},${req.body.id_publ}, id_user = '${req.body.decodedToken.id}')`;
+
+        let updateLike = `UPDATE reaction SET love= 1 WHERE reaction.id_publi ='${req.params.id}' 
+        AND id_user = '${req.body.decodedToken.id}';`;
+
+        let [row, field] = await db.query(selectLike);
+        if(row.length == 0) {
+            let [like, fieldLike] = await db.query(createLike);
+            return res.status(200).json("il n'existe pas encore de like pour ce user")
+        }
+        let [likes, fieldLikes] = await db.query(updateLike);
+        return res.status(200).json("l'utilisateur a liker")
     } catch (error) {
         return res.status(500).json(error);
     }
 };
 
-//ajouter un dislike
+//ajouter un dislike with ID_UTILISATEUR
 exports.removeLike = async (req, res) => {
     try {
-        let lessLike = `UPDATE reaction SET love= -1 WHERE reaction.id_publi ='${req.params.id}';`;
+        let selectLike = `SELECT love, id_publi, id_user FROM reaction 
+        WHERE id_publi = '${req.body.id_publi}' AND id_user ='${req.body.decodedToken.id}';`;
 
-        let [rows, fields] = await db.query(lessLike);
-        res.status(201).json("dislike ajouté à la publication", rows);
+        let createLike = `INSERT INTO reaction (love, id_publi, id_user) 
+        VALUES (${req.body.love},${req.body.id_publ}, id_user = '${req.body.decodedToken.id}')`;
+
+        let updateLike = `UPDATE reaction SET love= -1 WHERE reaction.id_publi ='${req.params.id}' 
+        AND id_user = '${req.body.decodedToken.id}';`;
+
+        let [row, field] = await db.query(selectLike);
+        if(row.length == 0) {
+            let [like, fieldLike] = await db.query(createLike);
+            return res.status(200).json("il n'existe pas encore de dislike pour ce user")
+        }
+        let [likes, fieldLikes] = await db.query(updateLike);
+        return res.status(200).json("l'utilisateur a disliker")
     } catch (error) {
         return res.status(500).json(error);
     }
@@ -75,7 +98,7 @@ exports.removeLike = async (req, res) => {
 //annuler un like ou un dislike
 exports.cancelLike = async (req, res) => {
     try {
-        let noLike = `UPDATE reaction SET love= 0 WHERE reaction.id_publi ='${req.params.id}';`;
+        let noLike = `UPDATE reaction SET love= 0 WHERE reaction.id_publi ='${req.params.id}';`; // id utilisateur
 
         let [rows, fields] = await db.query(noLike);
         res.status(200).json("annulation de vos réaction à la publication", rows);
@@ -83,3 +106,5 @@ exports.cancelLike = async (req, res) => {
         return res.status(500).json(error);
     }
 };
+//NE PAS OUBLIER l'autre façon qui consiste à effacer une ligne
+//(creuser l'idée car je n'ai pas bien compris)

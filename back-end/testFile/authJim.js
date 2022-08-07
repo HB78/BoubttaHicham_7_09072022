@@ -5,25 +5,19 @@ const result = dotenv.config();
 
 module.exports = (req, res, next) => {
     try {
-      // console.log("je teste le req.headers.jwt", req.headers.authorization)
-      let tokenAndBearer = req.headers.authorization;
-      let token = tokenAndBearer.replace("Bearer ", "");
-      console.log('--> le token seul token:', token)
+      let token = req.headers.jwt || req.body.jwt;
       if (!token) {
         throw "Pas de jwt";
       }
       //on décode le token
-      //decoded token est un objet dans lequel on peut recuperer l'id
       const decodedToken = jwt.verify(token, process.env.KEY);
       //on compare les deux ID des users
       if (!decodedToken) {
         res.status(401).json("Vous n'etes pas autorisé à vous connecté")
         throw "Mauvais jwt";
       }
-      console.log('decodedToken', decodedToken)
       req.body.decodedToken = decodedToken;
       res.locals.decodedToken = decodedToken;
-      // console.log('res.locals.decodedToken:', res.locals.decodedToken)
       next()
       return;
     } catch (error) {

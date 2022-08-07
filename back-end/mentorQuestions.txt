@@ -23,3 +23,20 @@ dans le fichier reaction on ne récupère que les likes et dislikes sans les lie
 --> BONUS : comment bien créer une table pour les notifications ?
 
 ----> comment faire au final pour récuperer toutes les publications d'un seul utilisateur ?
+
+***************************SESSION 2************************
+comment créer la table qui va mettre en place les admin du site ?
+
+je ne comprends les :
+props
+usestate, useeffect
+la mise en place des formulaire
+
+state = etat d'un composant
+[depart, etatchanged]
+
+peut on faire du javascript classic en remplacement ?
+poser la question sur le e.target.value VS le getelementById.value
+
+comment faire un formulaire en JS ?
+comment configurer create react app ?
