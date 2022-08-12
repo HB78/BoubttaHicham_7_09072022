@@ -1,0 +1,24 @@
+/*formulaire*/
+.test {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .test > form {
+    border: 1px solid blue;
+    width: 50%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: 0 0 5px #FF5700,
+      0 0 15px #FF5700,
+      0 0 30px #FF5700,
+      0 0 60px #FF5700,
+      0 0 120px #ff1f71;
+    padding: 0.5rem;
+  }

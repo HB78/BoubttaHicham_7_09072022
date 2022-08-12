@@ -1,0 +1,235 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-image: url("../assets/omega.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+}
+/* .titre {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+} */
+/*le H1 H2*/
+h1 {
+    color:#FD2D01;
+    text-align: center;
+    padding-top: 1rem;
+    animation: tracking-in-contract-bck 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+  }
+h2 {
+    text-align: center;
+    animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) backwards;
+    animation-delay: 1s;
+}
+/*formulaire*/
+.test {
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: scale-in-center 1s ease-in backwards;
+    background: inherit;
+    border: 0px solid transparent;
+  }
+  .test > form {
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 50%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: 0.5rem;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .test > form > fieldset {
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+    width: 50%;
+    height: 80%;
+    gap: 0.5rem;
+    border-radius: 13px;
+  }
+  .test > form > fieldset > label {
+    text-align: left;
+  }
+  .btn {
+    margin: auto;
+  }
+  input {
+    height: 1rem;
+    padding: 2px;
+  }
+  h1 {
+  align-self:center;
+  }
+.iconz {
+    position:relative;
+    text-align: center;
+    height: 100px;
+    width: 100px;
+}
+
+/*bouton submit du formulaire inscription*/
+a {
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    padding: 1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 20px;
+    color:black;
+    background: #FFD7D7;
+    letter-spacing: 2px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+a:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: scale(0.9);
+    background: #FD2D01;
+    animation: vibrate-1 0.8s linear infinite backwards;
+}
+a span {
+    border: 1px solid;
+    display: block;
+    position: absolute;
+    background: #2894ff;
+}
+a span:nth-child(1) {
+    left: 0;
+    bottom: 0;
+    width: 1px;
+    height: 100%;
+    transform:scaleY(0);
+    transform-origin: top;
+    transition: transform 500ms;
+}
+a:hover span:nth-child(1) {
+    transform:scaleY(1);
+    transform-origin: bottom;
+    transition: transform 500ms;
+}
+a span:nth-child(2) {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    transform:scaleX(0);
+    transform-origin: right;
+    transition: transform 500ms;
+}
+a:hover span:nth-child(2) {
+    transform:scaleX(1);
+    transform-origin: left;
+    transition: transform 500ms;
+}
+a span:nth-child(3) {
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    height: 100%;
+    transform:scaleY(0);
+    transform-origin: top;
+    transition: transform 500ms;
+}
+a:hover span:nth-child(3) {
+    transform:scaleY(1);
+    transform-origin: bottom;
+    transition: transform 500ms;
+}
+a span:nth-child(4) {
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    transform:scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms;
+}
+a:hover span:nth-child(4) {
+    transform:scaleY(1);
+    transform-origin: right;
+    transition: transform 500ms;
+}
+/*animation du H2*/
+@keyframes tracking-in-expand {
+    0% {
+      letter-spacing: -0.5em;
+      opacity: 0;
+    }
+    40% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+/*animation du formulaire*/
+@keyframes scale-in-center {
+    0% {
+      -webkit-transform: scale(0);
+              transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      opacity: 1;
+    }
+  }
+/*animation du H1*/
+@keyframes tracking-in-contract-bck {
+  0% {
+    letter-spacing: 1em;
+    -webkit-transform: translateZ(400px);
+            transform: translateZ(400px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}
+/*animation du bouton au hover*/
+@keyframes vibrate-1 {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+            transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+            transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+            transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+            transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}

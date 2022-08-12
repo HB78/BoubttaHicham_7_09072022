@@ -98,7 +98,8 @@ exports.removeLike = async (req, res) => {
 //annuler un like ou un dislike
 exports.cancelLike = async (req, res) => {
     try {
-        let noLike = `UPDATE reaction SET love= 0 WHERE reaction.id_publi ='${req.params.id}';`; // id utilisateur
+        let noLike = `UPDATE reaction SET love= 0 WHERE reaction.id_publi ='${req.params.id}'  
+        id_user = '${req.body.decodedToken.id}';`;
 
         let [rows, fields] = await db.query(noLike);
         res.status(200).json("annulation de vos réaction à la publication", rows);

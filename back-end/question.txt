@@ -102,7 +102,7 @@ créer trois tables pour gérer les autorisations:
 -> les droits d'accès: clef primaire, clef etrangère pour acceder aux autres tables
 -> 
 
-/* JIM */
+/* JI */
 
 SELECT W.client_id client_id,validation,password,username,client_code FROM dg_web_comptes W, dg_clients C WHERE W.client_id=C.client_id AND username='" + req.body.email + "'";
 

@@ -40,3 +40,6 @@ poser la question sur le e.target.value VS le getelementById.value
 
 comment faire un formulaire en JS ?
 comment configurer create react app ?
+
+*********************mentorat Jean-Francois***********************
+jetez un oeil aux orm comme sequeelize

@@ -18,6 +18,7 @@ function validateEmail(email) {
 }
 
 exports.signup = async (req, res, next) => {
+    console.log(req.body)
     try {
         //si le user ne rentre pas de mdp, de nom ou de mail
         if (!req.body.email || !req.body.password || !req.body.name) {
