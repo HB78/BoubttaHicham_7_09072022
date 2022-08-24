@@ -1,55 +1,46 @@
-import React, {useEffect, useState} from 'react'
 import "../styles/formulaire.css"
 import { TbWorld } from "react-icons/tb";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+//on importe yup pour créer un schéma des données du formulaire
+import * as yup from "yup";
+
+//on importe react hook form pour valider les données du formulaire
+import { useForm } from "react-hook-form";
+
+//on import hooform resolver pour lier yup et react hook fomr
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function Formulaire() {
 
-  //mise en place des states pour stocker les données des input
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
+  //on créer le schéma de verification des input avec yup
+  const schema = yup.object().shape({
+    name: yup.string("entrez un nom valide").required("remplissez le champs"), 
+    email: yup.string().email("entrez un email valide").required("remplissez le champs"), 
+    password: yup.string("entrez un mot de passe entre 4 et 15 caratères").min(4).max(15).required("remplissez le champs")
+  })
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
 
-  //mise en place de fonctions pour récupérer les values des inputs
-  const nameInput = (e) => {
-    setName(e.target.value)
-  }
-  const emailInput = (e) => {
-    setEmail(e.target.value)
-  }
-  const passwordInput = (e) => {
-    setPassword(e.target.value)
-  }
-  //on créer un objet qui va envoyer les données entrées par le user dans la BDD
-  const values = {
-    name: name, 
-    email: email,
-    password: password
-  }
-  console.log(values)
+  //register : cela permet d'enregistrer les données entrer par le user par contre il faut mettre "ref" ds l'input
+  //handleSubmit permet de gérer la soumission du formulaire si il est bien ou mal remplit
+  //le register va en fait remplacer l'attribut name de l'input
+  
   //mise en place de la fonction pour envoyer les données à la BDD avec Axios
-  // useEffect(() => {
-    async function sendData(e) {
+  
+    async function onSubmit(data) {
       try {
-        console.log(e)
-        await axios.post("http://localhost:3000/users/signup", JSON.stringify(values))
-        // this.setState({ dataSendByUser: response.data.id });
-        e.preventDefault();
+        //e.preventDefault()
+        const response = await axios.post("http://localhost:3000/users/signup", data)
+        alert(response.data)
+        console.log('hook form fonctionne')
+        console.log(data)
       } catch (error) {
         console.log(error)
       }
     }
-  //  }, [])
-    // //on vérifie l'entrée des input
-
-  //   // //on fait appel a axios pour envoyer les données
-  //   // try {
-  //   //   await axios.post("http://localhost:3000/users/signup", JSON.stringify(values))
-  //   //   return alert(values)
-  //   // } catch (error) {
-  //   //   console.log(error)
-  //   // }
-  // }
 
   return (
     <>
@@ -58,40 +49,37 @@ export default function Formulaire() {
       </div>
       <h2>Le réseau social d'entreprise</h2>
       <main className="test">
-        <form onSubmit={sendData}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <TbWorld size={"35px"} color="#FD2D01" />
           <fieldset>
             <legend>SignUp</legend>
-
+            <Link to ="/login"><p className='login'>Déja inscrit ?</p></Link>
             <label htmlFor="name">Nom</label>
             <input
               type="text"
               id="name"
               placeholder="name"
-              value = {name}
-              required
-              onChange={nameInput}>
+              {...register("name")}
+              >
             </input>
-
+            <small>{errors.name?.message}</small>
 
             <label htmlFor="email">email</label>
             <input
               type="email"
               id="email"
               placeholder="email"
-              value= {email}
-              required
-              onChange={emailInput}>
+              {...register("email")}>
             </input>
+            <small>{errors.email?.message}</small>
 
             <label htmlFor="password">password</label>
             <input
               type="password"
               id="password"
               placeholder="password"
-              value= {password}
-              required
-              onChange={passwordInput}/>
+              {...register("password")}/>
+              <small>{errors.password?.message}</small>
 
             <input type="submit" className="banner1" value="envoyer"/>
           </fieldset>

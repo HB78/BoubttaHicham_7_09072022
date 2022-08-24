@@ -1,9 +1,10 @@
 import React from 'react'
+import Login from '../components/Login'
 
 export default function ConnexionLogin() {
   return (
     <div>
-      c'est se trouve la page pour faire un login
+      <Login />
     </div>
   )
 }

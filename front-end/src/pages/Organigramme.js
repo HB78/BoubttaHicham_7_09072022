@@ -3,7 +3,7 @@ import React from 'react'
 export default function Organigramme() {
   return (
     <div>
-      c'est la page organigramme
+      <p>ici c'est l'organigramme</p>
     </div>
   )
 }

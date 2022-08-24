@@ -1,0 +1,16 @@
+Dans le composant Login a la ligne 35 j'essaie de faire une condition pour gérer les erreur mais cela ne marche pas.
+voici un exemple de ce que j'ai fait :
+async function sendData(e) {
+      try {
+        e.preventDefault()
+        const response = await axios.post("http://localhost:3000/users/login", values)
+        console.log(response)
+        alert("connexion réussie !")
+        window.location.href = "http://localhost:3000/publication"
+        if(response.status === 401) {
+          alert("Vueillez verifier le mot de passe")
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
