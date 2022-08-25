@@ -10,7 +10,7 @@ router.get("/like", reaction.getLikeOfPublication);
 router.get("/like", reaction.getNoLikeOfPublication);
 
 //obtenir les likes des publications
-router.get("/like", reaction.getLikeOfPublication);
+router.get("/like", reaction.getDislikeOfPublication);
 
 //ajouter un like
 router.put("/like", reaction.addLike);

@@ -1,16 +1,20 @@
-Dans le composant Login a la ligne 35 j'essaie de faire une condition pour gérer les erreur mais cela ne marche pas.
-voici un exemple de ce que j'ai fait :
-async function sendData(e) {
-      try {
-        e.preventDefault()
-        const response = await axios.post("http://localhost:3000/users/login", values)
-        console.log(response)
-        alert("connexion réussie !")
-        window.location.href = "http://localhost:3000/publication"
-        if(response.status === 401) {
-          alert("Vueillez verifier le mot de passe")
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
+la gestion des URI dans le backend pour afficher les données depuis le front
+comment on affiche la data de de l'api ? Quels sont le protocoles a suivre ?
+ - met les données en props dans le fichier app.js ?
+ - si oui le .map se fait que dans le fichier app.js ou/et dans le fichier enfant ?
+
+je n'arrive pas a gérer les id dans les uri du back-end
+autrement dit je ne sais pas comment afficher une publication avec ses commentaire 
+ - le problème se trouve je pense dans les Uri plus precisement dans la gestion des id dans le back-end
+
+---> ne pas oublier de montrer quels sont les differents axes que j'ai trouvé pour regler le probleme
+exemple : (faire "/like/:id" dans le dossier route des likes du backe end ah et pour le dislikes dois je faire 
+"/dislike/:id" ou garder "/like/:id" meme pour les dislikes)
+
+exemple : l'uri pour afficher les commentaires c'est "/commentaires/messages" mais  voila j'ai mis dans 
+la requete sql du controller messages que je devais avoir un id_publi pour trouver les messages associer
+a un publication donc dois-je mettre "/commentaires/messages/:id" ?
+
+===> avant la séance de mentorat je dois terminer le jsx qui va contenir les publications de la BDD
+
+Quand on fait une requete get doit on obligatoirement utiliser useState ?

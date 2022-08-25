@@ -15,15 +15,15 @@ exports.getCommentByPublication = async (req,res) => {
     try {
         //si le commentaire n'est lié à aucune publication
         //ou l'id de la publication n'est pas un nombre
-        if (!req.body.id_publi || typeof req.body.id_publi !== 'number' )  {
-            res.status(400).json("Requète mal formaté ajoutez id_publi");
-        }
+        // if (!req.body.id_publi || typeof req.body.id_publi !== 'number' )  {
+        //     res.status(400).json("Requète mal formaté ajoutez id_publi");
+        // }
         //ici on gère la pagination, on veut qu'il nous affiche les 10 premiers commentaires
         //on ne peut pas lui dire de tous nous donner car il peut y avoir des miliers de commentaires
         let START = req.body.start || 0;
         let NB_COMMENT = 10;
         //on veut afficher tous les commentaires des publications
-        let allcomment = `SELECT commentaire.id, contenu, date_comment, users.name FROM commentaire 
+        let allcomment = `SELECT commentaire.id, commentaire.id_publi, contenu, date_comment, users.name FROM commentaire 
         INNER JOIN users ON 
         commentaire.id_user = users.id 
         WHERE commentaire.id_publi =  ${req.body.id_publi}
