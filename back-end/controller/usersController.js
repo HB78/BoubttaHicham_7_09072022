@@ -103,7 +103,7 @@ exports.login = async (req, res, next) => {
             token: token,
         }
         console.log("--> info token", objResponse)
-        return res.status(200).json({token: token});
+        return res.status(200).json({token: token, id:jwtBody.id});
     } catch (error) {
         res.status(500).json(error);
     }

@@ -1,14 +1,28 @@
-import React, {useState} from 'react'
+import React, { useContext, useState } from 'react'
 import "../styles/formulaire.css"
 import { TbWorld } from "react-icons/tb";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link }from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
+import AuthContext from '../auth/authContext';
 
 export default function Login() {
 
   //mise en place des states pour stocker les données des input
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  //utilisation du contexte on va importer la default value cad authcontext qu'on a exporté
+  // pour afficher le token dans une autre page il faudra importer faire :  
+  //  --> const authCtx = useContext(AuthContext)
+  //  --> authCtx.token pour l'afficher
+  const authCtx = useContext(AuthContext)
+  console.log('--> authCtx:', authCtx)
+  
+  //cela va servir a changer de page quand le user se sera connécter
+  //il faut le mettre en dehors de la fonction avant de l'utiliser
+  //c'est l'équivalent du windows.href.location
+  let navigate = useNavigate();
 
   //mise en place de fonctions pour récupérer les values des inputs
 
@@ -26,19 +40,19 @@ export default function Login() {
   console.log(values)
   
   //mise en place de la fonction pour envoyer les données à la BDD avec Axios
-  
-    async function sendData(e) {
-      try {
-        e.preventDefault()
-        const response = await axios.post("http://localhost:3000/users/login", values)
-        console.log(response)
-        alert("connexion réussie !")
-        window.location.href = "http://localhost:3000/publication"
-      } catch (error) {
-        console.log(error)
-        alert(error.response.data.error)
-      }
+  async function sendData(e) {
+    try {
+      e.preventDefault()
+      const response = await axios.post("http://localhost:3000/users/login", values)
+      console.log("response du try",response.data.id)
+      authCtx.login(response.data.token, response.data.id)
+      alert("connexion réussie !")
+      // navigate("/publication", { replace: true });
+    } catch (error) {
+      console.log(error)
+      alert(error.response.data.error)
     }
+  }
 
   return (
     <>

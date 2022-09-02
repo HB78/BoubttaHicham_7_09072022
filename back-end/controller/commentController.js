@@ -23,7 +23,7 @@ exports.getCommentByPublication = async (req,res) => {
         let START = req.body.start || 0;
         let NB_COMMENT = 10;
         //on veut afficher tous les commentaires des publications
-        let allcomment = `SELECT commentaire.id, commentaire.id_publi, contenu, date_comment, users.name FROM commentaire 
+        let allcomment = `SELECT commentaire.id, commentaire.id_publi, contenu, date_comment, users.image_profil, users.name FROM commentaire 
         INNER JOIN users ON 
         commentaire.id_user = users.id 
         WHERE commentaire.id_publi =  ${req.body.id_publi}

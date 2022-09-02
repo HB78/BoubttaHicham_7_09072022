@@ -13,7 +13,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function Formulaire() {
 
-  
   //on créer le schéma de verification des input avec yup
   const schema = yup.object().shape({
     name: yup.string("entrez un nom valide").required("remplissez le champs"), 
@@ -37,6 +36,7 @@ export default function Formulaire() {
         alert(response.data)
         console.log('hook form fonctionne')
         console.log(data)
+        window.location.href = "http://localhost:3001/login"
       } catch (error) {
         console.log(error)
       }
@@ -60,8 +60,7 @@ export default function Formulaire() {
               id="name"
               placeholder="name"
               {...register("name")}
-              >
-            </input>
+              />
             <small>{errors.name?.message}</small>
 
             <label htmlFor="email">email</label>
@@ -69,8 +68,7 @@ export default function Formulaire() {
               type="email"
               id="email"
               placeholder="email"
-              {...register("email")}>
-            </input>
+              {...register("email")}/>
             <small>{errors.email?.message}</small>
 
             <label htmlFor="password">password</label>
