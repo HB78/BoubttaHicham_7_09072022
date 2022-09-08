@@ -5,7 +5,7 @@ const db = require("../dataBase/db");
 exports.getLikeOfPublication = async (req, res) => {
     try {
         let getLike = `select count(*)
-        AS likes
+        AS likes, reaction.id_publi AS id_publi
         from reaction 
         WHERE reaction.love = 1 AND reaction.id_publi = '${req.params.id}'
         ORDER BY reaction.date_reaction DESC;`;
@@ -20,7 +20,7 @@ exports.getLikeOfPublication = async (req, res) => {
 exports.getDislikeOfPublication = async (req, res) => {
     try {
         let getDislike = `select count(*)
-        AS dislikes
+        AS dislikes, reaction.id_publi AS id_publi
         from reaction 
         WHERE reaction.love = -1 AND reaction.id_publi = '${req.params.id}'
         ORDER BY reaction.date_reaction DESC;`;

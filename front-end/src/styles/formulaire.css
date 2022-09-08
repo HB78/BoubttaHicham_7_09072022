@@ -187,12 +187,9 @@ h2 {
   }
 }
 /* la gestion des erreurs dans les input */
-.wrong {
-  color: tomato;
-  border: 1px solid tomato;
+.badbox {
+  box-shadow: 0px 0px 3px red;
 }
-small {
-  color: red;
-  font-size: 15px;
-  font-weight: 900;
+.goodbox {
+  box-shadow: 0px 0px 5px green;
 }

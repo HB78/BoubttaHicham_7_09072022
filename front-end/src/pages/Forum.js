@@ -13,8 +13,8 @@ useEffect(() => {
 async function getPosts() {
   try {
     let res = await axios.get('http://localhost:3000/publication');
-    // console.log("res.data", res.data);
-    setPosts(res.data);
+    console.log("res.data", res.data);
+    setPosts(res.data)
   } catch (error) {
     console.log(error)
   }

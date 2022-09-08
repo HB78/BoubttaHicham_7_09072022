@@ -2,8 +2,11 @@ import React from 'react'
 import { useEffect } from 'react';
 import Loader from './Loader';
 import "../styles/loader.css";
-export default function Publication({posts}) {
+import "../styles/publication.css";
+import ShowLike from './likedisplay/ShowLike';
+import ShowMessageOfCard from './messageOfPostDisplay/ShowMessageOfCard';
 
+export default function Publication({posts}) {
 useEffect(() => {
   // console.log("Publication props.posts", posts);
 }, [posts])
@@ -16,10 +19,16 @@ function DisplayPosts() {
   }
   return posts.map((element, index) => {
     return (
-      <div key={index}>
-        <p></p>
+    <div key={index} className='publication'>
+      <div className= "publication_card">
+        <h2>{element.title}</h2>
+        <div>{element.userName} <span>posté le {element.date_publi}</span></div>
+        <p>{element.contenu}</p>
         <br />
+        {/* <div><ShowLike idPubli = {element.id}/></div> */}
+        {/* <p><ShowMessageOfCard idPubli = {element.id}/></p> */}
       </div>
+    </div>
     )
   });
 }

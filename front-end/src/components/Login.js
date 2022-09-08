@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import "../styles/formulaire.css"
 import { TbWorld } from "react-icons/tb";
 import axios from 'axios';
-import { Link }from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../auth/authContext';
 
@@ -18,7 +18,7 @@ export default function Login() {
   //  --> authCtx.token pour l'afficher
   const authCtx = useContext(AuthContext)
   console.log('--> authCtx:', authCtx)
-  
+
   //cela va servir a changer de page quand le user se sera connécter
   //il faut le mettre en dehors de la fonction avant de l'utiliser
   //c'est l'équivalent du windows.href.location
@@ -38,16 +38,16 @@ export default function Login() {
     password: password
   }
   console.log(values)
-  
+
   //mise en place de la fonction pour envoyer les données à la BDD avec Axios
   async function sendData(e) {
     try {
       e.preventDefault()
       const response = await axios.post("http://localhost:3000/users/login", values)
-      console.log("response du try",response.data.id)
+      console.log("response du try", response.data.id)
       authCtx.login(response.data.token, response.data.id)
       alert("connexion réussie !")
-      // navigate("/publication", { replace: true });
+      navigate("/publication", { replace: true });
     } catch (error) {
       console.log(error)
       alert(error.response.data.error)
@@ -65,27 +65,27 @@ export default function Login() {
           <TbWorld size={"35px"} color="#FD2D01" />
           <fieldset>
             <legend>SignUp</legend>
-           
+
 
             <label htmlFor="email">email</label>
             <input
               type="email"
               id="email"
               placeholder="email"
-              value= {email}
+              value={email}
               required
-              onChange={emailInput}/>
+              onChange={emailInput} />
             <label htmlFor="password">password</label>
             <input
               type="password"
               id="password"
               placeholder="password"
-              value= {password}
+              value={password}
               required
-              onChange={passwordInput}/>
-            
+              onChange={passwordInput} />
+
             <Link to={"/signup"}><p className='inscription'>Pas encore inscrit ?</p></Link>
-            <input type="submit" className="banner1" value="envoyer"/>
+            <input type="submit" className="banner1" value="envoyer" />
           </fieldset>
           {/* deuxieme formulaire */}
           <TbWorld size={"35px"} color="#FD2D01" />

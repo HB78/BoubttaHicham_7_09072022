@@ -18,3 +18,14 @@ a un publication donc dois-je mettre "/commentaires/messages/:id" ?
 ===> avant la séance de mentorat je dois terminer le jsx qui va contenir les publications de la BDD
 
 Quand on fait une requete get doit on obligatoirement utiliser useState ?
+
+******************* derniere seance de mentorat ****************************
+je ne comprends pas la logique des composants : j'ai mis chaque composant dans des uri differents
+faut il switcher entre les composants ou switcher entre les uri ?
+
+comment mettre en place l'imbrication des différents composant de la card publication
+comment afficher les messages d'une seule card
+le probleme vient surement de l'id qui doit etre dynamique
+
+comment transformer une url de la BDD en image au niveau du front ?
+Je n'arrive a mettre a jour la photo de profil d'un user

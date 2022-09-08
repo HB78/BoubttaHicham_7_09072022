@@ -38,7 +38,7 @@ export default function SendMessageInPost() {
         <input
           type="submit"
           value="envoyer"
-          onSubmit={sendPosts} />
+          onClick={sendPosts} />
       </div>
     </>
   )

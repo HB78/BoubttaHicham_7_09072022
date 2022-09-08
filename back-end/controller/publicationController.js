@@ -9,10 +9,10 @@ exports.getLastPublication = async (req, res, next) => {
         //ici on gère la pagination, on veut qu'il nous affiche les 10 premieres publications
         //on ne peut pas lui dire de tout nous donner car il peut y avoir des miliers de publications
         let START = req.body.start || 0;
-        let NB_PUBLI = 5;
+        let NB_PUBLI = 15;
         //les publications sans commentaires vont elles s'afficher ?
         let query = `SELECT publication.id, publication.title, publication.contenu,
-        publication.date_publi, users.name AS userName 
+        publication.date_publi, publication.image_path AS photoPost, users.name AS userName, users.image_profil AS userPhoto
         FROM publication
         JOIN users on publication.id_user = users.id
         ORDER BY publication.date_publi DESC

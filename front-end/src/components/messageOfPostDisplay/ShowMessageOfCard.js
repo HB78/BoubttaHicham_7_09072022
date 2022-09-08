@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-export default function ShowMessageOfCard() {
+export default function ShowMessageOfCard(idPubli) {
+  console.log('idPubli: from display comment', idPubli)
   const [comment, setComment] = useState([])
   //on affiche les publications de la BDD
   useEffect(() => {
@@ -10,8 +11,8 @@ export default function ShowMessageOfCard() {
   
   async function getComment() {
     try {
-      let res = await axios.get('http://localhost:3000/publication');
-      // console.log("res.data", res.data);
+      let res = await axios.get("http://localhost:3000/commentaires/message/");
+      console.log("res.data", res.data);
       setComment(res.data);
     } catch (error) {
       console.log(error)
@@ -20,7 +21,7 @@ export default function ShowMessageOfCard() {
   return comment.map((el, index) => {
     return (
       <>
-      <div className="message">
+      {/* <div className="message">
         <div className="identity">
           <div><img src= {el.image_profil} alt="" /></div>
           <span>{el.name}</span>
@@ -29,7 +30,7 @@ export default function ShowMessageOfCard() {
         {el.contenu}
         </p>
         <br />
-      </div>
+      </div> */}
     </>
     )
   });
