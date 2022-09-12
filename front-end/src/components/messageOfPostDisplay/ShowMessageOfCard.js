@@ -11,7 +11,7 @@ export default function ShowMessageOfCard(idPubli) {
   
   async function getComment() {
     try {
-      let res = await axios.get("http://localhost:3000/commentaires/message/");
+      let res = await axios.get("http://localhost:3000/commentaires/message");
       console.log("res.data", res.data);
       setComment(res.data);
     } catch (error) {

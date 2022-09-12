@@ -6,13 +6,13 @@ const auth = require("../middleware/auth");
 
 const commentaire = require("../controller/commentController");
 
-router.get("/message", commentaire.getCommentByPublication);
+router.get("/message/:id", commentaire.getCommentByPublication);
 
-router.put("/:id/message", auth, commentaire.updateMessage);
+router.put("/message/:id", auth, commentaire.updateMessage);
 
-router.post("/message", auth, commentaire.createMessage);
+router.post("/message/:id", auth, commentaire.createMessage);
 
-router.delete("/:id/message", auth, commentaire.deleteMessage);
+router.delete("message/:id", auth, commentaire.deleteMessage);
 
 //on exporte tous les routers que l'on a coder ici
 module.exports = router;

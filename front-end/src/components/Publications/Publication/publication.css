@@ -1,0 +1,6 @@
+.publication_card {
+  width: 60%;
+  height: 300px;
+  border: 1px solid black;
+  border-radius: 1.5rem;
+}

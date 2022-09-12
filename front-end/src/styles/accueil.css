@@ -1,11 +1,11 @@
 .main {
     display:flex;
     background: #e5d1fa;
+    overflow-y: hidden;
 }
 body {
     margin: 0;
     padding: 0em;
-    overflow-y: hidden;
 }
 .acceuil_contain {
     height: 100vh;

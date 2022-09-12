@@ -4,13 +4,13 @@ const router = express.Router();
 const reaction = require("../controller/reactionController");
 
 //obtenir les likes des publications
-router.get("/like/:id", reaction.getLikeOfPublication);
+router.get("/like", reaction.getLikeOfPublication);
 
 //obtenir les publications avec aucun like ni dislike
 router.get("/like", reaction.getNoLikeOfPublication);
 
 //obtenir les likes des publications
-router.get("/dislike/:id", reaction.getDislikeOfPublication);
+router.get("/dislike", reaction.getDislikeOfPublication);
 
 //ajouter un like
 router.put("/like", reaction.addLike);
