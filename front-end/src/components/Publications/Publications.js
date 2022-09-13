@@ -29,7 +29,7 @@ export default function Publications({ posts }) {
   }
 
   return (
-    //Si on a la data on creer un div avec le display a l'interieur cad la card sinon on lance le loader
+    //Si on a la data on creer une div avec le display a l'interieur cad la card sinon on lance le loader
     //La subtilité ici était de mettre le loader en dehors de la balise styled
     //sinon le loader etait soumis au css de la balise styled
 

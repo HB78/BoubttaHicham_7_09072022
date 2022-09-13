@@ -10,7 +10,7 @@ function Comentaires({idPubli}) {
   useEffect(() => {
     console.log("apiurl", apiurl);
     getComs()
-  })
+  }, [])
 
   async function getComs() {
     if (comments.length <= 0) {
@@ -24,17 +24,17 @@ function Comentaires({idPubli}) {
     }
   }
 
-  function DisplayComs() {
+  function DisplayComs(props) {
     return comments.map((com, index) => {
       return (
-        <p>{com}</p>
+        <p>{com.contenu}</p>
       )
     });
   }
 
   return (
     <div>
-      <p>Aucun comentaires</p>
+      <DisplayComs />
     </div>
   )
 }

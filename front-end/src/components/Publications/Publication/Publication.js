@@ -21,9 +21,9 @@ export default function Publication({ data }) {
       <p>{data.contenu}</p>
       <br />
       {/* <div><ShowLike idPubli = {element.id}/></div> */}
-      <p><Comentaires idPubli={data.id} /></p>
+      {/* <p><Comentaires idPubli={data.id} /></p> */}
       <button onClick={getComment}><p>Commentaires</p></button>
-      {dislayCom && <Comentaires />}
+      {dislayCom && <Comentaires idPubli={data.id}/>}
     </div>
   )
 }

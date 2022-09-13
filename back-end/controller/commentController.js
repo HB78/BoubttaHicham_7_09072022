@@ -22,11 +22,12 @@ exports.getCommentByPublication = async (req,res) => {
         //on ne peut pas lui dire de tous nous donner car il peut y avoir des miliers de commentaires
         let START = req.body.start || 0;
         let NB_COMMENT = 10;
+        console.log("--> req.params controller",req.params)
         //on veut afficher tous les commentaires des publications
         let allcomment = `SELECT commentaire.id, commentaire.id_publi, contenu, date_comment, users.image_profil, users.name FROM commentaire 
         INNER JOIN users ON 
         commentaire.id_user = users.id 
-        WHERE commentaire.id_publi =  ${req.body.id_publi}
+        WHERE commentaire.id_publi =  ${req.params.id}
         ORDER BY commentaire.date_comment DESC LIMIT  0, 10;`
         let [rows, fields] = await db.query(allcomment);
         // console.log("--> les messages affiché", rows);

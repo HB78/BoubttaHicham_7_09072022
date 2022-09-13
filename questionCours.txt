@@ -29,3 +29,13 @@ le probleme vient surement de l'id qui doit etre dynamique
 
 comment transformer une url de la BDD en image au niveau du front ?
 Je n'arrive a mettre a jour la photo de profil d'un user
+
+****cours Vincent****
+ya t'il une librairie pour créer une card digne de ce nom ?
+comment afficher par contre les publications d'une personne seulement ?
+comment faire une requete put ?
+comment faire en sorte d'afficher les boutons de mise à jour quand c'est l'utilisateur qui connecté ?
+peut ajouter un chat dans le projet grace a une librairie ?
+
+--> params c'est ce qui st visible dans l'url 
+--> body c'est ce qui ne l'est pas
