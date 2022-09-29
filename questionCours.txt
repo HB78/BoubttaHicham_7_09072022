@@ -39,3 +39,9 @@ peut ajouter un chat dans le projet grace a une librairie ?
 
 --> params c'est ce qui st visible dans l'url 
 --> body c'est ce qui ne l'est pas
+
+*************************** CE QUE JE DOIS FAIRE**************************************
+faire gaffe dans le back le req.body.id ne marche pas, il faut privilégier le req.params.id
+dans le back quand on fait le res.status il faut faire gaffe car le json ne prend qu'un parametre
+ -> il faut revoir le contexte car j'ai je ne sais pas trop l'utiliser 
+

@@ -1,6 +1,474 @@
-.publication_card {
-  width: 60%;
-  height: 300px;
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+
+.menuwrap {
+    margin-top: 200px;
+    position:fixed;
+    top:-25%;
+    left:0;
+    z-index:1;
+    margin-left: 10px;
+  }
+  .menuwrap .toggler {
+    margin-top: 200px;
+    position:absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor:pointer;
+    width:50px;
+    height:50px;
+    opacity: 0;
+  }
+  .menuwrap .hamburger {
+    margin-top: 200px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:1;
+    width:30px;
+    height:30px;
+    padding: 1rem;
+    background: blue;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+  .menuwrap .hamburger > div {
+    position: relative;
+    width:100%;
+    height:2px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+  }
+  .menuwrap .hamburger > div::before, .menuwrap .hamburger > div::after {
+    content:"";
+    position: absolute;
+    z-index:1;
+    width:100%;
+    top:-10px;
+    height:2px;
+    background:inherit;
+  }
+  .menuwrap .hamburger > div::after {
+     top:10px;
+  }
+  
+  .menuwrap .toggler:checked + .hamburger > div {
+     transform: rotate(135deg);
+  }
+  .menuwrap .toggler:checked + .hamburger > div:before,
+  .menuwrap .toggler:checked + .hamburger > div:after {
+    top:0;
+    transform:rotate(90deg)
+  }
+  .menuwrap .menu {
+    position: fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    visibility:hidden;
+    overflow:hidden;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    overflow:hidden;
+  }
+  .menuwrap .menu > div {
+    background:lavender;
+    border-radius: 50%;
+    width:200vw;
+    height:200vw;
+    display: flex;
+    flex:none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease-in;
+    transform:scale(0)
+  }
+  .menuwrap .menu > div > div {
+    opacity:0;
+    text-align:center;
+    max-width: 90vw;
+    max-height: 100vh;
+    transition: opacity 0.4s ease;
+  }
+  .menuwrap .menu > div > div > ul > li {
+    list-style: none;
+    color: black;
+    font-size: 1.5rem;
+    padding:1rem;
+  }
+/* //show menu// */
+  .menuwrap .toggler:checked ~ .menu {
+    visibility: visible;
+  }
+  .menuwrap .toggler:checked ~ .menu > div {
+    transform:scale(1);
+  }
+  .menuwrap .toggler:checked ~ .menu > div > div {
+    opacity:1;
+    transition: opacity 0.4s ease;
+  }
+  /* MENU 2 */
+  .menuwrap2 {
+    margin-top: 200px;
+    position:fixed;
+    top:-25%;
+    right:63px;
+    z-index:1;
+    margin-right: 11px;
+  }
+  .menuwrap2 .toggler2 {
+    margin-top: 200px;
+    position:absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor:pointer;
+    width:50px;
+    height:50px;
+    opacity: 0;
+  }
+  .menu2_inputPublication {
+    display: flex;
+    flex-direction: column;
+  }
+  .menuwrap2 .hamburger2 {
+    margin-top: 200px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:1;
+    width:30px;
+    height:30px;
+    padding: 1rem;
+    background: blue;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+  .menuwrap2 .hamburger2 > div {
+    position: relative;
+    width:100%;
+    height:2px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+  }
+  .menuwrap2 .hamburger2 > div::before, .menuwrap2 .hamburger2 > div::after {
+    content:"";
+    position: absolute;
+    z-index:1;
+    width:100%;
+    top:-10px;
+    height:2px;
+    background:inherit;
+  }
+  .menuwrap2 .hamburger2 > div::after {
+     top:10px;
+  }
+  
+  .menuwrap2 .toggler2:checked + .hamburger2 > div {
+     transform: rotate(135deg);
+  }
+  .menuwrap2 .toggler2:checked + .hamburger2 > div:before,
+  .menuwrap2 .toggler2:checked + .hamburger2 > div:after {
+    top:0;
+    transform:rotate(90deg)
+  }
+  .menuwrap2 .menu2 {
+    position: fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    visibility:hidden;
+    overflow:hidden;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    overflow:hidden;
+  }
+  .menuwrap2 .menu2 > div {
+    background:lavender;
+    border-radius: 50%;
+    width:200vw;
+    height:200vw;
+    display: flex;
+    flex:none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease-in;
+    transform:scale(0)
+  }
+  .menuwrap2 .menu2 > div > div {
+    opacity:0;
+    text-align:center;
+    max-width: 90vw;
+    max-height: 100vh;
+    transition: opacity 0.4s ease;
+  }
+  .menuwrap2 .menu2 > div > div > ul > li {
+    list-style: none;
+    color: black;
+    font-size: 1.5rem;
+    padding:1rem;
+  }
+
+  /* // input pour envoyer une publication */
+.formulaire {
+  display: flex;
+  flex-direction: column;
+}
+.container_send {
+    width: 35%;
+    border: 1px solid black;
+    height: auto;
+    padding: 3rem;
+    border-radius: 0.75rem;
+}
+.container_send_inputTexte {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+#one {
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1rem;
+    outline: none;
+    border: 1px solid;
+}
+#two {
+    width:50%;
+    padding:2rem;
+    border-radius: 1rem;
+    outline: none;
+    border: 1px solid;
+    height: auto;
+}
+.container_send_inputFile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 2rem;
+}
+/* // CARD */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin:0;
+  padding:0;
+  overflow-x: hidden;
+}
+/*la card qui contient le post*/
+.card {
   border: 1px solid black;
-  border-radius: 1.5rem;
+  width: 50%;
+  height: auto;
+  margin: auto;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  padding: 0 10px;
+  padding-bottom: 10px;
+}
+/* div ou il y a l'image de celui qui publie comme son nom et la date de publication*/
+
+/* image poste par le user div qui contient l'image*/
+.card_imagePosted {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+/* image poste par le user*/
+.card_imagePosted img {
+  width: 30%;
+}
+/* div ou il y a l'imagr de profil du user*/
+.cards_autor_img {
+  display:flex;
+  gap: 1%;
+  object-fit: contain;
+  border-radius: 100%;
+  border: 1px solid black;
+  height: 50px;
+  width:50px;
+}
+/* l'image de profil du user*/
+.cards_autor_img_autor {
+  object-fit: cover;
+  border-radius: 100%;
+  width: 100%;
+  height:100%;
+}
+/* le nom du user qui a posté a coté de son image*/
+.cards_autor_img p {
+  margin-left: 8px;
+}
+.cards_autor {
+  display:flex;
+  justify-content: space-between;
+}
+input {
+  width: 99%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  border: grey 1px solid;
+  outline: none;
+}
+.messages {
+  margin-bottom: 1rem;
+}
+.cards_message{
+  width: 99%;
+  height: auto;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+.bar {
+  width:60%;
+  border: 1px solid red;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+/* //LE MENU QUI EST DANS LA CARD */
+.right {
+  width: 10%;
+}
+.menu {
+  margin:0;
+  padding:0;
+}
+.menu .title {
+  display: inline-block;
+  position: relative;
+  padding: 23px 10px;
+  transition: 0.5s;
+  width: 100%;
+}
+.sous-menu {
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+ul {
+  list-style: none;
+}
+.menu .title:hover {
+  background-color: #f9f9f9;
+}
+.menu .sous-menu {
+  display: block;
+  position: absolute;
+  visibility: hidden;
+  height: 0;
+  top: 70px;
+  left: 0;
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  background-color: #fff;
+  border: 1px solid rgba(34, 36, 38);
+  box-shadow: 0px 2px 3px rgba(34, 36, 38, 0.5);
+  border-radius: 0 0 5px 5px;
+}
+.menu .sous-menu li {
+  display: inline-block;
+  padding: 0;
+  color: #000;
+  padding: 5px;
+  transition: 0.8s;
+}
+.menu .title:hover .sous-menu {
+  visibility: visible;
+  height: auto;
+  transform: scaleY(1);
+}
+.menu .sous-menu li:hover {
+  border:#f9f9f9;
+}
+.sub-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sub-menu div {
+  display: flex;
+  gap: 0.5rem;
+}
+.title_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+/* //pour mettre un ecart entre le chiffre et l'icone de la card principale */
+.sub-menu_span {
+  margin-right: 0.3rem;
+}
+.fa-heart {
+  color: red;
+}
+/* les icones à cote de l'image dans la card message */
+.cards_message_icone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 2rem;
+  cursor: pointer;
+  visibility: hidden;
+}
+.cards_message:hover .cards_message_icone {
+  visibility: visible;
+}
+#editer:hover {
+  color:orangered;
+}
+#poubelle:hover {
+  color: orangered;
+}
+/*input pour envoyer un message*/
+.btn_sendMessage {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 1.2rem;
+  border-radius: 100%;
+  border: 1px solid grey;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+.btn_sendMessage:hover {
+  transform: scale(0.9);
+  background: orangered;
+  color:beige;
+  border-color: beige;
+}
+.inputMessage {
+  width: 88%;
+  height: auto;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  border: grey 1px solid;
+  outline: none;
+  padding: 1%;
 }

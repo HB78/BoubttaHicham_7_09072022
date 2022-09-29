@@ -18,7 +18,7 @@ export default function Publications({ posts }) {
     align-items: center;
     width: 100%;
     height: 100%;
-    background:#3498db;
+    background:#ebdded;
   `
   function DisplayPosts() {
     return posts.map((post, index) => {

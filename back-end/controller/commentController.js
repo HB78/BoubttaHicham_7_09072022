@@ -31,6 +31,7 @@ exports.getCommentByPublication = async (req,res) => {
         ORDER BY commentaire.date_comment DESC LIMIT  0, 10;`
         let [rows, fields] = await db.query(allcomment);
         // console.log("--> les messages affiché", rows);
+        //quand on met /:id dans une route comme parametre, on met id après req.params ou req.body
         return res.status(200).json(rows);
     } catch (error) {
         res.status(500).json(error);
@@ -78,7 +79,7 @@ exports.createMessage = async (req, res) => {
         '${now}, '${req.body.decodedToken.id}', '${req.body.id_publi}';`;
         let [rows, fields] = await db.query(createComment);
         console.log("--> le message a été créee", rows);
-        return res.status(200).json("--> le message a été créee", rows);
+        return res.status(200).json("--> le message a été créee");
     } catch (error) {
         res.status(500).json(error);
     }
@@ -101,11 +102,11 @@ exports.updateMessage = async (req, res) => {
     try {
         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
         let updateComment= `UPDATE commentaire SET contenu = '${req.body.contenu}', date_comment = '${now}' 
-        WHERE commentaire.id = '${req.params.id}' AND publication.id_user = '${req.body.decodedToken.id}';`;
+        WHERE commentaire.id = '${req.params.id}' AND commentaire.id_user = '${req.body.decodedToken.id}';`;
         let [rows, fields] = await db.query(updateComment);
         console.log('rows: --> message modifié', rows)
-        return res.status(200).json(rows, "message mis à jour");
+        res.status(200).json("message mis a jour");
     } catch (error) {
         res.status(500).json(error);
     }
-};
+}

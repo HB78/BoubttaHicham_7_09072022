@@ -48,10 +48,10 @@ router.get("/:id", auth, multer, getOneUser);
 router.put("/:id", auth, updatePasswordOfUser);
 
 //changement de la photo de profil du user
-router.put("/:id/photo", auth, multer, updatePhotoProfil);
+router.put("/photo/:id", auth, multer, updatePhotoProfil);
 
 //mise à jour de la description
-router.put("/:id/description", auth, UpdateDescription);
+router.put("/description/:id", auth, UpdateDescription);
 
 //l'utilisateur a changé de poste
 router.put("/:id/poste", auth, updatePoste);

@@ -167,9 +167,9 @@ exports.updatePasswordOfUser = async (req, res, next) => {
 exports.updatePhotoProfil = async (req, res, next) => {
     try {
         console.log("photo de profil ajouter peut etre");
-        let photoProfil = `UPDATE users SET image_profil = '${req.protocol}://${req.get('host')}/images/${req.file.filename}' WHERE id = '${req.params.id}';`;
-        let [rows, fields] = await db.query(updatePhotoProfil);
-        return res.status(200).json("photo de profil modifiée");
+        let photoProfil = `UPDATE users SET image_profil = '${req.protocol}://${req.get('host')}/images/${req.file.filename}' WHERE users.id = '${req.params.id}';`;
+        let [rows, fields] = await db.query(photoProfil);
+        return res.status(201).json("photo de profil modifiée");
     } catch (error) {
         res.status(500).json(error);
     }

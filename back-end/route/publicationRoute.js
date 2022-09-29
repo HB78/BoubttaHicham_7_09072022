@@ -7,7 +7,7 @@ const auth = require("../middleware/auth");
 
 const publication = require("../controller/publicationController");
 
-router.get("/", publication.getLastPublication);
+router.get("/", publication.getLastPublication); //rajouter le auth
 
 router.post("/", auth, multer, publication.createPublication);
 // router.post("/publication", upload.single('image'), publication.createPublication);
