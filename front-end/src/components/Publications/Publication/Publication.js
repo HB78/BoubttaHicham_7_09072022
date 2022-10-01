@@ -84,13 +84,3 @@ export default function Publication({ data }) {
     </div>
   )
 }
-
-// {/* <div className="publication_card">
-//       <h2>{data.title}</h2>
-//       <div>{data.userName} <span>posté le {data.date_publi}</span></div>
-//       <p>{data.contenu}</p>
-//       <br />
-//       {/* <div><ShowLike idPubli = {element.id}/></div> */}
-//     //   <button onClick={getComment}><p>Commentaires</p></button>
-//     //   {dislayCom && <Comentaires idPubli={data.id} />}
-//     // </div> */}

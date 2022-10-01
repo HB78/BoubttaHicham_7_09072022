@@ -40,8 +40,8 @@ h2 {
   .test > form {
     font-size: 1.2rem;
     font-weight: 600;
-    width: 50%;
-    height: 60vh;
+    width: 60%;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;

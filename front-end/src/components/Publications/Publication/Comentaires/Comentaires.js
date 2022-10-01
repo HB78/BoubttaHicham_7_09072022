@@ -43,6 +43,10 @@ function Comentaires({ idPubli, datas }) {
                         <img src={photosInMessage()} alt="" class="cards_autor_img_autor"/>
                     </div>
                     <p>{com.name}</p>
+                    <div class="cards_message_icone">
+                        <i class="fa fa-solid fa-marker" title="mettre à jour votre message" id="editer"></i>
+                        <i class="fa fa-sharp fa-solid fa-trash" title="effacer votre message" id="poubelle"></i>
+                    </div>
                 </div>
               <p>{com.contenu}</p>
             </div>

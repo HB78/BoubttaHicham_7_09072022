@@ -2,6 +2,7 @@ import React from 'react';
 import Loader from '../Loader/Loader';
 import Publication from "./Publication/Publication";
 import styled from 'styled-components';
+import CreationPosts from './Publication/CreationPosts/CreationPosts';
 
 //COMPOSANT qui va gérer la page publication dans son entiereté
 //Dans la fonction display on fait un map sur le jsx de la carte representer par le cmpnt publication
@@ -36,6 +37,7 @@ export default function Publications({ posts }) {
     <>
       {posts.length > 0 ?
         <StyledPublicationPage className='publication'>
+          <CreationPosts />
           <DisplayPosts />
         </StyledPublicationPage>
         : <Loader />}
