@@ -447,28 +447,3 @@ ul {
 #poubelle:hover {
   color: orangered;
 }
-/*input pour envoyer un message*/
-.btn_sendMessage {
-  width: 2.5rem;
-  height: 2.5rem;
-  margin: 1.2rem;
-  border-radius: 100%;
-  border: 1px solid grey;
-  cursor: pointer;
-  transition: 0.5s ease-in-out;
-}
-.btn_sendMessage:hover {
-  transform: scale(0.9);
-  background: orangered;
-  color:beige;
-  border-color: beige;
-}
-.inputMessage {
-  width: 88%;
-  height: auto;
-  margin-top: 1rem;
-  border-radius: 1rem;
-  border: grey 1px solid;
-  outline: none;
-  padding: 1%;
-}

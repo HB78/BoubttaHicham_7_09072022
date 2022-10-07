@@ -233,3 +233,8 @@ ul {
 #poubelle:hover {
   color: orangered;
 }
+
+
+.cards_message .cards_message_icone i:hover {
+  cursor: pointer;
+}

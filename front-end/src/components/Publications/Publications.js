@@ -10,7 +10,7 @@ import CreationPosts from './Publication/CreationPosts/CreationPosts';
 //Dans le dernier return on fait un ternaire, si on a les résultats on les affiche grace au cmpt DisplayPost
 //Si on ne les a pas on affiche le loader
 
-export default function Publications({ posts }) {
+export default function Publications({ posts, getPosts }) {
   const StyledPublicationPage = styled.div`
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@ export default function Publications({ posts }) {
   function DisplayPosts() {
     return posts.map((post, index) => {
       return (
-        <Publication key={index} data={post} />
+        <Publication key={index} data={post} getPosts={getPosts} />
       )
     });
   }
@@ -37,7 +37,7 @@ export default function Publications({ posts }) {
     <>
       {posts.length > 0 ?
         <StyledPublicationPage className='publication'>
-          <CreationPosts />
+          <CreationPosts getPosts={getPosts} />
           <DisplayPosts />
         </StyledPublicationPage>
         : <Loader />}

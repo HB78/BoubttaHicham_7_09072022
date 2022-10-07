@@ -2,38 +2,55 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import "../CreationPosts/creationPosts.css"
 
-export default function CreationPosts() {
+export default function CreationPosts({getPosts}) {
   //mise en place des states pour stocker les données des input
   const [titleOfPost, setTitleOfPost] = useState("");
   const [descriptionPost, setDescriptionPost] = useState("");
-  const [photoOfPost, setPhotoOfPost] = useState("");
+  const [photoOfPost, setPhotoOfPost] = useState(null);
 
-  const title = (e) => {
+  const titles = (e) => {
     setTitleOfPost(e.target.value)
   }
   const description = (e) => {
     setDescriptionPost(e.target.value)
   }
   const photoInPost = (e) => {
-    setPhotoOfPost(e.target.value)
+    setPhotoOfPost(e.target.files[0])
   }
-  const allPost = {
-    title : titleOfPost,
-    description: descriptionPost,
-    photo: photoOfPost
+  
+  
+
+ async function sendPost(e) {
+  try {
+    e.preventDefault()
+    console.log("entrée de la requete")
+
+    let formData = new FormData();
+    formData.append("title", titleOfPost);
+    formData.append("contenu", descriptionPost);
+    formData.append("image", photoOfPost);
+
+    const sendOnePublication = await axios({
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        // 'Access-Control-Allow-Origin': '*',
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      },
+      method: 'POST',
+      url:"http://localhost:3000/publication",
+      data: formData
+    })
+    console.log("sortie de la requete")
+    // console.log("response du try", sendOnePublication.data.id)
+    getPosts();
+    alert("Bravo la publication a éte envoyéé")
+    
+  } catch (error) {
+    console.log(error, "ça ne marche pas")
+    // alert(error.sendOnePublication.data.error)
   }
-  console.log(allPost)
-  async function sendPost(e) {
-    try {
-      e.preventDefault()
-      const response = await axios.post("http://localhost:3000/publication", allPost)
-      console.log("response du try", response.data.id)
-      alert("Bravo la publication est envoyéé")
-    } catch (error) {
-      console.log(error)
-      alert(error.response.data.error)
-    }
-  }
+}
+
 
   return (
     <div class="sendPostContainer">
@@ -43,7 +60,7 @@ export default function CreationPosts() {
           <input type="text" 
           required placeholder="le titre de votre publication" 
           value={titleOfPost}
-          onChange={title}/>
+          onChange={titles}/>
           <textarea name="posts" 
           id="posts" cols="70" rows="13" 
           placeholder="décrivez votre publication..." 
@@ -54,7 +71,6 @@ export default function CreationPosts() {
         </div>
         <div class="inputsFileAndSubmit">
           <input type="file"  name='image'
-          value= {photoOfPost}
           onChange= {photoInPost}/>
           <input type="submit" value="envoyer" />
         </div>
@@ -62,3 +78,36 @@ export default function CreationPosts() {
     </div>
   )
 }
+// async function sendPost(e) {
+//   try {
+//     e.preventDefault()
+//     console.log("entrée de la requete")
+//     const sendOnePublication = await axios({
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Access-Control-Allow-Origin': '*',
+//         'Authorization': 'Bearer ' + localStorage.getItem("token")
+//       },
+//       method: 'POST',
+//       withCredentials: true,
+//       url:"http://localhost:3000/publication",
+//       data: {
+//         title : titleOfPost,
+//         contenu: descriptionPost
+//         // imgUrl: photoOfPost
+//       }
+//     })
+//     console.log("sortie de la requete")
+//     // console.log("response du try", sendOnePublication.data.id)
+//     alert("Bravo la publication a éte envoyéé")
+//   } catch (error) {
+//     console.log(error, "ça ne marche pas")
+//     // alert(error.sendOnePublication.data.error)
+//   }
+// }
+
+// fetch('http://localhost:3000/publication', {
+//   method:'post',
+//   headers: myHeaders,
+//   body: JSON.stringify(allPost)
+// })

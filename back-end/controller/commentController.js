@@ -24,7 +24,7 @@ exports.getCommentByPublication = async (req,res) => {
         let NB_COMMENT = 10;
         console.log("--> req.params controller",req.params)
         //on veut afficher tous les commentaires des publications
-        let allcomment = `SELECT commentaire.id, commentaire.id_publi, contenu, date_comment, users.image_profil, users.name FROM commentaire 
+        let allcomment = `SELECT commentaire.id, commentaire.id_publi, contenu, date_comment, users.image_profil, users.name, commentaire.id_user FROM commentaire 
         INNER JOIN users ON 
         commentaire.id_user = users.id 
         WHERE commentaire.id_publi =  ${req.params.id}
@@ -57,7 +57,7 @@ exports.getCommentByPublications = async (req,res) => {
         // requette bien formater
         let tab_comments = []
         req.body.tab_id_publi.forEach(async (id_pub) =>{
-            let allcomment = `SELECT commentaire.id, contenu, date_comment, users.name FROM commentaire 
+            let allcomment = `SELECT commentaire.id, contenu, date_comment, users.name, commentaire.id_user FROM commentaire 
             INNER JOIN users ON 
             commentaire.id_user = users.id 
             WHERE commentaire.id_publi =  ${id_pub}
@@ -75,8 +75,8 @@ exports.getCommentByPublications = async (req,res) => {
 exports.createMessage = async (req, res) => {
     try {
         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-        let createComment = `INSERT INTO commentaire (contenu, date_comment, id_user, id_publi) VALUES '${req.body.contenu}', 
-        '${now}, '${req.body.decodedToken.id}', '${req.body.id_publi}';`;
+        let createComment = `INSERT INTO commentaire (contenu, date_comment, id_user, id_publi) VALUES ('${req.body.contenu}', 
+        '${now}', '${req.body.decodedToken.id}', '${req.body.id_publi}');`;
         let [rows, fields] = await db.query(createComment);
         console.log("--> le message a été créee", rows);
         return res.status(200).json("--> le message a été créee");
@@ -89,7 +89,7 @@ exports.createMessage = async (req, res) => {
 exports.deleteMessage = async (req, res) => {
     try {
         let deleteComment = `DELETE FROM commentaire 
-        WHERE commentaire.id = '${req.params.id};`;
+        WHERE commentaire.id = '${req.params.id}';`;
         let [rows, fields] = await db.query(deleteComment);
         return res.status(200).json("message supprimé");
     } catch (error) {

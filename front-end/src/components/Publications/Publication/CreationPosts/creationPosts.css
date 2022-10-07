@@ -1,7 +1,7 @@
 .sendPostContainer {
     width: 80%;
     height: auto;
-    border: 1px solid black;
+    border: 1px solid transparent;
     padding-bottom: 1%;
     margin: auto;
     border-radius: 1rem;

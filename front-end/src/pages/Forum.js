@@ -23,6 +23,6 @@ export default function Forum() {
   }
 
   return (
-    <Publication posts={posts}/>
+    <Publication posts={posts} getPosts={getPosts}/>
   )
 };

@@ -3,7 +3,8 @@
 // import { TbHeart } from "react-icons/tb";
 
 
-// function ShowLike({ idPubli }) {
+// function ShowLike({ idLike }) {
+//   console.log('idPubli:--> from like', idLike)
 //   const [like, setLike] = useState([])
 //   //on affiche les publications de la BDD
 //   useEffect(() => {
@@ -11,18 +12,19 @@
 //   }, [])
 //   async function getLike() {
 //     try {
-//       let res = await axios.get("http://localhost:3000/publication/like/5");
+//       let res = await axios.get(`http://localhost:3000/publication/like/${idLike}`);
 //       console.log("res.data", res.data);
 //       setLike(res.data);
+//       console.log(like, "affichage des likes")
 //     } catch (error) {
 //       console.log(error)
 //     }
 //   }
 //   function DisplayLike() {
-//     return idPubli.map((id, index) => {
+//     return like.map((id, index) => {
 //       return (
-//         <div key={index} className='publication'>
-//           <p>{like} <span>{TbHeart}</span></p>
+//         <div key={index} className='publicationsss'>
+//           <p>{like}<span>{TbHeart}</span></p>
 //         </div>
 //       )
 //     })
