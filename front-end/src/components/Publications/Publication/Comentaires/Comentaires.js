@@ -5,7 +5,7 @@ import apiurl from "../../../../api_url";
 import axios from "axios";
 import profil from "../../../../assets/profil.png"
 //import DeleteCom from "./updateAnddeleteCom/DeleteCom";
-import Commentaire from "./Commentaire";
+import Commentaire from "./updateAnddeleteCom/Commentaire";
 
 //le useEffect lance le GET pour obtenir la data
 function Comentaires({ idPubli, datas, getPosts }) {

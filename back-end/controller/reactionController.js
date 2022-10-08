@@ -11,7 +11,7 @@ exports.getLikeOfPublication = async (req, res) => {
         ORDER BY reaction.date_reaction DESC;`;
 
         let [rows, fields] = await db.query(getLike);
-        res.status(200).json(rows);
+        res.status(200).json(rows[0].likes);
     } catch (error) {
         return res.status(500).json(error);
     }

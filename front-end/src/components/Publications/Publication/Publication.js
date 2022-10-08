@@ -4,9 +4,9 @@ import Comentaires from "./Comentaires/Comentaires";
 import AuthContext from '../../../auth/authContext';
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
-import apiurl from "../../../api_url";
 import profil from "../../../assets/profil.png"
 import CreationComs from './Comentaires/creationComs/CreationComs';
+import ShowLike from './Likes/ShowLike';
 
 //Ici c'est le componant qui va afficher la card
 //C'est ce component qui va etre afficher dans le composant parent PublicationS
@@ -48,7 +48,7 @@ export default function Publication({ data, getPosts }) {
       <div>
         <div className="sub-menu">
           <div>
-            <p><span className="sub-menu_span">0</span><i className="fa fa-heart" aria-hidden="true"></i></p>
+            <p><span className="sub-menu_span"><ShowLike idPubliLike = {data.id}/></span><i className="fa fa-heart" aria-hidden="true"></i></p>
             <p><span className="sub-menu_span">0</span><i className="fa far fa-heart-broken"></i></p>
           </div>
           <h2>{data.title}</h2>
@@ -78,7 +78,6 @@ export default function Publication({ data, getPosts }) {
         </div>
       </div>
       <div className="bar"></div>
-      {/* <div><ShowLike idPubli = {element.id}/></div> */}
       <button onClick={getComment}><p>Commentaires</p></button>
       <CreationComs idPublication= {data.id} getPosts={getPosts}/>
       {dislayCom && <Comentaires idPubli={data.id} datas={data} getPosts={getPosts} />}

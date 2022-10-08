@@ -33,7 +33,6 @@ export default function CreationPosts({getPosts}) {
     const sendOnePublication = await axios({
       headers: {
         'Content-Type': 'multipart/form-data',
-        // 'Access-Control-Allow-Origin': '*',
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'POST',

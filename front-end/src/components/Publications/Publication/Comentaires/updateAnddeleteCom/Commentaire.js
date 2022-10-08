@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useContext, useState, useEffect } from 'react'
-import UpdateCom from "./updateAnddeleteCom/UpdateCom";
-import DeleteCom from "./updateAnddeleteCom/DeleteCom";
-
+import UpdateCom from "./UpdateCom";
+import DeleteCom from "./DeleteCom";
+import "./updateAndDeleteIcon.css";
 
 export default function Commentaire({ photosInMessage, com, getPosts }) {
     console.log('com:', com)
@@ -62,12 +62,13 @@ export default function Commentaire({ photosInMessage, com, getPosts }) {
             {/*<DeleteCom />*/}
         </div>
         {updating ?
-            <div>
+            <div className='updateComToggledContainer'>
                 <input
                     type="text"
                     value={comment}
-                    onChange={onChangeComment} />
-                <button onClick={updateComment}>{'>'}</button>
+                    onChange={onChangeComment} 
+                    className= "updateComToggled"/>
+                <button className= "updateComToggledbtn" onClick={updateComment}>{'>'}</button>
             </div>
         :
         <p>{com.contenu}</p>
