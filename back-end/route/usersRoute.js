@@ -59,7 +59,4 @@ router.put("/:id/poste", auth, updatePoste);
 //suppression du compte utilisateur
 router.delete("/:id", auth, deleteUser);
 
-//affichage des publicationss du users dans son profil
-router.get("/:id/profil", getLastPublicationOfUser);
-
 module.exports = router;

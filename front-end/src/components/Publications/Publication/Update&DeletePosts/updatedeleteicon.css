@@ -1,0 +1,53 @@
+/* les icones à cote de l'image dans la card message */
+.cards_message_icone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 2rem;
+    cursor: pointer;
+    visibility: hidden;
+  }
+  .cards_message:hover .cards_message_icone {
+    visibility: visible;
+  }
+  #editer:hover {
+    color:orangered;
+  }
+  #poubelle:hover {
+    color: orangered;
+  }
+
+  /*ici on gère l'input du update qui apparait au toggle en cliquant sur l'icone update*/
+
+  /* le container qui contient le boutton et l'input */
+  .updateComToggledContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  /* le input qui ou on ecrit ce qu'on veut updater */
+  .updateComToggled {
+    padding: 1rem;
+  }
+  /* le bouton pour envoyer la update */
+  .updateComToggledbtn {
+    position: relative;
+    margin: auto;
+    cursor: pointer;
+    width: 45%;
+    padding: 0.30rem 0rem;
+    border-radius: 1rem;
+    border: 1px solid grey;
+    transition: 0.5s ease-in-out;
+    transform: scale(1);
+  }
+  /* le bouton pour envoyer la update au hover*/
+  .updateComToggledbtn:hover {
+    background: #e5d1fa;
+    border: 1px solid orangered;
+    transform: scale(0.95);
+    transition: 0.5s ease-in-out;
+  }

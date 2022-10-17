@@ -77,36 +77,3 @@ export default function CreationPosts({getPosts}) {
     </div>
   )
 }
-// async function sendPost(e) {
-//   try {
-//     e.preventDefault()
-//     console.log("entrée de la requete")
-//     const sendOnePublication = await axios({
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Access-Control-Allow-Origin': '*',
-//         'Authorization': 'Bearer ' + localStorage.getItem("token")
-//       },
-//       method: 'POST',
-//       withCredentials: true,
-//       url:"http://localhost:3000/publication",
-//       data: {
-//         title : titleOfPost,
-//         contenu: descriptionPost
-//         // imgUrl: photoOfPost
-//       }
-//     })
-//     console.log("sortie de la requete")
-//     // console.log("response du try", sendOnePublication.data.id)
-//     alert("Bravo la publication a éte envoyéé")
-//   } catch (error) {
-//     console.log(error, "ça ne marche pas")
-//     // alert(error.sendOnePublication.data.error)
-//   }
-// }
-
-// fetch('http://localhost:3000/publication', {
-//   method:'post',
-//   headers: myHeaders,
-//   body: JSON.stringify(allPost)
-// })

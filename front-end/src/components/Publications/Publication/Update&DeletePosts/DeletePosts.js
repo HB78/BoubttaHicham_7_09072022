@@ -1,15 +1,15 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 
-function DeleteCom({deleteCommentaire}) {
+function DeletePosts({deletePosts}) {
 
   return (
     <i
       class="fa fa-sharp fa-solid fa-trash"
       title="effacer votre message" id="poubelle"
-      onClick={deleteCommentaire}>
+      onClick={deletePosts}>
     </i>
   )
 }
 
-export default DeleteCom
+export default DeletePosts

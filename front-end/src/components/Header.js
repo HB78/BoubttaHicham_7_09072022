@@ -1,9 +1,8 @@
 import React from 'react'
+import HeaderComponent from './Header/HeaderComponent';
 
 export default function Header() {
   return (
-    <div>
-      ici se trouve le header
-    </div>
+    <HeaderComponent />
   )
 }

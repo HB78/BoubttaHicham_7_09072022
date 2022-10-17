@@ -7,6 +7,10 @@ import axios from "axios";
 import profil from "../../../assets/profil.png"
 import CreationComs from './Comentaires/creationComs/CreationComs';
 import ShowLike from './Likes/ShowLike';
+import UpdatePosts from './Update&DeletePosts/UpdatePosts';
+import DeletePosts from './Update&DeletePosts/DeletePosts';
+import UpdateAndDeletePosts from './Update&DeletePosts/UpdateAndDeletePosts';
+import { TbArrowDownCircle } from "react-icons/tb";
 
 //Ici c'est le componant qui va afficher la card
 //C'est ce component qui va etre afficher dans le composant parent PublicationS
@@ -17,16 +21,22 @@ import ShowLike from './Likes/ShowLike';
 export default function Publication({ data, getPosts }) {
   console.log('data:', data)
   const [dislayCom, setDislayCom] = useState(false)
-  
+  const [update, setUpdate] = useState(false)
+
   //une fonction pour avoir une image de profil dynamique
   //si il n'y a pas de photo de profil (cad === a null) on met une image par defaut
   //sinon on met la photo de la BDD
   //j'ai decidé d'appeler la fonction dans le src de l'image cad src=photos()
   const photos = () => {
-    if(data.userPhoto === null) {
+    if (data.userPhoto === null) {
       return profil
     }
     return data.userPhoto
+  }
+  //avec cette fonction le menu update va apparaitre et disparaitre en cliquant sur
+  //le bouton mise à jour
+  const togglePosts = () => {
+    setUpdate(!update);
   }
 
   // const authCtx = useContext(AuthContext)
@@ -42,45 +52,41 @@ export default function Publication({ data, getPosts }) {
   async function getComment() {
     setDislayCom(!dislayCom);
   }
-
+  function DisplayPublication() {
+    return (
+      <div className="card">
+        <div>
+          <div className="sub-menu">
+            <div>
+              <ShowLike idPubliLike={data.id} />
+            </div>
+            <h2>{data.title}</h2>
+            {/* <!-- MENU INTERNE DANS LA CARD --> */}
+            <div className="right">
+              <UpdatePosts togglePosts={togglePosts}/>
+              <DeletePosts />
+            </div>
+          </div>
+          <p>{data.contenu}</p>
+          <div className="card_imagePosted"><img src={data.photoPost} alt="" /></div>
+        </div>
+        <div className="cards_autor">
+          <div className="cards_autor_img">
+            <img src={photos()} alt="" className="cards_autor_img_autor" />
+            <p>{data.userName}</p>
+          </div>
+          <div className="cards_autor_identity">
+            <p>posté le {data.date_publi}</p>
+          </div>
+        </div>
+        <div className="bar"></div>
+        <button onClick={getComment}><p>Commentaires</p></button>
+        <CreationComs idPublication={data.id} getPosts={getPosts} />
+        {dislayCom && <Comentaires idPubli={data.id} datas={data} getPosts={getPosts} />}
+      </div>
+    )
+  }
   return (
-    <div className="card">
-      <div>
-        <div className="sub-menu">
-          <div>
-            <p><span className="sub-menu_span"><ShowLike idPubliLike = {data.id}/></span><i className="fa fa-heart" aria-hidden="true"></i></p>
-            <p><span className="sub-menu_span">0</span><i className="fa far fa-heart-broken"></i></p>
-          </div>
-          <h2>{data.title}</h2>
-          {/* <!-- MENU INTERNE DANS LA CARD --> */}
-          <div className="right">
-            <ul className="menu">
-              <li className="title">
-                <div className="title_icon">+</div>
-                <ul className="sous-menu">
-                  <li>update</li>
-                  <li>delete</li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <p>{data.contenu}</p>
-        <div className="card_imagePosted"><img src={data.photoPost} alt="" /></div>
-      </div>
-      <div className="cards_autor">
-        <div className="cards_autor_img">
-          <img src={photos()}alt="" className="cards_autor_img_autor" />
-          <p>{data.userName}</p>
-        </div>
-        <div className="cards_autor_identity">
-          <p>posté le {data.date_publi}</p>
-        </div>
-      </div>
-      <div className="bar"></div>
-      <button onClick={getComment}><p>Commentaires</p></button>
-      <CreationComs idPublication= {data.id} getPosts={getPosts}/>
-      {dislayCom && <Comentaires idPubli={data.id} datas={data} getPosts={getPosts} />}
-    </div>
+    update ? <UpdateAndDeletePosts allData={data} togglePosts={togglePosts}/> : <DisplayPublication />
   )
 }

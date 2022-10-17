@@ -4,7 +4,6 @@ import axios from 'axios';
 import Publication  from '../components/Publications/Publications';
 import apiUrl from "../api_url"
 
-
 export default function Forum() {
   const [posts, setPosts] = useState([])
   

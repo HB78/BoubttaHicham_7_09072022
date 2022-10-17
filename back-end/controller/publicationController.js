@@ -26,6 +26,39 @@ exports.getLastPublication = async (req, res, next) => {
     }
 };
 
+//Les publications d'un utilissateur
+exports.getLastPublicationOfUser = async (req, res) => {
+    try {
+        // //je vais chercher les id des utilisateurs dont j'aurais besoin pour la suite
+        // let queryID = `SELECT publication.id AS publiID, users.image_profil AS userPhoto, users.id AS userID
+        // FROM publication
+        // JOIN users on publication.id_user = users.id;`;
+
+        let publicationsOfOneUser = `SELECT publication.id AS publiID, publication.title,  publication.contenu,
+        publication.date_publi, publication.image_path AS photoPost, users.name AS userName, users.image_profil AS userPhoto,
+        users.id AS userID 
+        from publication
+        join users on publication.id_user = users.id
+        WHERE users.id = '${req.params.id}'
+        ORDER BY publication.date_publi DESC
+        LIMIT 0, 5;`
+
+        // let [row, field] = await db.query(queryID)
+        // if(rows.length > 0) {
+        //     return res.status(200).json(row);
+        // }
+
+        let [rows, fields] = await db.query(publicationsOfOneUser)
+        if(!rows.length > 0) {
+            return res.status(404).json("l'utilisateur n'a encore rien publié");
+        }
+        return res.status(200).json(rows);
+
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
 // Auth avec => req.body.decodedToken.id
 
 //créer une publication
@@ -63,7 +96,7 @@ exports.deletePublication = async (req, res) => {
         if(!rows.length > 0) {
             return res.status(404).json("la publication n'existe pas ou plus")
         }
-        return res.status(200).json({rows: rows, info: "la publication a été effacée"});
+        return res.status(200).json("La publication a été effacée");
     } catch (error) {
         res.status(500).json(error);
     }
@@ -82,7 +115,7 @@ exports.updatePublication = async (req, res) => {
         contenu = '${req.body.contenu}', date_publi = '${now}' 
         WHERE id = '${req.params.id}' AND publication.id_user = '${req.body.decodedToken.id}';`
         let [rows, fields] = await db.query(request);
-        return res.status(200).json({rows: rows, info: "la publication a été update"});
+        return res.status(200).json("la publication a été update");
     } catch (error) {
         res.status(500).json(error);
     }

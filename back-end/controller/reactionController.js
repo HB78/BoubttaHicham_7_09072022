@@ -26,7 +26,7 @@ exports.getDislikeOfPublication = async (req, res) => {
         ORDER BY reaction.date_reaction DESC;`;
 
         let [rows, fields] = await db.query(getDislike);
-        res.status(200).json(rows);
+        res.status(200).json(rows[0].dislikes);
     } catch (error) {
         return res.status(500).json(error);
     }
@@ -54,19 +54,39 @@ exports.addLike = async (req, res) => {
         WHERE id_publi = '${req.body.id_publi}' AND id_user ='${req.body.decodedToken.id}';`;
 
         let createLike = `INSERT INTO reaction (love, id_publi, id_user) 
-        VALUES (${req.body.love},${req.body.id_publ}, id_user = '${req.body.decodedToken.id}')`;
+        VALUES (${req.body.love},${req.body.id_publi}, ${req.body.decodedToken.id})`;
 
         let updateLike = `UPDATE reaction SET love= 1 WHERE reaction.id_publi ='${req.params.id}' 
         AND id_user = '${req.body.decodedToken.id}';`;
 
         let [row, field] = await db.query(selectLike);
-        if(row.length == 0) {
+        if(row.length == 0) { // dans le cas où il n'y a pas encore de like de l'utilisateur
             let [like, fieldLike] = await db.query(createLike);
-            return res.status(200).json("il n'existe pas encore de like pour ce user")
         }
-        let [likes, fieldLikes] = await db.query(updateLike);
-        return res.status(200).json("l'utilisateur a liker")
+        else {
+            let [likes, fieldLikes] = await db.query(updateLike);
+        }
+
+        let getLikePositifs = `select count(*)
+        AS likes, reaction.id_publi AS id_publi
+        from reaction 
+        WHERE reaction.love = 1 AND reaction.id_publi = '${req.params.id}'
+        ORDER BY reaction.date_reaction DESC;`;
+        let getLikeNegatifs = `select count(*)
+        AS likes, reaction.id_publi AS id_publi
+        from reaction 
+        WHERE reaction.love = -1 AND reaction.id_publi = '${req.params.id}'
+        ORDER BY reaction.date_reaction DESC;`;
+
+        let [nbLikesPositifsRows, fieldsLikesPositifs] = await db.query(getLikePositifs);
+        let [nbLikesNegatifsRows, fieldsLikesNegatifs] = await db.query(getLikeNegatifs);
+        return res.status(200).json({
+            nbLikesPositifs: nbLikesPositifsRows[0].likes,
+            nbLikesNegatifs: nbLikesNegatifsRows[0].likes,
+        })
     } catch (error) {
+        console.log("erreur");
+        console.log(error);
         return res.status(500).json(error);
     }
 };
@@ -78,7 +98,7 @@ exports.removeLike = async (req, res) => {
         WHERE id_publi = '${req.body.id_publi}' AND id_user ='${req.body.decodedToken.id}';`;
 
         let createLike = `INSERT INTO reaction (love, id_publi, id_user) 
-        VALUES (${req.body.love},${req.body.id_publ}, id_user = '${req.body.decodedToken.id}')`;
+        VALUES (${req.body.love}, ${req.body.id_publi}, ${req.body.decodedToken.id})`;
 
         let updateLike = `UPDATE reaction SET love= -1 WHERE reaction.id_publi ='${req.params.id}' 
         AND id_user = '${req.body.decodedToken.id}';`;
@@ -86,10 +106,26 @@ exports.removeLike = async (req, res) => {
         let [row, field] = await db.query(selectLike);
         if(row.length == 0) {
             let [like, fieldLike] = await db.query(createLike);
-            return res.status(200).json("il n'existe pas encore de dislike pour ce user")
+        } else {
+            let [likes, fieldLikes] = await db.query(updateLike);
         }
-        let [likes, fieldLikes] = await db.query(updateLike);
-        return res.status(200).json("l'utilisateur a disliker")
+        let getLikePositifs = `select count(*)
+        AS likes, reaction.id_publi AS id_publi
+        from reaction 
+        WHERE reaction.love = 1 AND reaction.id_publi = '${req.params.id}'
+        ORDER BY reaction.date_reaction DESC;`;
+        let getLikeNegatifs = `select count(*)
+        AS likes, reaction.id_publi AS id_publi
+        from reaction 
+        WHERE reaction.love = -1 AND reaction.id_publi = '${req.params.id}'
+        ORDER BY reaction.date_reaction DESC;`;
+        let [nbLikesPositifsRows, fieldsLikesPositifs] = await db.query(getLikePositifs);
+        let [nbLikesNegatifsRows, fieldsLikesNegatifs] = await db.query(getLikeNegatifs);
+        
+        return res.status(200).json({
+            nbLikesPositifs: nbLikesPositifsRows[0].likes,
+            nbLikesNegatifs: nbLikesNegatifsRows[0].likes,
+        })
     } catch (error) {
         return res.status(500).json(error);
     }
@@ -98,11 +134,31 @@ exports.removeLike = async (req, res) => {
 //annuler un like ou un dislike
 exports.cancelLike = async (req, res) => {
     try {
+        //On enleve 1 ou -1 et on remplace par 0 pour annuler le like ou le dislike
         let noLike = `UPDATE reaction SET love= 0 WHERE reaction.id_publi ='${req.params.id}'  
         id_user = '${req.body.decodedToken.id}';`;
 
+        //on recalcule le nombre de like ou de dislike
         let [rows, fields] = await db.query(noLike);
-        res.status(200).json("annulation de vos réaction à la publication", rows);
+        let getLikePositifs = `select count(*)
+        AS likes, reaction.id_publi AS id_publi
+        from reaction 
+        WHERE reaction.love = 1 AND reaction.id_publi = '${req.params.id}'
+        ORDER BY reaction.date_reaction DESC;`;
+        let getLikeNegatifs = `select count(*)
+        AS likes, reaction.id_publi AS id_publi
+        from reaction 
+        WHERE reaction.love = -1 AND reaction.id_publi = '${req.params.id}'
+        ORDER BY reaction.date_reaction DESC;`;
+        let [nbLikesPositifsRows, fieldsLikesPositifs] = await db.query(getLikePositifs);
+        let [nbLikesNegatifsRows, fieldsLikesNegatifs] = await db.query(getLikeNegatifs);
+        
+        //on return le nombre de like et de dislike mis à jour
+        return res.status(200).json({
+            nbLikesPositifs: nbLikesPositifsRows[0].likes,
+            nbLikesNegatifs: nbLikesNegatifsRows[0].likes,
+        })
+        
     } catch (error) {
         return res.status(500).json(error);
     }
