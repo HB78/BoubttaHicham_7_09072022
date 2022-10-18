@@ -60,7 +60,7 @@ export default function Publication({ data, getPosts }) {
       url: `http://localhost:3000/publication/${data.id}`,
       // data: JSON.stringify(localStorage.getItem("userId"))
     })
-    // alert("publication effacée avec succès")
+    alert("publication effacée avec succès")
   }
   async function getComment() {
     setDislayCom(!dislayCom);
