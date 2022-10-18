@@ -32,7 +32,7 @@ function UpdateAndDeletePosts({ allData, togglePosts }) {
     formDataUpdated.append("title", newTitleOfPost);
     formDataUpdated.append("contenu", newPostDescription);
     formDataUpdated.append("image", newPhotoOfPost);
-
+    
   const updatePosts = async (e) => {
     e.preventDefault();
     const updateOnePost = await axios({
@@ -47,26 +47,11 @@ function UpdateAndDeletePosts({ allData, togglePosts }) {
     // togglePosts();
   }
 
-  const deletePosts = async (e) => {
-    console.log("ask to delete");
-    e.preventDefault();
-    const deleteOnePosts = await axios({
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem("token")
-      },
-      method: 'DELETE',
-      url: `http://localhost:3000/publication/${allData.id}`
-    })
-    // alert("publication effacée avec succès")
-  }
-
   return (
       <div className="card">
         {/* <!-- MENU INTERNE DANS LA CARD --> */}
         <div className="right">
           <UpdatePosts togglePosts={togglePosts} />
-          <DeletePosts deletePosts={deletePosts} />
         </div>
         <div className="sendPostContainer">
           <h3 className="sendPostTitle">Mettez votre publication à jour</h3>

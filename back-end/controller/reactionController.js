@@ -135,7 +135,7 @@ exports.removeLike = async (req, res) => {
 exports.cancelLike = async (req, res) => {
     try {
         //On enleve 1 ou -1 et on remplace par 0 pour annuler le like ou le dislike
-        let noLike = `UPDATE reaction SET love= 0 WHERE reaction.id_publi ='${req.params.id}'  
+        let noLike = `UPDATE reaction SET love= 0 WHERE reaction.id_publi ='${req.params.id}' AND
         id_user = '${req.body.decodedToken.id}';`;
 
         //on recalcule le nombre de like ou de dislike

@@ -12,7 +12,7 @@ exports.getLastPublication = async (req, res, next) => {
         let NB_PUBLI = 15;
         //les publications sans commentaires vont elles s'afficher ?
         let query = `SELECT publication.id, publication.title, publication.contenu,
-        publication.date_publi, publication.image_path AS photoPost, users.name AS userName, users.image_profil AS userPhoto
+        publication.date_publi, publication.image_path AS photoPost, users.name AS userName, users.id AS userID, users.image_profil AS userPhoto
         FROM publication
         JOIN users on publication.id_user = users.id
         ORDER BY publication.date_publi DESC
@@ -36,7 +36,7 @@ exports.getLastPublicationOfUser = async (req, res) => {
 
         let publicationsOfOneUser = `SELECT publication.id AS publiID, publication.title,  publication.contenu,
         publication.date_publi, publication.image_path AS photoPost, users.name AS userName, users.image_profil AS userPhoto,
-        users.id AS userID 
+        users.id AS userID
         from publication
         join users on publication.id_user = users.id
         WHERE users.id = '${req.params.id}'
@@ -90,10 +90,12 @@ exports.createPublication = async (req, res, next) => {
 */
 exports.deletePublication = async (req, res) => {
     console.log("req.body.decodedToken", req.body.decodedToken);
+    console.log("req.param.id from delete publication", req.params.id)
     try {
         let deletePost = `DELETE FROM publication WHERE publication.id = '${req.params.id}' AND publication.id_user = '${req.body.decodedToken.id}';`;
         let [rows, fields] = await db.query(deletePost);
-        if(!rows.length > 0) {
+        console.log('rowsSetheader:', rows.affectedRows)
+        if(rows.affectedRows === 0) {
             return res.status(404).json("la publication n'existe pas ou plus")
         }
         return res.status(200).json("La publication a été effacée");

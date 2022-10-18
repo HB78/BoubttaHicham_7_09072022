@@ -10,7 +10,6 @@ import ShowLike from './Likes/ShowLike';
 import UpdatePosts from './Update&DeletePosts/UpdatePosts';
 import DeletePosts from './Update&DeletePosts/DeletePosts';
 import UpdateAndDeletePosts from './Update&DeletePosts/UpdateAndDeletePosts';
-import { TbArrowDownCircle } from "react-icons/tb";
 
 //Ici c'est le componant qui va afficher la card
 //C'est ce component qui va etre afficher dans le composant parent PublicationS
@@ -49,6 +48,20 @@ export default function Publication({ data, getPosts }) {
   //   }
   // }, [])
 
+  const deletePosts = async (e) => {
+    console.log("ask to delete");
+    e.preventDefault();
+    const deleteOnePosts = await axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      },
+      method: 'DELETE',
+      url: `http://localhost:3000/publication/${data.id}`,
+      // data: JSON.stringify(localStorage.getItem("userId"))
+    })
+    // alert("publication effacée avec succès")
+  }
   async function getComment() {
     setDislayCom(!dislayCom);
   }
@@ -64,7 +77,7 @@ export default function Publication({ data, getPosts }) {
             {/* <!-- MENU INTERNE DANS LA CARD --> */}
             <div className="right">
               <UpdatePosts togglePosts={togglePosts}/>
-              <DeletePosts />
+              <DeletePosts deletePosts={deletePosts}/>
             </div>
           </div>
           <p>{data.contenu}</p>

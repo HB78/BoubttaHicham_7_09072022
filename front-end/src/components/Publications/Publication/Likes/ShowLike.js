@@ -9,11 +9,21 @@ export default function ShowLike({ idPubliLike }) {
   console.log('idPubli:--> from like', idPubliLike)
   const [like, setLike] = useState([])
   const [dislike, setDislike] = useState([])
+  const [cancelLike, setCancelLike] = useState([])
+  const [toggleReaction, setToggleReaction] = useState(false)
+
+  //une fonction toggle pour annuler ou ajouter un like ou un dislike
+  const toggleLike = () => {
+    setToggleReaction(!toggleReaction)
+  }
   //on affiche les publications de la BDD
   useEffect(() => {
     getLike()
     getDislike()
+    likeCanceller()
   }, [])
+
+  //une fonction pour obtenir les dislikes
   async function getDislike() {
     try {
       let res = await axios.get(`http://localhost:3000/publication/dislike/${idPubliLike}`);
@@ -23,6 +33,7 @@ export default function ShowLike({ idPubliLike }) {
       console.log(error)
     }
   }
+  //une fonction pour afficher les likes
   async function getLike() {
     try {
       let res = await axios.get(`http://localhost:3000/publication/like/${idPubliLike}`);
@@ -32,6 +43,7 @@ export default function ShowLike({ idPubliLike }) {
       console.log(error)
     }
   }
+  //une fonction pour ajouter un like
   const addLove = async (e) => {
     e.preventDefault();
     const addLoves = await axios({
@@ -50,6 +62,7 @@ export default function ShowLike({ idPubliLike }) {
     setDislike(addLoves.data.nbLikesNegatifs);
     console.log("coucou from addlike")
 }
+//une fonction pour ajouter un dislike et retirer un like (vis verca)
 const removeLike = async (e) => {
   e.preventDefault();
   const addDisloves = await axios({
@@ -66,7 +79,24 @@ const removeLike = async (e) => {
   })
   setLike(addDisloves.data.nbLikesPositifs);
   setDislike(addDisloves.data.nbLikesNegatifs);
-  console.log("coucou from addlike")
+}
+//Une fonction pour annuler un l'ajout d'un like ou d'un dislike
+const likeCanceller = async (e) => {
+  e.preventDefault();
+  const cancellerOfLike = await axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      },
+      method: 'PUT',
+      url: `http://localhost:3000/publication/cancel/${idPubliLike}`,
+      data: {
+      love: JSON.stringify(0),
+      id_publi: idPubliLike
+      }
+  })
+  setLike(cancellerOfLike.data.nbLikesPositifs);
+  setDislike(cancellerOfLike.data.nbLikesNegatifs);
 }
   return (
     <>

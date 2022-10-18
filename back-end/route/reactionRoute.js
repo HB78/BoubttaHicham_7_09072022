@@ -22,7 +22,7 @@ router.put("/like/:id", auth, reaction.addLike);
 router.put("/dislike/:id", auth, reaction.removeLike);
 
 // ne plus réagir à la publication
-router.put("/like", auth, reaction.cancelLike);
+router.put("/cancel/:id", auth, reaction.cancelLike);
 
 //on exporte tous les routers que l'on a coder ici
 module.exports = router;
