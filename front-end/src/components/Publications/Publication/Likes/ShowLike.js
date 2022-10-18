@@ -92,7 +92,7 @@ const likeCanceller = async (e) => {
       url: `http://localhost:3000/publication/cancel/${idPubliLike}`,
       data: {
       love: JSON.stringify(0),
-      id_publi: idPubliLike
+      id: idPubliLike
       }
   })
   setLike(cancellerOfLike.data.nbLikesPositifs);

@@ -52,10 +52,10 @@ export default function CreationPosts({getPosts}) {
 
 
   return (
-    <div class="sendPostContainer">
-      <h3 class="sendPostTitle">Postez votre publication</h3>
-      <form action="/upload" method="POST" enctype="multipart/form-data" onSubmit={sendPost} className= "formulairePublication">
-        <div class="inputsTextAndArea">
+    <div className="sendPostContainer">
+      <h3 className="sendPostTitle">Postez votre publication</h3>
+      <form action="/upload" method="POST" encType="multipart/form-data" onSubmit={sendPost} className= "formulairePublication">
+        <div className="inputsTextAndArea">
           <input type="text" 
           required placeholder="le titre de votre publication" 
           value={titleOfPost}
@@ -68,7 +68,7 @@ export default function CreationPosts({getPosts}) {
           onChange= {description}>
           </textarea>
         </div>
-        <div class="inputsFileAndSubmit">
+        <div className="inputsFileAndSubmit">
           <input type="file"  name='image'
           onChange= {photoInPost}/>
           <input type="submit" value="envoyer" />

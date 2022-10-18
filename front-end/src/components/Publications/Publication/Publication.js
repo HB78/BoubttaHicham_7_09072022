@@ -49,7 +49,6 @@ export default function Publication({ data, getPosts }) {
   // }, [])
 
   const deletePosts = async (e) => {
-    console.log("ask to delete");
     e.preventDefault();
     const deleteOnePosts = await axios({
       headers: {
@@ -62,6 +61,7 @@ export default function Publication({ data, getPosts }) {
     })
     alert("publication effacée avec succès")
   }
+
   async function getComment() {
     setDislayCom(!dislayCom);
   }
