@@ -65,6 +65,10 @@ exports.getLastPublicationOfUser = async (req, res) => {
 exports.createPublication = async (req, res, next) => {
     console.log("start create pub")
     try {
+        if (!req.body.contenu) {
+            res.status(400).send("bad request : le titre et la photo ne sont obligatoires mais entrez au moins du contenu");
+            return;
+        }
         let imgUrl = null;
         if (req.file && req.file.filename) {
             imgUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`

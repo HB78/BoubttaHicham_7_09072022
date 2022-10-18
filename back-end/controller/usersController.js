@@ -26,7 +26,7 @@ exports.signup = async (req, res, next) => {
             return;
         }
         //si le user n'entre pas de mail valide ou de mdp valide
-        if (!validateEmail(req.body.email) || req.body.password.length < 8 || req.body.password.length > 80) {
+        if (!validateEmail(req.body.email) || req.body.password.length < 4 || req.body.password.length > 80) {
             res.status(400).send("L'email ou le mot de passe n'est pas correct");
             return;
         }
