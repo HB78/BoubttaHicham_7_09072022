@@ -19,7 +19,7 @@ function UpdateAndDeletePosts({ allData, togglePosts }) {
     setNewTitleOfPost(e.target.value)
   }
   const changePhoto = (e) => {
-    setNewPhotoOfPost(e.target.files)
+    setNewPhotoOfPost(e.target.files[0])
   }
 
   // //avec cette fonction le menu update va apparaitre et disparaitre en cliquant sur
@@ -27,13 +27,15 @@ function UpdateAndDeletePosts({ allData, togglePosts }) {
   // const togglePosts = () => {
   //   setUpdate(!update);
   // }
-//les données updated envoyé dans form data avec une requete put 
-  let formDataUpdated = new FormData();
-    formDataUpdated.append("title", newTitleOfPost);
-    formDataUpdated.append("contenu", newPostDescription);
-    formDataUpdated.append("image", newPhotoOfPost);
-    
+  //les données updated envoyé dans form data avec une requete put 
+  let formData = new FormData();
+  formData.append("title", newTitleOfPost);
+  formData.append("contenu", newPostDescription);
+  formData.append("image", newPhotoOfPost);
+  console.log('formDataUpdated:', formData)
+
   const updatePosts = async (e) => {
+    console.log(allData.id)
     e.preventDefault();
     const updateOnePost = await axios({
       headers: {
@@ -42,41 +44,43 @@ function UpdateAndDeletePosts({ allData, togglePosts }) {
       },
       method: 'PUT',
       url: `http://localhost:3000/publication/${allData.id}`,
-      data: formDataUpdated
+      data: formData
     })
     // togglePosts();
   }
 
   return (
-      <div className="card">
-        {/* <!-- MENU INTERNE DANS LA CARD --> */}
-        <div className="right">
-          <UpdatePosts togglePosts={togglePosts} />
-        </div>
-        <div className="sendPostContainer">
-          <h3 className="sendPostTitle">Mettez votre publication à jour</h3>
-          <form action="/upload" method="PUT" enctype="multipart/form-data" onSubmit={updatePosts} className="formulairePublication">
-            <div className="inputsTextAndArea">
-              <input type="text"
-                required placeholder="le titre de votre publication"
-                value={newTitleOfPost}
-                onChange={changeTitle} />
-              <textarea name="posts"
-                id="posts" cols="70" rows="13"
-                placeholder="décrivez votre publication..."
-                required
-                value={newPostDescription}
-                onChange={changeDescription}>
-              </textarea>
-            </div>
-            <div className="inputsFileAndSubmit">
-              <input type="file" name='image'
-                onChange={changePhoto} />
-              <input type="submit" value="envoyer" />
-            </div>
-          </form>
-        </div>
+    <div className="card">
+      {/* <!-- MENU INTERNE DANS LA CARD --> */}
+      <div className="right">
+        <UpdatePosts togglePosts={togglePosts} />
       </div>
+      <div className="sendPostContainer">
+        <h3 className="sendPostTitle">Mettez votre publication à jour</h3>
+        <form action="/upload" method="PUT" encType="multipart/form-data" onSubmit={updatePosts} className="formulairePublication">
+          <div className="inputsTextAndArea">
+            <input type="text"
+              required placeholder="le titre de votre publication"
+              value={newTitleOfPost}
+              onChange={changeTitle} />
+            <textarea name="posts"
+              id="posts" cols="70" rows="13"
+              placeholder="décrivez votre publication..."
+              required
+              value={newPostDescription}
+              onChange={changeDescription}>
+            </textarea>
+          </div>
+          <div className="inputsFileAndSubmit">
+            <input
+              type="file"
+              name='image'
+              onChange={changePhoto} />
+            <input type="submit" value="envoyer" />
+          </div>
+        </form>
+      </div>
+    </div>
   )
 }
 

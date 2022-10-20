@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { TbHeart } from "react-icons/tb";
 import AddLike from './AddLike';
 // import apiurl from "../../../api_url";
 
@@ -9,19 +8,52 @@ export default function ShowLike({ idPubliLike }) {
   console.log('idPubli:--> from like', idPubliLike)
   const [like, setLike] = useState([])
   const [dislike, setDislike] = useState([])
-  const [cancelLike, setCancelLike] = useState([])
-  const [toggleReaction, setToggleReaction] = useState(false)
+  const [hasLiked, setHasLiked] = useState(false)
+  const [hasDisliked, setHasDisliked] = useState(false)
 
-  //une fonction toggle pour annuler ou ajouter un like ou un dislike
-  const toggleLike = () => {
-    setToggleReaction(!toggleReaction)
-  }
+  /
   //on affiche les publications de la BDD
   useEffect(() => {
     getLike()
     getDislike()
     likeCanceller()
+    getIfUserHasLiked()
+    getIfUserHasDisliked()
   }, [])
+
+  //une fonction pour checker si le user a liker
+  async function getIfUserHasLiked() {
+    try {
+      const res = await axios({
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+          },
+          method: 'GET',
+          url: `http://localhost:3000/publication/like/${idPubliLike}/userLiked`,
+      })
+      setHasLiked(res.data.hasLiked);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  //une fonction pour checker si le user a disliker
+  async function getIfUserHasDisliked() {
+    try {
+      const res = await axios({
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+          },
+          method: 'GET',
+          url: `http://localhost:3000/publication/dislike/${idPubliLike}/userDisliked`,
+      })
+      setHasDisliked(res.data.hasDisliked);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   //une fonction pour obtenir les dislikes
   async function getDislike() {
@@ -60,6 +92,8 @@ export default function ShowLike({ idPubliLike }) {
     })
     setLike(addLoves.data.nbLikesPositifs);
     setDislike(addLoves.data.nbLikesNegatifs);
+    getIfUserHasLiked()
+    getIfUserHasDisliked()
     console.log("coucou from addlike")
 }
 //une fonction pour ajouter un dislike et retirer un like (vis verca)
@@ -79,6 +113,8 @@ const removeLike = async (e) => {
   })
   setLike(addDisloves.data.nbLikesPositifs);
   setDislike(addDisloves.data.nbLikesNegatifs);
+  getIfUserHasLiked()
+  getIfUserHasDisliked()
 }
 //Une fonction pour annuler un l'ajout d'un like ou d'un dislike
 const likeCanceller = async (e) => {
@@ -95,13 +131,18 @@ const likeCanceller = async (e) => {
       id: idPubliLike
       }
   })
+  //le setlike et le setdislike permettent de recalculer le nombre de like et de dislike
   setLike(cancellerOfLike.data.nbLikesPositifs);
   setDislike(cancellerOfLike.data.nbLikesNegatifs);
+  //le getIfUserHasLiked et le getIfUserHasDisliked permettent de revérifier si le user a liker ou pas
+  //on relance la fonction pour savoir si on a le droit de liker ou de disliker
+  getIfUserHasLiked()
+  getIfUserHasDisliked()
 }
   return (
     <>
-     <p onClick={addLove}><span className="sub-menu_span">{like}</span><i className="fa fa-heart" aria-hidden="true"></i></p>
-     <p onClick={removeLike}><span className="sub-menu_span">{dislike}</span><i className="fa far fa-heart-broken"></i></p>
+     <p onClick={hasLiked ? likeCanceller : addLove}><span className="sub-menu_span">{like}</span><i className="fa fa-heart" aria-hidden="true"></i></p>
+     <p onClick={hasDisliked ? likeCanceller : removeLike}><span className="sub-menu_span">{dislike}</span><i className="fa far fa-heart-broken"></i></p>
     </>
   )
 }

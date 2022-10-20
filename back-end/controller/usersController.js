@@ -133,10 +133,11 @@ exports.getOneUser = async (req, res, next) => {
         if (rows.length == 0) {
             return res.status(401).json("utilisateurs introuvable");
         } else {
-            return res.status(200).json("profil du user affiché");
+            return res.status(200).json(rows);
         }
 
     } catch (error) {
+        console.log(error)
         res.status(500).json(error);
     }
 };

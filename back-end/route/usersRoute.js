@@ -42,7 +42,7 @@ router.post("/signup", signup);
 router.post("/login", login);
 
 //affichage de la page profil
-router.get("/:id", auth, multer, getOneUser);
+router.get("/:id", multer, getOneUser); //dois-je remettre le auth ici ?
 
 //changement du mot de passe du user
 router.put("/:id", auth, updatePasswordOfUser);

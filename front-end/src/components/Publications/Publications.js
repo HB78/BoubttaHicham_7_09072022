@@ -3,6 +3,8 @@ import Loader from '../Loader/Loader';
 import Publication from "./Publication/Publication";
 import styled from 'styled-components';
 import CreationPosts from './Publication/CreationPosts/CreationPosts';
+import Header from "./../Header"
+import Footer from "./../Footer"
 
 //COMPOSANT qui va gérer la page publication dans son entiereté
 //Dans la fonction display on fait un map sur le jsx de la carte representer par le cmpnt publication
@@ -20,6 +22,7 @@ export default function Publications({ posts, getPosts }) {
     width: 100%;
     height: 100%;
     background:#ebdded;
+    padding: 1.5rem 0rem;
   `
   function DisplayPosts() {
     return posts.map((post, index) => {
@@ -36,10 +39,15 @@ export default function Publications({ posts, getPosts }) {
 
     <>
       {posts.length > 0 ?
-        <StyledPublicationPage className='publication'>
-          <CreationPosts getPosts={getPosts} />
-          <DisplayPosts />
-        </StyledPublicationPage>
+        <>
+          <Header />
+          <StyledPublicationPage className='publication'>
+            <CreationPosts getPosts={getPosts} />
+            <DisplayPosts />
+          </StyledPublicationPage>
+          <Footer />
+        </>
+
         : <Loader />}
     </>
   )

@@ -24,5 +24,11 @@ router.put("/dislike/:id", auth, reaction.removeLike);
 // ne plus réagir à la publication
 router.put("/cancel/:id", auth, reaction.cancelLike);
 
+// une route pour savoir si l'utilisateur à liker une certaine publication
+router.get("/like/:id/userLiked", auth, reaction.hasUserLikedPublication);
+
+// une route pour savoir si l'utilisateur à disliker une certaine publication
+router.get("/dislike/:id/userDisliked", auth, reaction.hasUserDislikedPublication);
+
 //on exporte tous les routers que l'on a coder ici
 module.exports = router;

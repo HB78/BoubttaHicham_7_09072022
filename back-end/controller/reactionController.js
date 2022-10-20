@@ -165,3 +165,41 @@ exports.cancelLike = async (req, res) => {
 };
 //NE PAS OUBLIER l'autre façon qui consiste à effacer une ligne
 //(creuser l'idée car je n'ai pas bien compris)
+
+// savoir si un utilisateur a liké une publication
+exports.hasUserLikedPublication = async (req, res) => {
+    const publicationId = req.params.id;
+    const userId = req.body.decodedToken.id;
+    try {
+        let getLike = `select count(*)
+        AS likes, reaction.id_publi AS id_publi
+        from reaction 
+        WHERE reaction.love = 1 AND reaction.id_publi = '${publicationId}' AND reaction.id_user = '${userId}' 
+        ORDER BY reaction.date_reaction DESC;`;
+
+        let [rows, fields] = await db.query(getLike);
+        //le res.status renvoie un booleen : si c'est > 0 renvoi true sinon sa renvoi false
+        res.status(200).json({"hasLiked" : (rows[0].likes > 0)});
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+
+// savoir si un utilisateur a disliké une publication
+exports.hasUserDislikedPublication = async (req, res) => {
+    const publicationId = req.params.id;
+    const userId = req.body.decodedToken.id;
+    try {
+        let getLike = `select count(*)
+        AS dislikes, reaction.id_publi AS id_publi
+        from reaction 
+        WHERE reaction.love = -1 AND reaction.id_publi = '${publicationId}' AND reaction.id_user = '${userId}' 
+        ORDER BY reaction.date_reaction DESC;`;
+
+        let [rows, fields] = await db.query(getLike);
+        //le res.status renvoie un booleen : si c'est > 0 renvoi true sinon sa renvoi false
+        res.status(200).json({"hasDisliked" : (rows[0].dislikes > 0)}); 
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
