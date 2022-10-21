@@ -113,7 +113,7 @@ exports.updatePublication = async (req, res) => {
     try {
         console.log("start update publication", req.params.id)
         console.log("req.body from back", req.body)
-        // console.log("req.body.DECODEDTOKEN from back", req.body.decodedToken.id)
+        console.log("---> req.body.DECODEDTOKEN from back update Publication !", req.auth.id)
         /** Requete SQL dynamique générer en fonction de si l'utilisateur a voulu modifier l'image de sa Publication */
         let request = "";
         let requestPartImg = null;
@@ -122,7 +122,7 @@ exports.updatePublication = async (req, res) => {
             requestPartImg = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
             request = `UPDATE publication SET image_path = '${requestPartImg}', title ='${req.body.title}', 
                 contenu = '${req.body.contenu}', date_publi = '${now}' 
-                WHERE id = '${req.params.id}';`
+                WHERE id = '${req.params.id}' AND publication.id_user= ${req.auth.id};`
         }else{
             request = `UPDATE publication SET title ='${req.body.title}', 
                 contenu = '${req.body.contenu}', date_publi = '${now}' 

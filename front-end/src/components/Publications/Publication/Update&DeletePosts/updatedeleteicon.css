@@ -13,9 +13,11 @@
   }
   #editer:hover {
     color:orangered;
+    cursor: pointer;
   }
   #poubelle:hover {
     color: orangered;
+    cursor: pointer;
   }
 
   /*ici on gère l'input du update qui apparait au toggle en cliquant sur l'icone update*/

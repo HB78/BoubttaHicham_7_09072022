@@ -23,7 +23,9 @@ module.exports = (req, res, next) => {
       console.log('decodedToken', decodedToken)
       req.body.decodedToken = decodedToken;
       res.locals.decodedToken = decodedToken;
-      // console.log('res.locals.decodedToken:', res.locals.decodedToken)
+      req.auth= {
+        id: decodedToken.id
+      }
       next()
       return;
     } catch (error) {

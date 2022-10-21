@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import "./publication.css";
 import Comentaires from "./Comentaires/Comentaires";
 import AuthContext from '../../../auth/authContext';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios";
 import profil from "../../../assets/profil.png"
 import CreationComs from './Comentaires/creationComs/CreationComs';
@@ -86,7 +86,7 @@ export default function Publication({ data, getPosts }) {
         <div className="cards_autor">
           <div className="cards_autor_img">
             <img src={photos()} alt="" className="cards_autor_img_autor" />
-            <p>{data.userName}</p>
+            <p><Link to={`/profil/${data.userID}`}>{data.userName}</Link></p>
           </div>
           <div className="cards_autor_identity">
             <p>posté le {data.date_publi}</p>

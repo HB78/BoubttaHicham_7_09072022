@@ -1,0 +1,23 @@
+.containerCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: blueviolet;
+    padding-top: 1rem;
+}
+.containerCard > div {
+    height: 70px;
+    width: 70px;
+    border-radius: 100%;
+    object-fit: contain;
+    border: 1px solid black;
+}
+.containerCard > div > img{
+    height: 70px;
+    width: 70px;
+    border-radius: 100%;
+    object-fit: cover;
+    border: 1px solid black;
+}

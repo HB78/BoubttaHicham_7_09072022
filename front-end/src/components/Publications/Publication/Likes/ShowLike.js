@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { TbHeart } from "react-icons/tb";
 import AddLike from './AddLike';
 // import apiurl from "../../../api_url";
 
@@ -10,8 +11,12 @@ export default function ShowLike({ idPubliLike }) {
   const [dislike, setDislike] = useState([])
   const [hasLiked, setHasLiked] = useState(false)
   const [hasDisliked, setHasDisliked] = useState(false)
+  const [toggleReaction, setToggleReaction] = useState(false)
 
-  /
+  //une fonction toggle pour annuler ou ajouter un like ou un dislike
+ /* const toggleLike = () => {
+    setToggleReaction(!toggleReaction)
+  }*/
   //on affiche les publications de la BDD
   useEffect(() => {
     getLike()
