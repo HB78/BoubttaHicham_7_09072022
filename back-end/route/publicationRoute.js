@@ -5,6 +5,8 @@ const  multer = require('../middleware/multer');
 //authentification par token
 const auth = require("../middleware/auth");
 
+const admin = require("../middleware/admin");
+
 const publication = require("../controller/publicationController");
 
 router.get("/", publication.getLastPublication); //rajouter le auth
@@ -17,13 +19,12 @@ router.post("/", auth, multer, publication.createPublication);
 
 router.put("/:id", auth, multer, publication.updatePublication);
 
-// DELETE http://localhost:3000/publication/5
-  /**
-   * {
-   *  jwt: dfsfdsfds.fds1585ds.edfsdf
-   * }
-   */
-router.delete("/:id", auth, publication.deletePublication);
+
+//***************************************ADMIN************************* */
+
+router.delete("/admin/:id", auth, admin, publication.adminDeletePublication);
+
+router.put("/admin/:id", auth, admin, multer, publication.adminUpdatePublication);
 
 //on exporte tous les routers que l'on a coder ici
 module.exports = router;

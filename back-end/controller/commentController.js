@@ -89,16 +89,46 @@ exports.createMessage = async (req, res) => {
 exports.deleteMessage = async (req, res) => {
     try {
         let deleteComment = `DELETE FROM commentaire 
-        WHERE commentaire.id = '${req.params.id}';`;
+        WHERE commentaire.id = '${req.params.id}' AND commentaire.id_user = '${req.body.decodedToken.id}';`;
         let [rows, fields] = await db.query(deleteComment);
-        return res.status(200).json("message supprimé");
+        return res.status(200).json({info: rows.affectedRows + " message supprimé"});
     } catch (error) {
-        res.status(500).json(error);
+        console.log("error", error)
+        res.status(500).json({error: error});
     }
 };
 
 //mettre à jour un commentaire
 exports.updateMessage = async (req, res) => {
+    try {
+        let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+        let updateComment= `UPDATE commentaire SET contenu = '${req.body.contenu}', date_comment = '${now}' 
+        WHERE commentaire.id = '${req.params.id}' AND commentaire.id_user = '${req.body.decodedToken.id}';`;
+        let [rows, fields] = await db.query(updateComment);
+        console.log('rows: --> message modifié', rows)
+        res.status(200).json("message mis a jour");
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+//******************************ADMIN*************************************** */
+
+//effacer un commentaire en tant que admin
+exports.adminDeleteMessage = async (req, res) => {
+    try {
+        let deleteComment = `DELETE FROM commentaire 
+        WHERE commentaire.id = '${req.params.id}'`;
+        let [rows, fields] = await db.query(deleteComment);
+        return res.status(200).json({info: rows.affectedRows + " message supprimé"});
+    } catch (error) {
+        console.log("error", error)
+        res.status(500).json({error: error});
+    }
+};
+
+//mettre à jour un commentaire en tant qu'admin
+exports.adminUpdateMessage = async (req, res) => {
     try {
         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
         let updateComment= `UPDATE commentaire SET contenu = '${req.body.contenu}', date_comment = '${now}' 

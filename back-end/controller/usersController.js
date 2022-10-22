@@ -96,6 +96,7 @@ exports.login = async (req, res, next) => {
         let jwtBody = {
             email: rows[0].email,
             id: rows[0].id,
+            admin: rows[0].admin
         }
         const token = jwt.sign(jwtBody, process.env.KEY, { expiresIn: "77d" });
         const objResponse = {

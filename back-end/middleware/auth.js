@@ -7,11 +7,11 @@ module.exports = (req, res, next) => {
     try {
       // console.log("je teste le req.headers.jwt", req.headers.authorization)
       let tokenAndBearer = req.headers.authorization;
-      let token = tokenAndBearer.replace("Bearer ", "");
-      console.log('--> le token seul token:', token)
-      if (!token) {
+      if (!tokenAndBearer) {
         throw "Pas de jwt";
       }
+      let token = tokenAndBearer.replace("Bearer ", "");
+      console.log('--> le token seul token:', token)
       //on décode le token
       //decoded token est un objet dans lequel on peut recuperer l'id
       const decodedToken = jwt.verify(token, process.env.KEY);
@@ -30,6 +30,7 @@ module.exports = (req, res, next) => {
       return;
     } catch (error) {
         //ici on récupère et on gère les erreurs du try
-        res.status(401).send(error);
+        console.log('error', error)
+        res.status(401).json({error});
     }
 };

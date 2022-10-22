@@ -36,15 +36,11 @@ export default function ProfilPost({ data, getPosts }) {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'DELETE',
-      url: `http://localhost:3000/publication/${data.id}`,
+      url: `http://localhost:3000/publication/${data.publiID}`,
       // data: JSON.stringify(localStorage.getItem("userId"))
     })
     alert("publication effacée avec succès")
   }
-  console.log('data: from Profil', data[0])
-
-  const [posts, setPosts] = useState([])
-
 
   function DisplayPublicationProfil() {
     return (
