@@ -44,8 +44,9 @@ export default function Login() {
     try {
       e.preventDefault()
       const response = await axios.post("http://localhost:3000/users/login", values)
-      console.log("response du try", response.data.id)
-      authCtx.login(response.data.token, response.data.id)
+      console.log("response du try", response)
+      authCtx.login(response.data.token, response.data.id, response.data.admin)
+      console.log('response.data:', response.data)
       alert("connexion réussie !")
       navigate("/publication", { replace: true });
     } catch (error) {

@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react';
 import styled from 'styled-components';
 import './headerComponent.css';
 import { Link } from "react-router-dom";
 import profilPhoto from "./../../assets/profil.png";
 import logo from "./../../assets/globe.gif"
+import AuthContext from './../../auth/authContext'
 
 export default function Header({ oneUser }) {
   console.log('oneUser:', oneUser)
@@ -14,6 +15,13 @@ export default function Header({ oneUser }) {
   const menuAppear = () => {
     setMenuVisible(!menuVisible)
   }
+
+  const authcthx = useContext(AuthContext)
+
+  function logOutSession() {
+    authcthx.logout()
+    alert("vous etes deconnecté")
+  }
   function DisplayHiddenMenu() {
     return (
       <div className={menuVisible ? 'menu-box' : 'close-menu'}>
@@ -21,7 +29,7 @@ export default function Header({ oneUser }) {
           <li><Link to={'/publication'}>Accueil</Link></li>
           <li><Link to={`/profil/${id}`}>Profil</Link></li>
           <li><Link to={'/organigramme'}>Organigramme</Link></li>
-          <li><Link to={'/'}>Deconnexion</Link></li>
+          <li onClick={logOutSession}><Link to={'/'}>Deconnexion</Link></li>
         </ul>
       </div>
     )

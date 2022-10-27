@@ -35,7 +35,7 @@ exports.getLastPublicationOfUser = async (req, res) => {
         // JOIN users on publication.id_user = users.id;`;
 
         let publicationsOfOneUser = `SELECT publication.id AS publiID, publication.title,  publication.contenu,
-        publication.date_publi, publication.image_path AS photoPost, users.name AS userName, users.image_profil AS userPhoto,
+        publication.date_publi, publication.image_path AS photoPost, users.name AS userName, users.image_profil AS userPhoto, users.poste AS poste, users.description AS description,
         users.id AS userID
         from publication
         join users on publication.id_user = users.id
@@ -105,6 +105,7 @@ exports.deletePublication = async (req, res) => {
         return res.status(200).json("La publication a été effacée");
     } catch (error) {
         res.status(500).json(error);
+        console.log('error:', error)
     }
 };
 

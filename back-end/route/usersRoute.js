@@ -57,6 +57,6 @@ router.put("/description/:id", auth, UpdateDescription);
 router.put("/:id/poste", auth, updatePoste);
 
 //suppression du compte utilisateur
-router.delete("/:id", auth, deleteUser);
+router.delete("/delete/:id", auth, deleteUser);
 
 module.exports = router;

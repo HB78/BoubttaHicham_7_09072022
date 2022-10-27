@@ -104,7 +104,7 @@ exports.login = async (req, res, next) => {
             token: token,
         }
         console.log("--> info token", objResponse)
-        return res.status(200).json({token: token, id:jwtBody.id});
+        return res.status(200).json({token: token, id:jwtBody.id, admin:jwtBody.admin});
     } catch (error) {
         res.status(500).json(error);
     }
@@ -205,7 +205,9 @@ exports.updatePoste = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
     try {
-        let deleteCountOfUser = `DELETE FROM users WHERE id = '${req.params.id}';`;
+        let deleteCountOfUser = `DELETE FROM users WHERE id = '${req.params.id}'
+        AND users.id = '${req.auth.id}';`;
+        console.log('req.auth.id:', req.auth.id)
         let [rows, fields] = await db.query(deleteCountOfUser);
 
         //si le tableau rows contient quelque chose on supprime le compte

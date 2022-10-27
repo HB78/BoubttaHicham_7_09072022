@@ -18,7 +18,7 @@ import UpdateAndDeletePosts from './Update&DeletePosts/UpdateAndDeletePosts';
 //A noter que la condition {dislayCom && <Comentaires />} on ne la pas mise dans la balise bouton
 //A noter que <commenttaire /> est un composant d'une autre page qui sert a faire une requete get et avoir les messages
 export default function Publication({ data, getPosts }) {
-  console.log('data:', data)
+  console.log('data:---> from publication.js', data)
   const [dislayCom, setDislayCom] = useState(false)
   const [update, setUpdate] = useState(false)
 
@@ -38,7 +38,8 @@ export default function Publication({ data, getPosts }) {
     setUpdate(!update);
   }
 
-  // const authCtx = useContext(AuthContext)
+  const authCtx = useContext(AuthContext)
+  const isAdmin = JSON.parse(localStorage.getItem("isAdmin"))  
 
   // let navigate = useNavigate();
 
@@ -75,10 +76,11 @@ export default function Publication({ data, getPosts }) {
             </div>
             <h2>{data.title}</h2>
             {/* <!-- MENU INTERNE DANS LA CARD --> */}
+            {(data.userID === parseInt(localStorage.getItem("userId")) || isAdmin === 1) ?  
             <div className="right">
               <UpdatePosts togglePosts={togglePosts}/>
-              <DeletePosts deletePosts={deletePosts}/>
-            </div>
+              <DeletePosts deletePosts={deletePosts} data={data}/>
+            </div> : <div className='title_publication'></div>}
           </div>
           <p>{data.contenu}</p>
           <div className="card_imagePosted"><img src={data.photoPost} alt="" /></div>

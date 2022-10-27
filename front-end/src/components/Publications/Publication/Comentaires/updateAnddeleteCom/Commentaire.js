@@ -3,77 +3,83 @@ import React, { useContext, useState, useEffect } from 'react'
 import UpdateCom from "./UpdateCom";
 import DeleteCom from "./DeleteCom";
 import "./updateAndDeleteIcon.css";
+import AuthContext from '../../../../../auth/authContext';
 
-export default function Commentaire({ photosInMessage, com, getPosts }) {
-    console.log('com:', com)
-    const [updating, setUpdating] = useState(false)
-    const [comment, setComment] = useState(com.contenu);
+export default function Commentaire({ profil, com, getPosts }) {
+console.log('com:--->commmmm', com)
 
-    const toggleCom = () => {
-      setUpdating(!updating);
-    }
+  const [updating, setUpdating] = useState(false)
+  const [comment, setComment] = useState(com.contenu);
 
-    const onChangeComment = (e) => {
-        setComment(e.target.value);
-    }
+  const toggleCom = () => {
+    setUpdating(!updating);
+  }
 
-    const updateComment = async (e) => {
-        e.preventDefault();
-        const updateOneComment = await axios({
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + localStorage.getItem("token")
-            },
-            method: 'PUT',
-            url: `http://localhost:3000/commentaires/message/${com.id}`,
-            data: {
-              contenu: comment
-            }
-        })
-        toggleCom();
-        getPosts()
-    }
+  const onChangeComment = (e) => {
+    setComment(e.target.value);
+  }
 
-    const deleteComment = async (e) => {
-        e.preventDefault();
-        const deleteOneComment = await axios({
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + localStorage.getItem("token")
-            },
-            method: 'DELETE',
-            url: `http://localhost:3000/commentaires/message/${com.id}`
-        })
-        getPosts()
-    }
+  const authCtx = useContext(AuthContext)
+  const isAdmin = JSON.parse(localStorage.getItem("isAdmin"))
+
+  const updateComment = async (e) => {
+    e.preventDefault();
+    const updateOneComment = await axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      },
+      method: 'PUT',
+      url: `http://localhost:3000/commentaires/message/${com.id}`,
+      data: {
+        contenu: comment
+      }
+    })
+    toggleCom();
+    getPosts()
+  }
+
+  //Une fonction pour permettre à un user d'effacer son commentaire 
+  const deleteComment = async (e) => {
+    e.preventDefault();
+    const deleteOneComment = await axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      },
+      method: 'DELETE',
+      url: `http://localhost:3000/commentaires/message/${com.id}`
+    })
+    getPosts()
+  }
 
   return (
     <div className="messages">
-        <div className="cards_message">
+      <div className="cards_message">
         <div className="card_message_header">
-            <div>
-            <img src={photosInMessage()} alt="" className="cards_autor_img_autor" />
-            </div>
-            <p>{com.name}</p>
-            {(com.id_user === parseInt(localStorage.getItem("userId"))) && <div className="cards_message_icone">
-                <UpdateCom toggleCom={toggleCom} />
-                <DeleteCom deleteCommentaire={deleteComment} />
-            </div>}
-            {/*<DeleteCom />*/}
+          <div>
+            <img src={(com.image_profil === null || com === null) ? profil : com.image_profil} alt="" className="cards_autor_img_autor" />
+          </div>
+          <p>{com.name}</p>
+          {(com.id_user === parseInt(localStorage.getItem("userId")) || isAdmin === 1) && <div className="cards_message_icone">
+            <UpdateCom toggleCom={toggleCom} />
+            <DeleteCom deleteCommentaire={deleteComment} getPosts={getPosts} id={com.id} isAdmin={isAdmin}/>
+          </div>}
+          {/*<DeleteCom />*/}
         </div>
         {updating ?
-            <div className='updateComToggledContainer'>
-                <input
-                    type="text"
-                    value={comment}
-                    onChange={onChangeComment} 
-                    className= "updateComToggled"/>
-                <button className= "updateComToggledbtn" onClick={updateComment}>{'>'}</button>
-            </div>
-        :
-        <p>{com.contenu}</p>
+          <div className='updateComToggledContainer'>
+            <input
+              type="text"
+              value={comment}
+              onChange={onChangeComment}
+              className="updateComToggled" />
+            <button className="updateComToggledbtn" onClick={updateComment}>{'>'}</button>
+          </div>
+          :
+          <p>{com.contenu}</p>
         }
-        </div>
+      </div>
     </div>
   )
 }

@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import CreationPosts from '../Publications/Publication/CreationPosts/CreationPosts';
 import Loader from './../Loader/Loader';
 import ProfilPost from './Profils/ProfilPost'
-import ProfilCard from './Profils/ProfilCard';
+import ProfilCard from './Profils/profilCard/ProfilCard';
+import Header from './../Header';
 
 export default function Profils({ data, getPosts }) {
   console.log('data:--> from profils page', data)
@@ -28,8 +29,10 @@ export default function Profils({ data, getPosts }) {
   }
   return (
     <>
+     <Header />
       {data.length > 0 ?
         <StyledPublicationPageProfil>
+          <ProfilCard data={data}/>
           <CreationPosts />
           <DisplayPosts />
         </StyledPublicationPageProfil>

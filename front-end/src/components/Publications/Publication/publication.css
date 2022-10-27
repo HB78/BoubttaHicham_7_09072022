@@ -102,6 +102,9 @@ a {
   display: flex;
   gap: 0.5rem;
 }
+.title_publication {
+  margin-left: 2rem;
+}
 .title_icon {
   display: flex;
   justify-content: center;
