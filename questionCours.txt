@@ -45,3 +45,18 @@ faire gaffe dans le back le req.body.id ne marche pas, il faut privilégier le r
 dans le back quand on fait le res.status il faut faire gaffe car le json ne prend qu'un parametre
  -> il faut revoir le contexte car j'ai je ne sais pas trop l'utiliser 
 
+******************************** SESSION DE MENTORAT ********************************
+Je n'arrive pas à faire marcher la fonction delete qui doit faire supprimer le compte du user
+
+les méthodes conventionnelles dans la mise en place du compte admin
+
+Evoquer avec Jean-François la mise en place de la search barre (et les deux méthodes envisagées)
+
+comment mettre en place le responsive avec react
+
+dois je mettre les propType comme brad traversy ? A quoi cela sert au juste ?
+
+Voir le code dans le back qui sert a supprimer un utilisateur
+
+********************************** APRES LA SESSION ********************************
+Etudier la partie du code brad traversy ou il donne l'illusion d'un delete pour permettre le re-rendering 

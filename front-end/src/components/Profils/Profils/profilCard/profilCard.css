@@ -1,3 +1,6 @@
+section div {
+    padding: 0.3rem 0rem;
+}
 .containerCard {
     display: flex;
     flex-direction: column;
@@ -8,26 +11,17 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
-.containerCard > div {
+.containerCard > .photoInProfil {
     height: 70px;
     width: 70px;
     border-radius: 100%;
     object-fit: contain;
     border: 1px solid black;
 }
-.containerCard > div > img{
+.img_In_Profil {
     height: 70px;
     width: 70px;
     border-radius: 100%;
     object-fit: cover;
     border: 1px solid black;
-}
-/* //les boutons dans la card  */
-#delete_count {
-    width: 40%;
-    cursor: pointer;
-}
-#update_profil {
-    width: 40%;
-    cursor: pointer;
 }

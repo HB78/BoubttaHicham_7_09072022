@@ -205,17 +205,16 @@ exports.updatePoste = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
     try {
-        let deleteCountOfUser = `DELETE FROM users WHERE id = '${req.params.id}'
+        let deleteCountOfUser = `DELETE FROM users WHERE users.id = '${req.params.id}'
         AND users.id = '${req.auth.id}';`;
         console.log('req.auth.id:', req.auth.id)
         let [rows, fields] = await db.query(deleteCountOfUser);
 
         //si le tableau rows contient quelque chose on supprime le compte
-        if (rows.length > 0) {
-            return res.status(200).json("le compte a été supprimé");
-        } else {
-            return res.status(404).json("l'utilisateur n'existe pas ou plus");
-        }
+        // if (rows.affectedRows === 0) {
+        //     return res.status(200).json("l'utilisateur n'existe pas ou plus");
+        // } 
+        return res.status(200).json("compte supprimé avec succes");
     } catch (error) {
         res.status(500).json(error);
     }
@@ -235,6 +234,22 @@ exports.searchUser = async (req, res) => {
             res.status(200).json("employé trouvé parmis les utilisateurs");
             return
         }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+// ***********************************ADMIN*****************************************
+exports.deleteUserByAdmin = async (req, res, next) => {
+    try {
+        let deleteCountOfUser = `DELETE FROM users WHERE id = '${req.params.id}';`;
+        let [rows, fields] = await db.query(deleteCountOfUser);
+
+        //si le tableau rows contient quelque chose on supprime le compte
+        // if (rows.affectedRows === 0) {
+        //     return res.status(200).json("l'utilisateur n'existe pas ou plus");
+        // } 
+        return res.status(200).json("compte supprimé avec succes par un administrateur");
     } catch (error) {
         res.status(500).json(error);
     }

@@ -24,6 +24,7 @@ module.exports = (req, res, next) => {
       req.body.decodedToken = decodedToken;
       res.locals.decodedToken = decodedToken;
       req.auth= {
+        isAdmin: decodedToken.admin,
         id: decodedToken.id
       }
       next()

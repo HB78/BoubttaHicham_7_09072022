@@ -53,8 +53,12 @@ body {
 .cards_autor_img p {
   margin-left: 8px;
 }
+.cards_autor_identity p {
+  float: right;
+}
 .cards_autor {
   display:flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 input {

@@ -46,17 +46,19 @@ function UpdateAndDeletePosts({ allData, togglePosts }) {
       url: `http://localhost:3000/publication/${allData.id}`,
       data: formData
     })
-    // togglePosts();
+    togglePosts();
   }
 
   return (
     <div className="card">
       {/* <!-- MENU INTERNE DANS LA CARD --> */}
-      <div className="right">
-        <UpdatePosts togglePosts={togglePosts} />
-      </div>
       <div className="sendPostContainer">
-        <h3 className="sendPostTitle">Mettez votre publication à jour</h3>
+        <div className="sendPostTitle">
+          <h3>Mettez votre publication à jour</h3>
+          <div className="right">
+            <UpdatePosts togglePosts={togglePosts} />
+          </div>
+        </div>
         <form action="/upload" method="PUT" encType="multipart/form-data" onSubmit={updatePosts} className="formulairePublication">
           <div className="inputsTextAndArea">
             <input type="text"

@@ -57,7 +57,8 @@ export default function CreationPosts({getPosts}) {
       <form action="/upload" method="POST" encType="multipart/form-data" onSubmit={sendPost} className= "formulairePublication">
         <div className="inputsTextAndArea">
           <input type="text" 
-          required placeholder="le titre de votre publication" 
+          className='inputTitle_create_publication'
+          required placeholder="Le titre de votre publication" 
           value={titleOfPost}
           onChange={titles}/>
           <textarea name="posts" 

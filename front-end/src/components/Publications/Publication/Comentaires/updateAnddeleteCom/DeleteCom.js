@@ -1,8 +1,5 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
-import { ToastContainer, toast, Zoom } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 
 function DeleteCom({ deleteCommentaire, getPosts, id, isAdmin }) {
 

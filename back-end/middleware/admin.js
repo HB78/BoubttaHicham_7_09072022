@@ -5,7 +5,7 @@
 //importations
 module.exports = (req, res, next) => {
   try {
-    if (!req.body.decodedToken || (req.body.decodedToken && !req.body.decodedToken.admin)) {
+    if (!req.auth.isAdmin) {
       throw "Cette route est réservée aux utilisateurs administrateurs."
     }
     next()
@@ -16,3 +16,4 @@ module.exports = (req, res, next) => {
       res.status(401).json({error});
   }
 };
+//!req.body.decodedToken || (req.body.decodedToken && !req.body.decodedToken.admin)

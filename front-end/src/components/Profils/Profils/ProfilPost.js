@@ -44,32 +44,32 @@ export default function ProfilPost({ data, getPosts }) {
 
   function DisplayPublicationProfil() {
     return (
-      <div className="card">
+      <div className="card_profil">
         <div>
-          <div className="sub-menu">
+          <div className="sub-menu_profil">
             <div>
               <ShowLike idPubliLike={data.publiID} />
             </div>
             <h2>{data.title}</h2>
             {/* <!-- MENU INTERNE DANS LA CARD --> */}
-            <div className="right">
+            <div className="right_profil">
               <UpdatePosts togglePosts={togglePosts} />
               <DeletePosts deletePosts={deletePosts} />
             </div>
           </div>
           <p>{data.contenu}</p>
-          <div className="card_imagePosted"><img src={data.photoPost} alt="" /></div>
+          <div className="card_imagePosted_profil"><img src={data.photoPost} alt="" /></div>
         </div>
-        <div className="cards_autor">
-          <div className="cards_autor_img">
-            <img src={photos()} alt="" className="cards_autor_img_autor" />
+        <div className="cards_autor_profil">
+          <div className="cards_autor_img_profil">
+            <img src={photos()} alt="" className="cards_autor_img_autor_profil" />
             <p>{data.userName}</p>
           </div>
           <div className="cards_autor_identity">
             <p>posté le {data.date_publi}</p>
           </div>
         </div>
-        <div className="bar"></div>
+        <div className="bar_profil"></div>
         <button onClick={getComment}><p>Commentaires</p></button>
         <CreationComs idPublication={data.publiID} getPosts={getPosts} />
         {dislayCom && <Comentaires idPubli={data.publiID} datas={data} getPosts={getPosts} />}

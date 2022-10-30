@@ -5,6 +5,7 @@ import Forum from "./pages/Forum";
 import Organigramme from "./pages/Organigramme";
 import Profil from "./pages/Profil"
 import Accueil from "./pages/Accueil";
+import Error from "./components/error 404/Error";
 // visiblement le Routes a remplacé le switch
 
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/publication" element={<Forum />}></Route>
         <Route path="/organigramme" element={<Organigramme />}></Route>
         <Route path="/profil/:id" element={<Profil />}></Route>
+        <Route path="*" element={<Error />}></Route>
       </Routes>
     </div>
   );

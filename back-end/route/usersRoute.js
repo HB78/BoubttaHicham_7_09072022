@@ -4,6 +4,8 @@ const router = express.Router();
 //authentification par token
 const auth = require("../middleware/auth");
 
+const admin = require("../middleware/admin")
+
 const {UpdateDescription} = require("../controller/usersController");
 
 const {updatePoste} = require("../controller/usersController");
@@ -45,7 +47,7 @@ router.post("/login", login);
 router.get("/:id", multer, getOneUser); //dois-je remettre le auth ici ?
 
 //changement du mot de passe du user
-router.put("/:id", auth, updatePasswordOfUser);
+router.put("/password/:id", auth, updatePasswordOfUser);
 
 //changement de la photo de profil du user
 router.put("/photo/:id", auth, multer, updatePhotoProfil);
@@ -54,9 +56,12 @@ router.put("/photo/:id", auth, multer, updatePhotoProfil);
 router.put("/description/:id", auth, UpdateDescription);
 
 //l'utilisateur a changé de poste
-router.put("/:id/poste", auth, updatePoste);
+router.put("/poste/:id", auth, updatePoste);
 
 //suppression du compte utilisateur
-router.delete("/delete/:id", auth, deleteUser);
+router.delete("/:id", auth, deleteUser);
+
+//suppression du compte utilisateur PAR UN ADMIN
+router.delete("/admin/:id", auth, admin, deleteUser);
 
 module.exports = router;
