@@ -35,7 +35,7 @@ function DeleteProfil({isAdmin, idUser, data}) {
         navigate("/login", { replace: true });
       }
       const deleteAccountStyle = {
-        width: "40%",
+        width: "57%",
         cursor: "pointer",
         background: "red",
         color: "white",
@@ -44,7 +44,7 @@ function DeleteProfil({isAdmin, idUser, data}) {
       }
   return (
     <>
-    {(isAdmin === 1 || idUser === data[0].userID) ?  <input type="button"  value="Supprimer votre compte" style={deleteAccountStyle} onClick={cancelCount}/> : null}
+    {(isAdmin === 1 || idUser === data[0].userID) ?  <input type="button" className='btn_delete_count' value="Supprimer votre compte" style={deleteAccountStyle} onClick={cancelCount}/> : null}
     </>
   )
 }

@@ -5,6 +5,7 @@ import Loader from './../Loader/Loader';
 import ProfilPost from './Profils/ProfilPost'
 import ProfilCard from './Profils/profilCard/ProfilCard';
 import Header from './../Header';
+import "./profilResponsive/profilResponsive.css"
 
 export default function Profils({ data, getPosts }) {
   console.log('data:--> from profils page', data)

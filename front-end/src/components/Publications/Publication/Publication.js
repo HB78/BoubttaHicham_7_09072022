@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import "./publication.css";
+import "./responsive/responsivePublication.css";
 import Comentaires from "./Comentaires/Comentaires";
 import AuthContext from '../../../auth/authContext';
 import { Link, useNavigate } from 'react-router-dom'
@@ -71,10 +72,10 @@ export default function Publication({ data, getPosts }) {
       <div className="card">
         <div>
           <div className="sub-menu">
-            <div>
+            <div className='like_dislike'>
               <ShowLike idPubliLike={data.id} />
             </div>
-            <h2>{data.title}</h2>
+            <h2 className='h2_publication'>{data.title}</h2>
             {/* <!-- MENU INTERNE DANS LA CARD --> */}
             {(data.userID === parseInt(localStorage.getItem("userId")) || isAdmin === 1) ?  
             <div className="right">
@@ -82,7 +83,7 @@ export default function Publication({ data, getPosts }) {
               <DeletePosts deletePosts={deletePosts} data={data}/>
             </div> : <div className='title_publication'></div>}
           </div>
-          <p>{data.contenu}</p>
+          <p className='publication_description'>{data.contenu}</p>
           <div className="card_imagePosted"><img src={data.photoPost} alt="" /></div>
         </div>
         <div className="cards_autor">
@@ -95,7 +96,7 @@ export default function Publication({ data, getPosts }) {
           </div>
         </div>
         <div className="bar"></div>
-        <button onClick={getComment}><p>Commentaires</p></button>
+        <button onClick={getComment} className="show_comment"><p>Commentaires</p></button>
         <CreationComs idPublication={data.id} getPosts={getPosts} />
         {dislayCom && <Comentaires idPubli={data.id} datas={data} getPosts={getPosts} />}
       </div>

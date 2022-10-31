@@ -90,6 +90,7 @@ input {
   width: 10%;
   display: flex;
   justify-content: space-evenly;
+  gap: 1.2rem;
 }
 
 a {

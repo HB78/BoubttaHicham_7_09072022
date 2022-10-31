@@ -88,7 +88,8 @@ export default function Header({ oneUser }) {
   const styleFirstContaineInHeader = {
     display: 'flex',
     alignItems: 'center',
-    gap: "1rem"
+    gap: "1rem",
+    fontSize: "1.2rem"
   }
   const id = localStorage.getItem("userId")
   return (
@@ -105,7 +106,7 @@ export default function Header({ oneUser }) {
           <ul style={ulStyle}>
             <li><Link to={`/profil/${id}`}>Profil</Link></li>
             <li><Link to={'/publication'}>Accueil</Link></li>
-            <li style={liStyle} onClick={menuAppear}><img src={(oneUser === null || oneUser[0].image_profil === null) ? profilPhoto : oneUser[0].image_profil} alt="" style={liStyleImg} /></li>
+            <li style={liStyle} onClick={menuAppear} className="menu_header"><img src={(oneUser === null || oneUser[0].image_profil === null) ? profilPhoto : oneUser[0].image_profil} alt="" style={liStyleImg} /></li>
           </ul>
         </nav>
       </StyledHeader>

@@ -1,0 +1,367 @@
+/* *******************************REPONSIVE****************************** */
+
+/*LE SMARTPHONE */
+@media (min-width:320px) and (max-width:767px){
+    .card {
+      border: 1px solid black;
+      min-width: 90%;
+      height: auto;
+      margin: auto;
+      border-radius: 1rem;
+      box-sizing: border-box;
+      padding: 0 10px;
+      padding-bottom: 10px;
+    }
+    /* image poste par le user*/
+     .card_imagePosted img {
+      min-width: 90%;
+      margin-bottom: 20px;
+      border-radius: 1rem;
+}
+    .h2_publication {
+      font-size: 1.1rem;
+      width: 40%;
+    }
+    .like_dislike {
+      width: 24%;
+    }
+    .right{
+      width: 24%;
+      margin: 0.7rem;
+    }
+    .sendPostContainer {
+      margin: 0;
+      width: 100%;
+    }
+    .sendPostContainer > form {
+      width: 100%;
+    }
+    .inputsTextAndArea {
+      width: 95% !important;
+      margin: 0;
+    }
+    #posts {
+      width: 100%;
+      font-size:  1rem;
+    }
+    nav > ul > li {
+      display: none;
+    }
+    .menu_header {
+      display: block;
+    }
+  }
+  /*LES PETITS SMARTPHONES */
+@media (max-width: 327px) {
+
+  .h2_publication {
+    font-size: 0.95rem;
+    width: 40%;
+  }
+  .like_dislike {
+    width: 28%;
+  }
+  
+  .sendPostContainer > form {
+    width: 90%;
+  }
+  #posts {
+    width: 100%;
+    font-size:  1rem;
+  }
+  nav > ul > li {
+    display: none;
+  }
+  .menu_header {
+    display: block;
+  }
+}
+/*tablette*/
+@media (min-width:768px) and (max-width:1200px) {
+  .card {
+    border: 1px solid black;
+    min-width: 92%;
+    height: auto;
+    margin: auto;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    padding: 0 10px;
+    padding-bottom: 10px;
+  }
+  .sendPostTitle {
+    font-size: 1.3rem;
+  }
+  .sub-menu {
+    font-size: 1.2rem;
+  }
+  .sendPostContainer {
+    margin: 0;
+    width: 100%;
+  }
+  .sendPostContainer > form {
+    width: 100%;
+  }
+  .inputsTextAndArea {
+    width: 95% !important;
+    margin: 0;
+  }
+  .publication_description {
+    font-size: 1.35rem;
+  }
+  #posts {
+    width: 100%;
+    font-size:  1.2rem;
+  }
+  .inputTitle_create_publication {
+    font-size: 1.1rem !important;
+  }  
+  .cards_autor {
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+  .cards_autor_img {
+    width: 5.5rem !important;
+    height: 5.5rem !important;
+  }
+}
+@media (min-width:1000px) and (max-width:1200px) {
+  .publication_description {
+    font-size: 1.7rem;
+  } 
+  .sendPostTitle {
+    font-size: 1.4rem;
+  }
+  #posts {
+    width: 100%;
+    font-size:  1.3rem;
+  }
+  .inputTitle_create_publication {
+    font-size: 1.2rem !important;
+    padding: 0.5rem 0;
+  }
+  .sub-menu {
+    font-size: 2rem;
+  }  
+  nav > ul {
+    font-size: 1.7rem;
+  }  
+  .menu_header {
+    width: 5rem !important;
+    height: 5rem !important;
+  }
+  .show_comment {
+    font-size: 1.3rem;
+    margin-left: 0;
+  }
+}
+/*ECRAN TV */
+@media (min-width:1440px) and (max-width:1600px) {
+  .card {
+    border: 1px solid black;
+    min-width: 92%;
+    height: auto;
+    margin: auto;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    padding: 0 10px;
+    padding-bottom: 10px;
+  }
+  
+  .sendPostTitle {
+    font-size: 1.8rem;
+  }
+  .sub-menu {
+    font-size: 2rem;
+  }
+  .sendPostContainer {
+    margin: 0;
+    width: 100%;
+  }
+  .sendPostContainer > form {
+    width: 100%;
+  }
+  .inputsTextAndArea {
+    width: 95% !important;
+    margin: 0;
+  }
+  .publication_description {
+    font-size: 2.7rem;
+  }
+  #posts {
+    width: 100%;
+    font-size:  1.3rem;
+  }
+  .inputTitle_create_publication {
+    font-size: 1.2rem !important;
+  }
+  nav > ul {
+    font-size: 1.7rem;
+  }  
+  .menu_header {
+    width: 5rem !important;
+    height: 5rem !important;
+  }
+   .show_comment {
+    font-size: 1.5rem;
+    margin-left: 0;
+  }
+  .cards_autor {
+    font-size: 1.95rem;
+    font-weight: 300;
+  }
+  .cards_autor_img {
+    width: 5.5rem !important;
+    height: 5.5rem !important;
+  }
+  #posts {
+    width: 100%;
+    font-size:  2.2rem;
+  }
+  .inputTitle_create_publication {
+    font-size: 1.9rem !important;
+    padding: 0.5rem 0;
+  }
+  .inputsFileAndSubmit input {
+    font-size: 2.2rem;
+  }
+  .inputMessage {
+    width: 90% !important;
+  }
+  .btn_sendMessage {
+    width: 6rem !important;
+    height: 6rem !important;
+    font-size: 2.5rem !important;
+  }
+}
+@media (min-width:1601px) and (max-width:1701px) {
+  .card {
+    border: 1px solid black;
+    min-width: 92%;
+    height: auto;
+    margin: auto;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    padding: 0 10px;
+    padding-bottom: 10px;
+  }
+  .show_comment {
+    font-size: 1.5rem;
+    margin-left: 0;
+  }
+  .sub-menu {
+    font-size: 2.2rem;
+  }
+  .publication_description {
+    font-size: 2.7rem;
+  }
+  .cards_autor {
+    font-size: 2.2rem;
+  }
+  .cards_autor_img {
+    width: 80px;
+    height: 80px;
+  }
+  .inputsFileAndSubmit input {
+    font-size: 2.2rem;
+  }
+  .inputMessage {
+    width: 90% !important;
+  }
+  .btn_sendMessage {
+    width: 6rem !important;
+    height: 6rem !important;
+    font-size: 2.5rem !important;
+  }
+ 
+  .inputTitle_create_publication {
+    font-size: 2rem !important;
+  }
+  .sendPostTitle {
+    font-size: 2.5rem;
+  }
+  /*HEADER*/
+  header {
+    font-size: 2.5rem;
+  }
+  header > div > div > h3{
+    font-size: 2.5rem;
+  }
+  .menu_header {
+    width: 5.8rem !important;
+    height: 5.8rem !important;
+    margin-left: 1rem;
+  }
+}
+/*ecran 4K*/
+@media (min-width:1702px) and (max-width:3000px)  {
+  .card {
+    border: 1px solid black;
+    min-width: 94%;
+    height: auto;
+    margin: auto;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    padding: 0 10px;
+    padding-bottom: 10px;
+  }
+  .show_comment {
+    font-size: 2.4rem;
+    margin-left: 0;
+  }
+  .sub-menu {
+    font-size: 3rem;
+  }
+  .publication_description {
+    font-size: 3.6rem;
+  }
+  .cards_autor {
+    font-size: 3rem;
+  }
+  .cards_autor_img {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  .inputMessage {
+    font-size: 2.7rem !important;
+  }
+  .btn_sendMessage {
+    width: 7.5rem !important;
+    height: 7.5rem !important;
+    font-size: 3.5rem !important;
+  }
+  .sendPostContainer {
+    margin: 0;
+    width: 100%;
+  }
+  .sendPostContainer > form {
+    width: 100%;
+  }
+  .inputsTextAndArea {
+    width: 95% !important;
+    margin: 0;
+  }
+  #posts {
+    font-size: 3.7rem !important;
+    width: 100%;
+  }
+  .inputTitle_create_publication {
+    font-size: 2.8rem !important;
+  }
+  nav > ul {
+    font-size: 2.9rem;
+  } 
+  .menu_header {
+    width: 8rem !important;
+    height: 8rem !important;
+    margin-left: 2rem;
+  }
+  .sendPostTitle {
+    font-size: 4rem;
+  }
+  .inputsFileAndSubmit input {
+    font-size: 4.4rem;
+  }
+  .menu-box ul li a {
+    font-size: 9rem;
+  }
+}

@@ -57,7 +57,7 @@ export default function ProfilPost({ data, getPosts }) {
               <DeletePosts deletePosts={deletePosts} />
             </div>
           </div>
-          <p>{data.contenu}</p>
+          <p className='publication_description_profil '>{data.contenu}</p>
           <div className="card_imagePosted_profil"><img src={data.photoPost} alt="" /></div>
         </div>
         <div className="cards_autor_profil">
@@ -70,7 +70,7 @@ export default function ProfilPost({ data, getPosts }) {
           </div>
         </div>
         <div className="bar_profil"></div>
-        <button onClick={getComment}><p>Commentaires</p></button>
+        <button onClick={getComment} className="show_comment"><p>Commentaires</p></button>
         <CreationComs idPublication={data.publiID} getPosts={getPosts} />
         {dislayCom && <Comentaires idPubli={data.publiID} datas={data} getPosts={getPosts} />}
       </div>

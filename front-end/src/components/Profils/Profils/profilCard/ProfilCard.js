@@ -32,7 +32,7 @@ export default function ProfilCard({ data }) {
   text-align: center;
 `
 const updateAccountStyle = {
-  width: "40%",
+  width: "57%",
   cursor: "pointer",
   background: "green",
   color: "white",
@@ -61,7 +61,7 @@ const updateAccountStyle = {
       <StyledProfilUpdate>
         {isUpdateVisible === true ? <UpdatePhotoProfil /> : null}
       </StyledProfilUpdate>
-      {(isAdmin === 1 || idUser === data[0].userID) ? <input type="button" value={isUpdateVisible ? "fermer le menu des mises à jour" : "Mise à jour du profil"} style={updateAccountStyle} onClick={showUpdate} /> : null }
+      {(isAdmin === 1 || idUser === data[0].userID) ? <input type="button" className='btn_update_count' value={isUpdateVisible ? "fermer le menu des mises à jour" : "Mise à jour du profil"} style={updateAccountStyle} onClick={showUpdate} /> : null }
       <DeleteProfil isAdmin={isAdmin} idUser={idUser} data={data} />
     </section>
   )

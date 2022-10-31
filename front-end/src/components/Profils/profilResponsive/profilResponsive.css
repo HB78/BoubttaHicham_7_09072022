@@ -1,0 +1,391 @@
+@media (min-width:320px) and (max-width:767px) {
+    .card_profil {
+        border: 1px solid black;
+        min-width: 90%;
+        height: auto;
+        margin: auto;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        padding-bottom: 10px;
+      }
+      /*publication création*/
+      .sendPostContainer {
+        margin: 0;
+        width: 100%;
+      }
+      .sendPostContainer_profil > form {
+        width: 100%;
+      }
+      /* image poste par le user*/
+     .card_imagePosted_profil img {
+        min-width: 90%;
+        margin-bottom: 30px;
+        border-radius: 1rem;
+  }
+}
+/*tablette*/
+@media (min-width:768px) and (max-width:1200px) {
+    .card_profil {
+        border: 1px solid black;
+        min-width: 90%;
+        height: auto;
+        margin: auto;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        padding-bottom: 10px;
+      }
+      .sendPostTitle {
+        font-size: 1.3rem;
+      }
+      .sub-menu_profil {
+        font-size: 1.2rem;
+      }
+      .publication_description_profil {
+        font-size: 1.35rem;
+      }
+      #posts_profil {
+        width: 100%;
+        font-size:  1.2rem;
+      }
+      .inputTitle_create_publication {
+        font-size: 1.1rem !important;
+      }  
+      .cards_autor_profil {
+        font-size: 1.5rem;
+        font-weight: 300;
+      }
+      .cards_autor_img_profil {
+        width: 5.5rem !important;
+        height: 5.5rem !important;
+      }
+      /*Input dans le container qui crée les publications*/
+      .inputsFileAndSubmit input{
+        font-size: 1.3rem;
+      }
+      /*le bouton qui montre les commentaires*/
+      .show_comment {
+        font-size: 1.3rem;
+        margin-left: 0;
+      }
+      /*input et button qui envoie les coms dans la card*/
+      .creation_com {
+        font-size: 1.9rem !important;
+        padding: 0.5rem 0;
+      }
+      .inputMessage {
+        width: 90% !important;
+      }
+      .btn_sendMessage {
+        width: 5rem !important;
+        height: 5rem !important;
+        font-size: 2.5rem !important;
+      }
+      /*La partie card profil*/
+      .containerCard {
+        font-size: 1.3rem !important;
+      }
+      /*image de profil dans la card violette*/
+      .containerCard div > img{
+        width: 6rem;
+        height: 6rem;
+      }
+      /*bouton vert qui update le profil*/
+      .btn_delete_count {
+        font-size: 1.3rem;
+      }
+      .btn_update_count {
+        font-size: 1.3rem;
+      }
+}
+@media (min-width:1000px) and (max-width:1200px) {
+    /*"poster votre publication */
+      .sendPostTitle {
+        font-size: 1.7rem;
+      }
+    /*la div avec les coeurs titre et update icon de la publication*/
+      .sub-menu_profil {
+        font-size: 1.6rem;
+      }
+    /*le descriptif de la publication*/
+      .publication_description_profil {
+        font-size: 1.45rem;
+      }
+    /*la div pqui contient le creation publication*/
+      .sendPostContainer {
+        width: 95%;
+      }
+      /*le title au dessus du text area*/
+      .inputTitle_create_publication {
+        font-size: 2rem !important;
+      }
+      /*le texte area*/
+      #posts {
+        font-size: 1.8rem !important;
+      }
+      .containerCard {
+        font-size: 2rem !important;
+      }
+}
+/*ECRAN TV */
+@media (min-width:1440px) and (max-width:1600px) {
+    .card_profil {
+      border: 1px solid black;
+      min-width: 92%;
+      height: auto;
+      margin: auto;
+      border-radius: 1rem;
+      box-sizing: border-box;
+      padding: 0 10px;
+      padding-bottom: 10px;
+    }
+    .containerCard{
+        font-size: 3rem;
+    }
+    .sendPostTitle {
+      font-size: 2.5rem;
+    }
+    .sub-menu_profil {
+      font-size: 2.5rem;
+    }
+    .publication_description_profil {
+        font-size: 2.9rem;
+      }
+    .sendPostContainer {
+      margin: 0;
+      width: 90%;
+    }
+    .sendPostContainer > form {
+      width: 100%;
+    }
+    .inputsTextAndArea {
+      width: 100% !important;
+      margin: 0;
+    }
+    .inputTitle_create_publication {
+      font-size: 1.9rem !important;
+    }
+    nav > ul {
+      font-size: 2.2rem;
+    }  
+    .menu_header {
+      width: 6rem !important;
+      height: 6rem !important;
+    }
+     .show_comment {
+      font-size: 1.8rem;
+      margin-left: 0;
+    }
+    .cards_autor_profil {
+      font-size: 2.2rem;
+      font-weight: 300;
+    }
+    .cards_autor_img_profil {
+      width: 8.5rem !important;
+      height: 8.5rem !important;
+    }
+    #posts {
+      width: 100%;
+      font-size:  2.3rem;
+    }
+    .inputTitle_create_publication {
+      font-size: 1.9rem !important;
+      padding: 0.5rem 0;
+    }
+    .inputsFileAndSubmit input {
+      font-size: 2.6rem;
+    }
+    .inputMessage {
+      width: 90% !important;
+    }
+    .btn_sendMessage {
+      width: 6rem !important;
+      height: 6rem !important;
+      font-size: 2.5rem !important;
+    }
+     /*bouton vert qui update le profil*/
+     .btn_delete_count {
+        font-size: 2.1rem;
+      }
+     .btn_update_count {
+        font-size: 2.1rem;
+      }
+  }
+  @media (min-width:1601px) and (max-width:1701px) {
+    .card_profil {
+        border: 1px solid black;
+        min-width: 92%;
+        height: auto;
+        margin: auto;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        padding-bottom: 10px;
+      }
+      .containerCard{
+        font-size: 3.5rem;
+      }
+      .sendPostTitle {
+        font-size: 3.5rem;
+      }
+      .sub-menu_profil {
+        font-size: 2.8rem;
+      }
+      .publication_description_profil {
+          font-size: 3.1rem;
+        }
+      .sendPostContainer {
+        margin: 0;
+        width: 90%;
+      }
+      .sendPostContainer > form {
+        width: 100%;
+      }
+      .inputsTextAndArea {
+        width: 100% !important;
+        margin: 0;
+      }
+      .inputTitle_create_publication {
+        font-size: 1.9rem !important;
+      }
+      nav > ul {
+        font-size: 2.8rem;
+      }  
+      .menu_header {
+        width: 6rem !important;
+        height: 6rem !important;
+      }
+       .show_comment {
+        font-size: 2rem;
+        margin-left: 0;
+      }
+      .cards_autor_profil {
+        font-size: 3rem;
+        font-weight: 300;
+      }
+      .cards_autor_img_profil {
+        width: 8.5rem !important;
+        height: 8.5rem !important;
+      }
+      #posts {
+        width: 100%;
+        font-size:  2.3rem;
+      }
+      .inputTitle_create_publication {
+        font-size: 1.9rem !important;
+        padding: 0.5rem 0;
+      }
+      .inputsFileAndSubmit input {
+        font-size: 2.6rem;
+      }
+      .inputMessage {
+        width: 90% !important;
+        padding: 1.5rem 0 !important;
+      }
+      .btn_sendMessage {
+        width: 6.3rem !important;
+        height: 6.3rem !important;
+        font-size: 2.5rem !important;
+      }
+       /*bouton vert qui update le profil*/
+       .btn_delete_count {
+          font-size: 2.1rem;
+        }
+       .btn_update_count {
+          font-size: 2.1rem;
+        }
+       .containerCard div > img{
+            width: 13rem;
+            height: 13rem;
+        }
+  }
+/*ECRAN 4K */
+@media (min-width:1702px) and (max-width:3000px) {
+    .card_profil {
+        border: 1px solid black;
+        min-width: 92%;
+        height: auto;
+        margin: auto;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        padding-bottom: 10px;
+      }
+    .containerCard{
+        font-size: 4rem;
+      }
+    .sendPostTitle {
+        font-size: 4.5rem;
+      }
+    .sub-menu_profil {
+        font-size: 3.8rem;
+      }
+    .publication_description_profil {
+        font-size: 5rem;
+    }
+    .sendPostContainer {
+        margin: 0;
+        width: 90%;
+      }
+    .sendPostContainer > form {
+        width: 100%;
+      }
+    .inputsTextAndArea {
+        width: 100% !important;
+        margin: 0;
+      }
+    .inputTitle_create_publication {
+        font-size: 6rem !important;
+      }
+    nav > ul {
+        font-size: 3.4rem;
+      }  
+    .menu_header {
+        width: 8rem !important;
+        height: 8rem !important;
+      }
+    .show_comment {
+        font-size: 4rem;
+        margin-left: 0;
+      }
+    .cards_autor_profil {
+        font-size: 5rem;
+        font-weight: 300;
+      }
+    .cards_autor_img_profil {
+        width: 10.5rem !important;
+        height: 10.5rem !important;
+      }
+    #posts {
+        width: 100%;
+        font-size:  4rem;
+      }
+    .inputTitle_create_publication {
+        font-size: 3.5rem !important;
+        padding: 0.5rem 0;
+      }
+    .inputsFileAndSubmit input {
+        font-size: 4rem;
+      }
+    .inputMessage {
+        width: 90% !important;
+        padding: 2.2rem 0 !important;
+      }
+    .btn_sendMessage {
+        width: 6.3rem !important;
+        height: 6.3rem !important;
+        font-size: 2.9rem !important;
+      }
+       /*bouton vert qui update le profil*/
+    .btn_delete_count {
+          font-size: 3.1rem;
+        }
+    .btn_update_count {
+          font-size: 3.1rem;
+        }
+    .containerCard div > img{
+            width: 14rem;
+            height: 14rem;
+        }
+}

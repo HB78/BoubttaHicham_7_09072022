@@ -2,7 +2,6 @@
 .btn_sendMessage {
     width: 2.5rem;
     height: 2.5rem;
-    margin: 1.2rem;
     border-radius: 100%;
     border: 1px solid grey;
     cursor: pointer;
@@ -17,9 +16,14 @@
   .inputMessage {
     width: 88%;
     height: auto;
-    margin-top: 1rem;
     border-radius: 1rem;
     border: grey 1px solid;
     outline: none;
     padding: 1%;
+    margin-bottom: 10px;
+  }
+  .creation_com {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }

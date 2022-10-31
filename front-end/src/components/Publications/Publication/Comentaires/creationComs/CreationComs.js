@@ -39,7 +39,7 @@ function CreationComs({idPublication, getPosts}) {
     }
   }
   return (
-    <>
+    <div className='creation_com'>
       <input
         type="text"
         className="inputMessage"
@@ -49,7 +49,7 @@ function CreationComs({idPublication, getPosts}) {
         className="btn_sendMessage"
         onClick={sendCommentaire}>{'>'}
       </button>
-    </>
+    </div>
   )
 }
 
