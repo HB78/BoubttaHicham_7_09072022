@@ -1,20 +1,36 @@
 /*LE SMARTPHONE */
 @media (min-width:320px) and (max-width:767px) {
     .main_acceuil {
+        align-items: center;
         flex-direction: column;
-        padding-bottom: 3rem;
+        justify-content: center;
     }
     .acceuil_contain {
        display: none;
     }
     h2 > em {
         margin-right: 10px;
+        text-align: center;
     }
     .btn_signup{
        width: 8.9rem !important;
     }
     .btn_login {
         width: 8.9rem !important;
+    }
+    .acceuil_texte {
+        text-align: center;
+    }
+    .inscription {
+        margin-top: 2.5rem;
+    }
+}
+@media (min-width:649px) and (max-width:767px) {
+    .main_acceuil {
+        flex-direction: column;
+    }
+    .inscription {
+        margin-top: 5rem;
     }
 }
 /*Tablette*/
@@ -35,6 +51,9 @@
     .btn_login {
         width: 19rem !important;
     }
+    .inscription {
+        margin-top: 2rem;
+    }
 }
 @media (min-width:1000px) and (max-width:1200px) {
     .main_acceuil {
@@ -43,9 +62,6 @@
     }
     .acceuil_texte h1 {
         font-size: 3rem;
-    }
-    .inscription {
-        margin-top: 12rem;
     }
     h2 > em {
         margin-right: 10px;
@@ -64,9 +80,6 @@
 @media (min-width:1440px) and (max-width:1600px) {
     .acceuil_texte h1 {
         font-size: 2.5rem;
-    }
-    .acceuil_contain {
-        width: 80%;
     }
     h2 > em {
         margin-right: 10px;

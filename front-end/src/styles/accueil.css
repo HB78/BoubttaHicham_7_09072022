@@ -2,6 +2,7 @@
     display:flex;
     background: #e5d1fa;
     overflow-y: hidden;
+    height: 100vh;
 }
 body {
     margin: 0;
