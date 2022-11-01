@@ -4,7 +4,8 @@ import DeletePosts from './DeletePosts';
 import UpdatePosts from './UpdatePosts';
 import './updatedeleteicon.css';
 
-function UpdateAndDeletePosts({ allData, togglePosts }) {
+function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
+  console.log('getPosts:', getPosts)
   console.log('allData:', allData)
   // const [update, setUpdate] = useState(false)
 
@@ -47,6 +48,7 @@ function UpdateAndDeletePosts({ allData, togglePosts }) {
       data: formData
     })
     togglePosts();
+    getPosts()
   }
 
   return (

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
-import AuthContext from '../../../../auth/authContext';
+import AuthContext from '../../../auth/authContext';
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function DeletePosts({ deletePosts, data, getPosts }) {
+function deletePostsByAdminProfil({ deletePosts, data }) {
 
   //Une fonction qui permet à l'admin de supprimer une publication
 
@@ -23,7 +23,6 @@ function DeletePosts({ deletePosts, data, getPosts }) {
       // data: JSON.stringify(localStorage.getItem("userId"))
     })
     notify()
-    getPosts()
   }
 
   //un toast 
@@ -51,4 +50,4 @@ function DeletePosts({ deletePosts, data, getPosts }) {
   )
 }
 
-export default DeletePosts
+export default deletePostsByAdminProfil

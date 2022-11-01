@@ -60,3 +60,11 @@ Voir le code dans le back qui sert a supprimer un utilisateur
 
 ********************************** APRES LA SESSION ********************************
 Etudier la partie du code brad traversy ou il donne l'illusion d'un delete pour permettre le re-rendering 
+
+---> probleme de loader au niveau de la page profil
+
+---> le responsive à regler (header, footer, update publication, input de create publication, les input de mise a jour du profil)
+
+---> probleme dans la page profil, si on entre un user inexistant dans la barre de navigation on ne va pas dans la page error 404
+
+---> faire l'organigramme

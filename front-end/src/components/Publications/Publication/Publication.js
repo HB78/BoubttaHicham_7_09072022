@@ -79,8 +79,8 @@ export default function Publication({ data, getPosts }) {
             {/* <!-- MENU INTERNE DANS LA CARD --> */}
             {(data.userID === parseInt(localStorage.getItem("userId")) || isAdmin === 1) ?  
             <div className="right">
-              <UpdatePosts togglePosts={togglePosts}/>
-              <DeletePosts deletePosts={deletePosts} data={data}/>
+              <UpdatePosts togglePosts={togglePosts} getPosts={getPosts}/>
+              <DeletePosts deletePosts={deletePosts} data={data} getPosts={getPosts}/>
             </div> : <div className='title_publication'></div>}
           </div>
           <p className='publication_description'>{data.contenu}</p>
@@ -103,6 +103,6 @@ export default function Publication({ data, getPosts }) {
     )
   }
   return (
-    update ? <UpdateAndDeletePosts allData={data} togglePosts={togglePosts}/> : <DisplayPublication />
+    update ? <UpdateAndDeletePosts allData={data} togglePosts={togglePosts} getPosts={getPosts}/> : <DisplayPublication />
   )
 }

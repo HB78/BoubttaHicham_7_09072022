@@ -2,10 +2,12 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import apiUrl from "../api_url";
 import Profils from '../components/Profils/Profils';
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
+import Error from "./../components/error 404/Error"
 
 export default function Profil() {
   const [postsOfOneUser, setPostsOfOneUser] = useState({})
+  let navigate = useNavigate();
 
   // const params = useParams();
   // const id = params.id;
@@ -13,7 +15,7 @@ export default function Profil() {
   
   useEffect(() => {
     getPostsOfOneUser()
-  }, [])
+  }, [id])
 
   async function getPostsOfOneUser() {
     try {
@@ -23,6 +25,8 @@ export default function Profil() {
       console.log(postsOfOneUser, "from profil")
     } catch (error) {
       console.log(error)
+      alert(error.response.data)
+      navigate("/error", { replace: true })
     }
   }
   return (

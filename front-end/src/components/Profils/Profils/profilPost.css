@@ -91,6 +91,7 @@ input {
   width: 10%;
   display: flex;
   justify-content: space-evenly;
+  visibility: hidden;
 }
 
 a {

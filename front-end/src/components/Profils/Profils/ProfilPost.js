@@ -54,7 +54,7 @@ export default function ProfilPost({ data, getPosts }) {
             {/* <!-- MENU INTERNE DANS LA CARD --> */}
             <div className="right_profil">
               <UpdatePosts togglePosts={togglePosts} />
-              <DeletePosts deletePosts={deletePosts} />
+              <DeletePosts deletePosts={deletePosts} dataProfil={data}/>
             </div>
           </div>
           <p className='publication_description_profil '>{data.contenu}</p>
@@ -76,6 +76,7 @@ export default function ProfilPost({ data, getPosts }) {
       </div>
     )
   }
+  
   return (
     update ? <UpdateAndDeletePosts allData={data} togglePosts={togglePosts} /> :
    <DisplayPublicationProfil />

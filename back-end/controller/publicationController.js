@@ -47,10 +47,18 @@ exports.getLastPublicationOfUser = async (req, res) => {
         // if(rows.length > 0) {
         //     return res.status(200).json(row);
         // }
+        let checkUserId = `SELECT users.id, users.name AS userName, users.image_profil AS userPhoto, users.poste AS poste, users.description AS description FROM users WHERE users.id = '${req.params.id}';`
+        let [row, field] = await db.query(checkUserId)
+        if(!row.length > 0) {
+            return res.status(404).json("Cette utilisateur n'existe pas");
+        }
 
+        //si le user existe et qu'il n'a pas encore publié
         let [rows, fields] = await db.query(publicationsOfOneUser)
+        console.log('rows:', rows)
         if(!rows.length > 0) {
-            return res.status(404).json("l'utilisateur n'a encore rien publié");
+            let [row, field] = await db.query(checkUserId)
+            return res.status(200).json(row);
         }
         return res.status(200).json(rows);
 
@@ -131,7 +139,7 @@ exports.updatePublication = async (req, res) => {
         }
         
         let [rows, fields] = await db.query(request);
-        return res.status(200).json("la publication a été updaté");
+        return res.status(200).json(rows);
     } catch (error) {
         console.log(error)
         res.status(500).json(error);

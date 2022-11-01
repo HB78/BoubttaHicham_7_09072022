@@ -132,7 +132,7 @@ exports.getOneUser = async (req, res, next) => {
         let [rows, fields] = await db.query(oneUser);
         console.log('rows:', rows.length)
         if (rows.length == 0) {
-            return res.status(401).json("utilisateurs introuvable");
+            return res.status(401).json("utilisateur introuvable");
         } else {
             return res.status(200).json(rows);
         }
