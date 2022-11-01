@@ -1,0 +1,129 @@
+/*LE SMARTPHONE */
+@media (min-width:320px) and (max-width:767px) {
+    .main_acceuil {
+        flex-direction: column;
+        padding-bottom: 3rem;
+    }
+    .acceuil_contain {
+       display: none;
+    }
+    h2 > em {
+        margin-right: 10px;
+    }
+    .btn_signup{
+       width: 8.9rem !important;
+    }
+    .btn_login {
+        width: 8.9rem !important;
+    }
+}
+/*Tablette*/
+@media (min-width:768px) and (max-width:1200px) {
+    .main_acceuil {
+        flex-direction: column;
+        padding-bottom: 8.3rem;
+    }
+    .acceuil_contain {
+       display: none;
+    }
+    h2 > em {
+        margin-right: 10px;
+    }
+    .btn_signup{
+       width: 19rem !important;
+    }
+    .btn_login {
+        width: 19rem !important;
+    }
+}
+@media (min-width:1000px) and (max-width:1200px) {
+    .main_acceuil {
+        flex-direction: column;
+        padding-bottom: 14rem;
+    }
+    .acceuil_texte h1 {
+        font-size: 3rem;
+    }
+    .inscription {
+        margin-top: 12rem;
+    }
+    h2 > em {
+        margin-right: 10px;
+        font-size: 2.5rem;
+    }
+    .btn_signup{
+       font-size: 3rem;
+       width: 29rem !important;
+    }
+    .btn_login {
+        font-size: 3rem;
+        width: 29rem !important;
+    }
+}
+/*ECRAN TV */
+@media (min-width:1440px) and (max-width:1600px) {
+    .acceuil_texte h1 {
+        font-size: 2.5rem;
+    }
+    .acceuil_contain {
+        width: 80%;
+    }
+    h2 > em {
+        margin-right: 10px;
+        font-size: 2rem;
+    }
+    .btn_signup{
+        font-size: 2rem;
+        width: 17rem !important;
+     }
+     .btn_login {
+         font-size: 2rem;
+         width: 17rem !important;
+     }
+}
+@media (min-width:1601px) and (max-width:1701px) {
+    .acceuil_texte h1 {
+        font-size: 2.5rem;
+    }
+    .acceuil_contain {
+        width: 60%;
+    }
+    h2 > em {
+        margin-right: 10px;
+        font-size: 2rem;
+    }
+    .btn_signup{
+        font-size: 2rem;
+        width: 17rem !important;
+     }
+     .btn_login {
+         font-size: 2rem;
+         width: 17rem !important;
+     }
+}
+/*ecran 4K*/
+@media (min-width:1702px) and (max-width:3000px) {
+    .inscription {
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .btn_signup{
+        font-size: 3.5rem;
+        width: 29rem !important;
+     }
+     .btn_login {
+         font-size: 3.5rem;
+         width: 29rem !important;
+     }
+     .acceuil_contain {
+        width: 75%;
+    }
+    .acceuil_texte h1 {
+        font-size: 2.8rem;
+    }
+    h2 > em {
+        margin-right: 30px;
+        font-size: 2.5rem;
+    }
+}

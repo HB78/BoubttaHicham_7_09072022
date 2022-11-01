@@ -47,7 +47,7 @@ export default function Formulaire() {
       <div className='titre'>
         <h1>Bienvenue sur Groupomania</h1>
       </div>
-      <h2>Le réseau social d'entreprise</h2>
+      <h2 className="second_title">Le réseau social d'entreprise</h2>
       <main className="test">
         <form onSubmit={handleSubmit(onSubmit)}>
           <TbWorld size={"35px"} color="#FD2D01" />

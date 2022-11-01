@@ -1,0 +1,140 @@
+/*LE SMARTPHONE */
+@media (min-width:320px) and (max-width:767px) {
+  /*Formulaire de connexion*/
+  .test > form {
+    min-width: 90%;
+  }
+  .test form > fieldset {
+    min-width: 95%;
+    min-height: 95%;
+    gap: 0rem;
+  }
+  form > fieldset input {
+    font-size: 1rem;
+  }
+  form > svg {
+   display: none;
+  }
+}
+/*Tablette*/
+@media (min-width:768px) and (max-width:1200px) {
+    .test > form {
+        min-width: 90%;
+    }
+      form > fieldset {
+        min-width: 95%;
+        min-height: 95%;;
+    }
+      form > fieldset input {
+        font-size: 1rem;
+    }
+    form > svg {
+        display: none;
+    }
+}
+@media (min-width:1000px) and (max-width:1200px) {
+    .test > form {
+        min-width: 90%;
+        backdrop-filter: blur(1px);
+    }
+      form > fieldset {
+        min-width: 95%;
+        min-height: 95%;
+        font-size: 1.8rem;
+    }
+      form > fieldset input {
+        font-size: 1.5rem;
+    }
+    .banner1 {
+        font-size: 1.5rem;
+    }
+    form > svg {
+        display: none;
+    }
+}
+/*ECRAN TV */
+@media (min-width:1440px) and (max-width:1600px) {
+    .titre > h1{
+        font-size: 2.9rem;
+    }
+    .second_title{
+        font-size: 2.3rem;
+    }
+    .test > form {
+        min-width: 90%;
+        backdrop-filter: blur(0px);
+    }
+      form > fieldset {
+        min-width: 95%;
+        min-height: 95%;
+        font-size: 2.2rem;
+    }
+      form > fieldset input {
+        font-size: 2rem;
+    }
+    .banner1 {
+        height: 50px;
+        border-radius: 2rem;
+        font-size: 1.7rem;
+    }
+    form > svg {
+        display: none;
+    }
+}
+@media (min-width:1601px) and (max-width:1701px) {
+    .titre > h1{
+        font-size: 3rem;
+    }
+    .second_title{
+        font-size: 2.5rem;
+    }
+    .test > form {
+        min-width: 90%;
+        backdrop-filter: blur(0px);
+    }
+      form > fieldset {
+        min-width: 95%;
+        min-height: 95%;
+        font-size: 2.2rem;
+    }
+      form > fieldset input {
+        font-size: 2.2rem;
+    }
+    .banner1 {
+        height: 60px;
+        font-size: 1.8rem;
+    }
+    form > svg {
+        display: none;
+    }
+}
+/*ecran 4K*/
+@media (min-width:1702px) and (max-width:3000px) {
+    .titre > h1{
+        font-size: 4.5rem;
+    }
+    .second_title{
+        font-size: 3.8rem;
+    }
+    .test > form {
+        min-width: 90%;
+        backdrop-filter: blur(0px);
+    }
+      form > fieldset {
+        min-width: 95%;
+        min-height: 95%;
+        font-size: 3.2rem;
+    }
+      form > fieldset input {
+        font-size: 3.2rem;
+    }
+    .banner1 {
+        height: 80px;
+        border-radius: 2rem;
+        font-size: 1.8rem;
+    }
+    form > svg {
+        display: none;    
+    }
+}
+/********************************************FORMULAIRE INSCRIPTION***************************************/
