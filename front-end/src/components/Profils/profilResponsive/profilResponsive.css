@@ -23,6 +23,10 @@
         margin-bottom: 30px;
         border-radius: 1rem;
   }
+  /************************** LES INPUT POUR UPDATER LE PROFIL ******************************/
+  .form_update {
+    width: 90% !important;
+  }
 }
 /*tablette*/
 @media (min-width:768px) and (max-width:1200px) {
@@ -98,6 +102,13 @@
       .btn_update_count {
         font-size: 1.3rem;
       }
+      /************************** LES INPUT POUR UPDATER LE PROFIL ******************************/
+  .form_update {
+    width: 90% !important;
+  }
+  .form_update form input{
+    font-size: 1.3rem !important;
+  }
 }
 @media (min-width:1000px) and (max-width:1200px) {
     /*"poster votre publication */
@@ -127,6 +138,13 @@
       .containerCard {
         font-size: 2rem !important;
       }
+      /************************** LES INPUT POUR UPDATER LE PROFIL ******************************/
+  .form_update {
+    width: 90% !important;
+  }
+  .form_update form input{
+    font-size: 1.4rem !important;
+  }
 }
 /*ECRAN TV */
 @media (min-width:1440px) and (max-width:1600px) {
@@ -211,6 +229,13 @@
      .btn_update_count {
         font-size: 2.1rem;
       }
+      /************************** LES INPUT POUR UPDATER LE PROFIL ******************************/
+  .form_update {
+    width: 90% !important;
+  }
+  .form_update form input{
+    font-size: 1.8rem !important;
+  }
   }
   @media (min-width:1601px) and (max-width:1701px) {
     .card_profil {
@@ -299,6 +324,13 @@
             width: 13rem;
             height: 13rem;
         }
+        /************************** LES INPUT POUR UPDATER LE PROFIL ******************************/
+  .form_update {
+    width: 90% !important;
+  }
+  .form_update form input{
+    font-size: 2.1rem !important;
+  }
   }
 /*ECRAN 4K */
 @media (min-width:1702px) and (max-width:3000px) {
@@ -388,4 +420,12 @@
             width: 14rem;
             height: 14rem;
         }
+  /************************** LES INPUT POUR UPDATER LE PROFIL ******************************/
+  .form_update {
+    width: 90% !important;
+    margin-bottom: 2rem;
+  }
+  .form_update form input{
+    font-size: 3rem !important;
+  }
 }

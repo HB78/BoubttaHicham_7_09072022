@@ -1,0 +1,18 @@
+/*TABLETTE*/
+@media (min-width:1000px) and (max-width:1200px) {
+    .logo_And_name_groupomania_in_header {
+        font-size: 2rem;
+    }
+}
+
+/*ECRAN TV */
+@media (min-width:1440px) and (max-width:1600px) {
+
+}
+@media (min-width:1601px) and (max-width:1701px) {
+
+}
+/*ecran 4K*/
+@media (min-width:1702px) and (max-width:3000px) {
+
+}

@@ -33,7 +33,7 @@ export default function UpdateDescriptionOfUser() {
               required placeholder="décrivez-vous"
               value={descriptionOfUser}
               onChange={description} />
-            <input type="submit" value="envoyer" id="update_button"/>
+            <input type="submit" value="Envoyer" id="update_button"/>
           </form>
   )
 }

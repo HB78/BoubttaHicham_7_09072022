@@ -54,7 +54,7 @@ function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
   return (
     <div className="card">
       {/* <!-- MENU INTERNE DANS LA CARD --> */}
-      <div className="sendPostContainer">
+      <div className="sendPostContainer sendPostContainer--width">
         <div className="sendPostTitle">
           <h3>Mettez votre publication à jour</h3>
           <div className="right">
@@ -64,6 +64,7 @@ function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
         <form action="/upload" method="PUT" encType="multipart/form-data" onSubmit={updatePosts} className="formulairePublication">
           <div className="inputsTextAndArea">
             <input type="text"
+              className='input_update_title_publication'
               required placeholder="le titre de votre publication"
               value={newTitleOfPost}
               onChange={changeTitle} />

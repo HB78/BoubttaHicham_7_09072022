@@ -62,3 +62,10 @@
 /* #posts {
   font-size: 0.85rem;
 } */
+.card > .sendPostContainer {
+  margin:auto;
+}
+/*A SUPPRIMER SI CELA GENE LE RESPONSIVE*/
+.sendPostContainer--width form{
+  width: 95% !important;
+}

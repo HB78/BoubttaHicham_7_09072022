@@ -34,11 +34,14 @@
       width: 100%;
     }
     .sendPostContainer > form {
-      width: 100%;
+      width: 95%;
     }
     .inputsTextAndArea {
       width: 95% !important;
       margin: 0;
+    }
+    .input_update_title_publication {
+      font-size: 1.1rem;
     }
     #posts {
       width: 100%;
@@ -105,6 +108,9 @@
     width: 95% !important;
     margin: 0;
   }
+  .input_update_title_publication {
+    font-size: 1.25rem;
+  }
   .publication_description {
     font-size: 1.35rem;
   }
@@ -139,6 +145,9 @@
     font-size: 1.2rem !important;
     padding: 0.5rem 0;
   }
+  .input_update_title_publication {
+    font-size: 1.45rem;
+  }
   .sub-menu {
     font-size: 2rem;
   }  
@@ -152,6 +161,16 @@
   .show_comment {
     font-size: 1.3rem;
     margin-left: 0;
+  }
+  /*le logo et le nom groupomania dans le header*/
+  .logo_And_name_groupomania_in_header h3 {
+    font-size: 2rem !important;
+  }
+  .logo_groupomania_in_header {
+      width: 5rem !important;
+  }
+  .logo_groupomania_in_header img{
+      width: 100% !important;
   }
 }
 /*ECRAN TV */
@@ -179,6 +198,10 @@
   }
   .sendPostContainer > form {
     width: 100%;
+  }
+  .input_update_title_publication {
+    font-size: 2.8rem;
+    font-weight: 600;
   }
   .inputsTextAndArea {
     width: 95% !important;
@@ -232,6 +255,16 @@
     height: 6rem !important;
     font-size: 2.5rem !important;
   }
+   /*le logo et le nom groupomania dans le header*/
+   .logo_And_name_groupomania_in_header h3 {
+    font-size: 2.5rem !important;
+  }
+  .logo_groupomania_in_header {
+      width: 5.7rem !important;
+  }
+  .logo_groupomania_in_header img{
+      width: 100% !important;
+  }
 }
 @media (min-width:1601px) and (max-width:1701px) {
   .card {
@@ -272,7 +305,9 @@
     height: 6rem !important;
     font-size: 2.5rem !important;
   }
- 
+  .input_update_title_publication {
+    font-size: 3.3rem;
+  }
   .inputTitle_create_publication {
     font-size: 2rem !important;
   }
@@ -290,6 +325,16 @@
     width: 5.8rem !important;
     height: 5.8rem !important;
     margin-left: 1rem;
+  }
+   /*le logo et le nom groupomania dans le header*/
+   .logo_And_name_groupomania_in_header h3 {
+    font-size: 2.8rem !important;
+  }
+  .logo_groupomania_in_header {
+      width: 5.9rem !important;
+  }
+  .logo_groupomania_in_header img{
+      width: 100% !important;
   }
 }
 /*ecran 4K*/
@@ -340,6 +385,10 @@
     width: 95% !important;
     margin: 0;
   }
+  .input_update_title_publication {
+    font-size: 4rem;
+    font-weight: 600;
+  }
   #posts {
     font-size: 3.7rem !important;
     width: 100%;
@@ -363,5 +412,15 @@
   }
   .menu-box ul li a {
     font-size: 9rem;
+  }
+   /*le logo et le nom groupomania dans le header*/
+   .logo_And_name_groupomania_in_header h3 {
+    font-size: 3.9rem !important;
+  }
+  .logo_groupomania_in_header {
+      width: 6.9rem !important;
+  }
+  .logo_groupomania_in_header img{
+      width: 100% !important;
   }
 }

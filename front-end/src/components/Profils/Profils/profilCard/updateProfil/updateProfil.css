@@ -38,8 +38,11 @@
 }
 #update_button:hover {
     color: white;
-    background: orangered;
+    background: #FD2D01;
     cursor: pointer;
     transform: scale(0.99);
     transition: 500ms;
 }
+.form_update form input{
+    font-size: 1.2rem !important;
+  }

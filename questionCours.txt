@@ -59,12 +59,16 @@ dois je mettre les propType comme brad traversy ? A quoi cela sert au juste ?
 Voir le code dans le back qui sert a supprimer un utilisateur
 
 ********************************** APRES LA SESSION ********************************
-Etudier la partie du code brad traversy ou il donne l'illusion d'un delete pour permettre le re-rendering 
+Etudier la partie du code brad traversy ou il donne l'illusion d'un delete pour permettre le re-rendering REGLER
 
----> probleme de loader au niveau de la page profil
+---> probleme de loader au niveau de la page profil REGLER
 
----> le responsive à regler (header, footer, update publication, input de create publication, les input de mise a jour du profil)
+---> le responsive à regler (header, footer, update publication, input de create publication, les input de mise a jour du profil) REGLER
 
----> probleme dans la page profil, si on entre un user inexistant dans la barre de navigation on ne va pas dans la page error 404
+---> probleme dans la page profil, si on entre un user inexistant dans la barre de navigation on ne va pas dans la page error 404 REGLER
 
 ---> faire l'organigramme
+
+--> A quoi servent les proptype ?
+
+--> comment securiser le back end ? (xss, injection sql, et le package npm anti injection ?) 

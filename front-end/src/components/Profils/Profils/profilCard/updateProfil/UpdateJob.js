@@ -33,7 +33,7 @@ const job = (e) => {
           required placeholder="le titre de votre poste" 
           value={titleOfJob}
           onChange={job}/>
-          <input type="submit" value="envoyer" id='update_button'/>
+          <input type="submit" value="Envoyer" id='update_button'/>
         </form>
   )
 }

@@ -1,0 +1,33 @@
+/*tablette*/
+@media (min-width:768px) and (max-width:1200px) {
+    footer {
+        font-size: 1.1rem !important;
+    }
+}
+
+@media (min-width:1000px) and (max-width:1200px) {
+    footer {
+        font-size: 1.7rem !important;
+    }
+}
+
+/*ECRAN TV */
+@media (min-width:1440px) and (max-width:1600px) {
+    footer {
+        font-size: 2.1rem !important;
+    }
+
+}
+
+@media (min-width:1601px) and (max-width:1701px) {
+    footer {
+        font-size: 2.3rem !important;
+    }
+}
+
+/*ecran 4K*/
+@media (min-width:1702px) and (max-width:3000px) {
+    footer {
+        font-size: 2.8rem !important;
+    }
+}

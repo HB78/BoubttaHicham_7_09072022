@@ -31,7 +31,7 @@ export default function UpdatePassword() {
               required placeholder="votre nouveau mot de passe"
               value={newPassword}
               onChange={password} />
-            <input type="submit" value="envoyer" id='update_button'/>
+            <input type="submit" value="Envoyer" id='update_button'/>
           </form>
   )
 }

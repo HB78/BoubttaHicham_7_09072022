@@ -10,6 +10,7 @@ section div {
     background: blueviolet;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    font-weight: 600;
 }
 .containerCard > .photoInProfil {
     height: 70px;

@@ -5,7 +5,8 @@ import './headerComponent.css';
 import { Link } from "react-router-dom";
 import profilPhoto from "./../../assets/profil.png";
 import logo from "./../../assets/globe.gif"
-import AuthContext from './../../auth/authContext'
+import AuthContext from './../../auth/authContext';
+import "./headerResponsive.css";
 
 export default function Header({ oneUser }) {
   console.log('oneUser:', oneUser)
@@ -96,8 +97,8 @@ export default function Header({ oneUser }) {
     <div>
       <DisplayHiddenMenu />
       <StyledHeader>
-        <div style={styleFirstContaineInHeader}>
-          <div style={styleLogoHeader}>
+        <div style={styleFirstContaineInHeader} className="logo_And_name_groupomania_in_header">
+          <div style={styleLogoHeader} className="logo_groupomania_in_header">
             <img src={logo} alt="" style={styleLogoHeader} />
           </div>
           <h3 style={entrepriseNameStyle}>Groupomania</h3>

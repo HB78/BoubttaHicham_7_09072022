@@ -8,6 +8,7 @@ import UpdatePassword from "./../profilCard/updateProfil/UpdatePassword";
 import UpdateDescriptionOfUser from "./../profilCard/updateProfil/UpdateDescriptionOfUser";
 import UpdatePhotoProfil from "./../profilCard/updateProfil/UpdatePhotoProfil";
 import styled from 'styled-components';
+import "./../../profilResponsive/profilResponsive.css"
 
 
 export default function ProfilCard({ data }) {
@@ -41,27 +42,27 @@ const updateAccountStyle = {
   fontWeight: "600"
 }
   return (
-    <section class="containerCard">
+    <section className="containerCard">
       <div>
         <img src={(data === null || data[0].userPhoto === null) ? photoProfil : data[0].userPhoto} alt="" 
         className='img_In_Profil'/>
       </div>
       <div>{data[0].userName}</div>
-      <StyledProfilUpdate>
+      <StyledProfilUpdate className='form_update'>
         {data[0].poste === null ? "Poste: Un petit nouveau qui n'a pas encore renseigné son champ" : data[0].poste}
         {isUpdateVisible === true ?<UpdateJob /> : null}
       </StyledProfilUpdate>
-      <StyledProfilUpdate>
+      <StyledProfilUpdate className='form_update'>
         {data[0].description === null ? "Description : Un grand timide ?" : data[0].description}
         {isUpdateVisible === true ? <UpdateDescriptionOfUser /> : null}
       </StyledProfilUpdate>
-      <StyledProfilUpdate>
+      <StyledProfilUpdate className='form_update'>
         {isUpdateVisible === true ? <UpdatePassword /> : null}
       </StyledProfilUpdate>
-      <StyledProfilUpdate>
+      <StyledProfilUpdate >
         {isUpdateVisible === true ? <UpdatePhotoProfil /> : null}
       </StyledProfilUpdate>
-      {(idUser === data[0].userID) ? <input type="button" className='btn_update_count' value={isUpdateVisible ? "fermer le menu des mises à jour" : "Mise à jour du profil"} style={updateAccountStyle} onClick={showUpdate} /> : null }
+      {(idUser === data[0].userID) ? <input type="button" className='btn_update_count' value={isUpdateVisible ? "Fermer le menu" : "Mise à jour du profil"} style={updateAccountStyle} onClick={showUpdate} /> : null }
       <DeleteProfil isAdmin={isAdmin} idUser={idUser} data={data} />
     </section>
   )
