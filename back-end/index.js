@@ -13,6 +13,9 @@ const reaction = require("./route/reactionRoute");
 
 const messageInPublication = require("./route/commentRoute");
 
+//importation de helmet pour proteger les headers
+const helmet = require("helmet");
+
 //accession au path du server
 const path = require("path");
 
@@ -43,6 +46,11 @@ app.use("/commentaires", messageInPublication);
 
 //route reaction
 app.use("/publication", reaction);
+
+//utilisation de helmet pour protéger les headers
+//l'option de helmet permet de regler les pbl d'affichage des images
+app.use(helmet({crossOriginResourcePolicy: false}));
+
 
 app.get('/', (req, res) => {
     console.log("Greeting (clg) from route get");

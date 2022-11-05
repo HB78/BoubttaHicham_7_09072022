@@ -122,8 +122,7 @@ const removeLike = async (e) => {
   getIfUserHasDisliked()
 }
 //Une fonction pour annuler un l'ajout d'un like ou d'un dislike
-const likeCanceller = async (e) => {
-  e.preventDefault();
+const likeCanceller = async () => {
   const cancellerOfLike = await axios({
       headers: {
         'Content-Type': 'application/json',

@@ -114,11 +114,11 @@ exports.login = async (req, res, next) => {
 
 exports.getAllUsers = async (req, res) => {
     try {
-        let query = 'SELECT id, name, image_profil, poste FROM users';
+        let query = 'SELECT users.id, users.name, users.image_profil, users.poste FROM users';
         let [rows, fields] = await db.query(query);
         let id = rows[0].id;
         console.log(rows)
-        res.status(200).json("utilisateurs affichés");
+        res.status(200).json(rows);
     } catch (e) {
         res.status(500).json(e);
     }

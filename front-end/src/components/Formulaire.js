@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 
 //on import hooform resolver pour lier yup et react hook fomr
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 
 export default function Formulaire() {
 
@@ -29,6 +30,8 @@ export default function Formulaire() {
   
   //mise en place de la fonction pour envoyer les données à la BDD avec Axios
   
+  let navigate = useNavigate();
+
     async function onSubmit(data) {
       try {
         //e.preventDefault()
@@ -36,9 +39,10 @@ export default function Formulaire() {
         alert(response.data)
         console.log('hook form fonctionne')
         console.log(data)
-        window.location.href = "http://localhost:3001/login"
+        navigate("/login");
       } catch (error) {
         console.log(error)
+        alert(error.response.data)
       }
     }
 

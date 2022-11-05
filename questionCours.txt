@@ -72,3 +72,17 @@ Etudier la partie du code brad traversy ou il donne l'illusion d'un delete pour 
 --> A quoi servent les proptype ?
 
 --> comment securiser le back end ? (xss, injection sql, et le package npm anti injection ?) 
+
+--> mettre le API URL a la place du localHost
+
+--> mettre des balise sections articles et main
+
+--> readme.md les balises aria
+
+--> timestamp des cards
+
+--> Ne pas oublier de securiser le front avec le contexte
+
+--> Ne pas oublier de rajouter les auth necessaire dans les routes
+
+--> cold steel

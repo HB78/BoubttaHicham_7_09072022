@@ -41,18 +41,19 @@ export default function Publication({ data, getPosts }) {
 
   const authCtx = useContext(AuthContext)
   const isAdmin = JSON.parse(localStorage.getItem("isAdmin"))  
+  console.log(authCtx.isLoggedIn, "TEST login authx")
 
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if(!authCtx.userIsLoggedIn){
-  //     navigate("/login");
-  //   }
-  // }, [])
+  useEffect(() => {
+    if(!authCtx.isLoggedIn){
+      navigate("/login");
+    }
+  }, [])
 
   const deletePosts = async (e) => {
     e.preventDefault();
-    const deleteOnePosts = await axios({
+    await axios({
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem("token")
@@ -62,6 +63,7 @@ export default function Publication({ data, getPosts }) {
       // data: JSON.stringify(localStorage.getItem("userId"))
     })
     alert("publication effacée avec succès")
+    getPosts()
   }
 
   async function getComment() {

@@ -33,8 +33,8 @@ const multer = require("../middleware/multer");
 
 //TODO: il faut revoir tous les endpoints des routes
 
-//la page qui va afficher l'organigramme de l'entreprise
-router.get("/organigrame", auth, getAllUsers);
+//la page qui va afficher l'organigramme de l'entreprise (ajouter le auth ?)
+router.get("/organigramme", getAllUsers); 
 
 //recherche d'un utilisateur dans la barre de recherche
 router.get("/search", searchUser);

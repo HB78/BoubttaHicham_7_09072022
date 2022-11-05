@@ -8,7 +8,7 @@ import UpdateAndDeletePosts from '../../Publications/Publication/Update&DeletePo
 import UpdatePosts from '../../Publications/Publication/Update&DeletePosts/UpdatePosts'
 // import Profil from '../components/Profils/Profils';
 import profilImage from "./../../../assets/profil.png"
-import "./profilPost.css"
+import "./profilPost.css";
 
 export default function ProfilPost({ data, getPosts }) {
   console.log('data profil:', data)
@@ -50,14 +50,14 @@ export default function ProfilPost({ data, getPosts }) {
             <div>
               <ShowLike idPubliLike={data.publiID} />
             </div>
-            <h2>{data.title}</h2>
+            <h2>{!data.title ? "La première publication arrivera bientot" : data.title}</h2>
             {/* <!-- MENU INTERNE DANS LA CARD --> */}
             <div className="right_profil">
               <UpdatePosts togglePosts={togglePosts} />
               <DeletePosts deletePosts={deletePosts} dataProfil={data}/>
             </div>
           </div>
-          <p className='publication_description_profil '>{data.contenu}</p>
+          <p className='publication_description_profil '>{!data.contenu ? "Pas de publication à ce jour" : data.contenu}</p>
           <div className="card_imagePosted_profil"><img src={data.photoPost} alt="" /></div>
         </div>
         <div className="cards_autor_profil">

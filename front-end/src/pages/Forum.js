@@ -6,7 +6,7 @@ import apiUrl from "../api_url"
 
 export default function Forum() {
   const [posts, setPosts] = useState([])
-  console.log('postslllllllllllllllllllllllllllllllll:', posts)
+  console.log('posts from forum:', posts)
   
   useEffect(() => {
     getPosts()

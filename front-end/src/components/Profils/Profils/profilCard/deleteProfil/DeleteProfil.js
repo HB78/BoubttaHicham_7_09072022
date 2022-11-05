@@ -44,7 +44,7 @@ function DeleteProfil({isAdmin, idUser, data}) {
       }
   return (
     <>
-    {(isAdmin === 1 || idUser === data[0].userID) ?  <input type="button" className='btn_delete_count' value={isAdmin === 1 ? "Supprimer le compte" : "Supprimer votre compte"} style={deleteAccountStyle} onClick={cancelCount}/> : null}
+    {(isAdmin === 1 || idUser === data[0].userID || data[0].id === idUser) ?  <input type="button" className='btn_delete_count' value={isAdmin === 1 ? "Supprimer le compte" : "Supprimer votre compte"} style={deleteAccountStyle} onClick={cancelCount}/> : null}
     </>
   )
 }
