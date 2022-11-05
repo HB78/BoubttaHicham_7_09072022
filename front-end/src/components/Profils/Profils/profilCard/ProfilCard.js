@@ -59,7 +59,7 @@ const updateAccountStyle = {
       <StyledProfilUpdate className='form_update'>
         {isUpdateVisible === true ? <UpdatePassword /> : null}
       </StyledProfilUpdate>
-      <StyledProfilUpdate >
+      <StyledProfilUpdate className='form_update'>
         {isUpdateVisible === true ? <UpdatePhotoProfil /> : null}
       </StyledProfilUpdate>
       {(idUser === data[0].userID || data[0].id === idUser) ? <input type="button" className='btn_update_count' value={isUpdateVisible ? "Fermer le menu" : "Mise à jour du profil"} style={updateAccountStyle} onClick={showUpdate} /> : null }

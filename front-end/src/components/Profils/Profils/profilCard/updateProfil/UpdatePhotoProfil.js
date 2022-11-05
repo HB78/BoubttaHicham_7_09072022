@@ -33,7 +33,7 @@ export default function UpdatePhotoProfil() {
           type="file"
           name='image'
           onChange={changePhotoProfil} />
-        <input type="submit" value="Mise à jour de la photo de profil" id='update_button'/>
+        <input type="submit" value="Nouvelle photo" id='update_button'/>
       </div>
     </form>
   )

@@ -1,0 +1,53 @@
+/*ECRAN TV */
+@media (min-width:1440px) and (max-width:1600px) {
+    .organigramme {
+        font-size: 2.5rem;
+    }
+
+    #searchBar {
+    width: 78%;
+    padding: 0.8rem;
+    border-radius: 2.21rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    }
+
+    .container_flip_card_inner {
+        width: 25rem;
+    }
+}
+@media (min-width:1601px) and (max-width:1701px) {
+    .organigramme {
+        font-size: 2.5rem;
+    }
+
+    #searchBar {
+    width: 78%;
+    padding: 0.8rem;
+    border-radius: 2.21rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    }
+
+    .container_flip_card_inner {
+        width: 28rem;
+    }
+}
+/*ecran 4K*/
+@media (min-width:1702px) and (max-width:3000px) {
+    .organigramme {
+        font-size: 3.5rem;
+    }
+
+    #searchBar {
+    width: 80%;
+    padding: 1.2rem;
+    border-radius: 2.35rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    }
+
+    .container_flip_card_inner {
+        width: 34rem;
+    }
+}

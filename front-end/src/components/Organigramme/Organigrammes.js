@@ -34,16 +34,16 @@ function Organigrammes({ data }) {
         <>
           <Header />
           <main className="container_flip">
-      <h1 className="organigramme">ORGANIGRAMME</h1>
-      <input type="search"
-        name="recherche"
-        id="searchBar"
-        placeholder="Rechercher un de nos membres"
-        onChange={userSearched} />
-      <section className="container_flip_card">
-        <DisplayUsers />
-      </section>
-    </main>
+            <h1 className="organigramme">ORGANIGRAMME</h1>
+            <input type="search"
+              name="recherche"
+              id="searchBar"
+              placeholder="Rechercher un de nos membres"
+              onChange={userSearched} />
+            <section className="container_flip_card">
+              <DisplayUsers />
+            </section>
+          </main>
           <Footer />
         </>
 

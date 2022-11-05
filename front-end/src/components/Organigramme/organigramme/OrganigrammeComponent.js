@@ -1,5 +1,6 @@
 import React from 'react';
 import "./organigramme.css";
+import "./../organigramme/responsiveOrg.css"
 import imageProfil from "./../../../assets/profil.png";
 
 const OrganigrammeComponent = ({ dataUser, item }) => {
