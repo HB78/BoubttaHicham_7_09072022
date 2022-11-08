@@ -34,7 +34,7 @@ const multer = require("../middleware/multer");
 //TODO: il faut revoir tous les endpoints des routes
 
 //la page qui va afficher l'organigramme de l'entreprise (ajouter le auth ?)
-router.get("/organigramme", getAllUsers); 
+router.get("/organigramme", auth, getAllUsers); 
 
 //recherche d'un utilisateur dans la barre de recherche
 router.get("/search", searchUser);
@@ -44,7 +44,7 @@ router.post("/signup", signup);
 router.post("/login", login);
 
 //affichage de la page profil
-router.get("/:id", multer, getOneUser); //dois-je remettre le auth ici ?
+router.get("/:id", auth, multer, getOneUser); //dois-je remettre le auth ici ?
 
 //changement du mot de passe du user
 router.put("/password/:id", auth, updatePasswordOfUser);

@@ -29,7 +29,14 @@ export default function Profil() {
 
   async function getPostsOfOneUser() {
     try {
-      let res = await axios.get(`${apiUrl}/publication/${id}`);
+      let res = await axios({
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        method: 'GET',
+        url: `${apiUrl}/publication/${id}`
+      });
       console.log("res.data", res.data);
       setPostsOfOneUser(res.data)
       console.log(postsOfOneUser, "from profil")

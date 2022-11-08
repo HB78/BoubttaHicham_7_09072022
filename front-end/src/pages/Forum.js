@@ -14,7 +14,14 @@ export default function Forum() {
 
   async function getPosts() {
     try {
-      let res = await axios.get(`${apiUrl}/publication`);
+      let res = await axios({
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        method: 'GET',
+        url: `${apiUrl}/publication`
+      });
       console.log("res.data", res.data);
       setPosts(res.data)
     } catch (error) {

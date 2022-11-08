@@ -9,10 +9,10 @@ const admin = require("../middleware/admin");
 
 const publication = require("../controller/publicationController");
 
-router.get("/", publication.getLastPublication); //rajouter le auth
+router.get("/", auth, publication.getLastPublication); //rajouter le auth
 
 //les publications d'un utilisateur
-router.get("/:id", publication.getLastPublicationOfUser); //rajouter le auth
+router.get("/:id", auth, publication.getLastPublicationOfUser); //rajouter le auth
 
 router.post("/", auth, multer, publication.createPublication);
 // router.post("/publication", upload.single('image'), publication.createPublication);

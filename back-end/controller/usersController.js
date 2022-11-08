@@ -181,8 +181,8 @@ exports.updatePhotoProfil = async (req, res, next) => {
 
 exports.UpdateDescription = async (req, res, next) => {
     try {
-        let descriptions = `UPDATE users SET description = '${req.body.description}' WHERE id = '${req.params.id}';`;
-        let [rows, fields] = await db.query(descriptions);
+        let descriptions = `UPDATE users SET description = ? WHERE id = ? ;`;
+        let [rows, fields] = await db.query(descriptions, [`${req.body.description}`, `${req.params.id}`]);
         return res.status(200).json("modification de la description");
     } catch (error) {
         res.status(500).json(error);

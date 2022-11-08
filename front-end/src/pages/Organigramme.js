@@ -12,7 +12,14 @@ export default function Organigramme() {
 
   async function getUsers() {
     try {
-      let res = await axios.get(`${apiUrl}/users/organigramme`);
+      let res = await axios({
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        method: 'GET',
+        url: `${apiUrl}/users/organigramme`,
+      });
       console.log("res.data", res.data);
       setUsers(res.data)
     } catch (error) {

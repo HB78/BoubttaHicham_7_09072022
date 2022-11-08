@@ -21,7 +21,6 @@ export default function ShowLike({ idPubliLike }) {
   useEffect(() => {
     getLike()
     getDislike()
-    likeCanceller()
     getIfUserHasLiked()
     getIfUserHasDisliked()
   }, [])
@@ -37,6 +36,7 @@ export default function ShowLike({ idPubliLike }) {
           method: 'GET',
           url: `http://localhost:3000/publication/like/${idPubliLike}/userLiked`,
       })
+      console.log(res.data, "---> test session mentorat LIKE")
       setHasLiked(res.data.hasLiked);
     } catch (error) {
       console.log(error)

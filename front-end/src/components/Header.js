@@ -13,7 +13,14 @@ export default function Header() {
 
   async function getOneUser() {
     try {
-      let res = await axios.get(`${apiUrl}/users/${ID}`);
+      let res = await axios({
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        method: 'GET',
+        url: `${apiUrl}/users/${ID}`
+      });
       console.log("res.data", res.data);
       setOneUser(res.data)
       console.log(oneUser, "from profil")
