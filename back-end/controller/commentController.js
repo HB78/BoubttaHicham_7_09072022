@@ -22,14 +22,15 @@ exports.getCommentByPublication = async (req,res) => {
         //on ne peut pas lui dire de tous nous donner car il peut y avoir des miliers de commentaires
         let START = req.body.start || 0;
         let NB_COMMENT = 10;
+        const idParams = req.params.id
         console.log("--> req.params controller",req.params)
         //on veut afficher tous les commentaires des publications
         let allcomment = `SELECT commentaire.id, commentaire.id_publi, contenu, date_comment, users.image_profil, users.name, commentaire.id_user FROM commentaire 
         INNER JOIN users ON 
         commentaire.id_user = users.id 
-        WHERE commentaire.id_publi =  ${req.params.id}
+        WHERE commentaire.id_publi =  ?
         ORDER BY commentaire.date_comment DESC LIMIT  0, 10;`
-        let [rows, fields] = await db.query(allcomment);
+        let [rows, fields] = await db.query(allcomment, [idParams]);
         // console.log("--> les messages affiché", rows);
         //quand on met /:id dans une route comme parametre, on met id après req.params ou req.body
         return res.status(200).json(rows);
@@ -73,11 +74,14 @@ exports.getCommentByPublications = async (req,res) => {
 
 //créer un commentaire
 exports.createMessage = async (req, res) => {
+    const idParams = req.params.id
+    let contenu = req.body.contenu
+    const idToken = req.body.decodedToken.id
+    let idPubli = req.body.id_publi
     try {
         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-        let createComment = `INSERT INTO commentaire (contenu, date_comment, id_user, id_publi) VALUES ('${req.body.contenu}', 
-        '${now}', '${req.body.decodedToken.id}', '${req.body.id_publi}');`;
-        let [rows, fields] = await db.query(createComment);
+        let createComment = `INSERT INTO commentaire (contenu, date_comment, id_user, id_publi) VALUES ( ?, ?, ?, ?);`;
+        let [rows, fields] = await db.query(createComment, [contenu, now, idToken, idPubli]);
         console.log("--> le message a été créee", rows);
         return res.status(200).json("--> le message a été créee");
     } catch (error) {
@@ -87,10 +91,12 @@ exports.createMessage = async (req, res) => {
 
 //effacer un commentaire
 exports.deleteMessage = async (req, res) => {
+    const idParams = req.params.id
+    const idToken = req.body.decodedToken.id
     try {
         let deleteComment = `DELETE FROM commentaire 
-        WHERE commentaire.id = '${req.params.id}' AND commentaire.id_user = '${req.body.decodedToken.id}';`;
-        let [rows, fields] = await db.query(deleteComment);
+        WHERE commentaire.id = ? AND commentaire.id_user = ?;`;
+        let [rows, fields] = await db.query(deleteComment, [idParams, idToken]);
         return res.status(200).json({info: rows.affectedRows + " message supprimé"});
     } catch (error) {
         console.log("error", error)
@@ -100,11 +106,15 @@ exports.deleteMessage = async (req, res) => {
 
 //mettre à jour un commentaire
 exports.updateMessage = async (req, res) => {
+    const idParams = req.params.id
+    let contenu = req.body.contenu
+    const idToken = req.body.decodedToken.id
+    let idPubli = req.body.id_publi
     try {
         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-        let updateComment= `UPDATE commentaire SET contenu = '${req.body.contenu}', date_comment = '${now}' 
-        WHERE commentaire.id = '${req.params.id}' AND commentaire.id_user = '${req.body.decodedToken.id}';`;
-        let [rows, fields] = await db.query(updateComment);
+        let updateComment= `UPDATE commentaire SET contenu = ?, date_comment = ?
+        WHERE commentaire.id = ? AND commentaire.id_user = ?;`;
+        let [rows, fields] = await db.query(updateComment, [contenu, now, idParams, idToken]);
         console.log('rows: --> message modifié', rows)
         res.status(200).json("message mis a jour");
     } catch (error) {
@@ -116,10 +126,11 @@ exports.updateMessage = async (req, res) => {
 
 //effacer un commentaire en tant que admin
 exports.adminDeleteMessage = async (req, res) => {
+    const idParams = req.params.id
     try {
         let deleteComment = `DELETE FROM commentaire 
-        WHERE commentaire.id = '${req.params.id}'`;
-        let [rows, fields] = await db.query(deleteComment);
+        WHERE commentaire.id = ?`;
+        let [rows, fields] = await db.query(deleteComment, [idParams]);
         return res.status(200).json({info: rows.affectedRows + " message supprimé"});
     } catch (error) {
         console.log("error", error)
@@ -129,11 +140,15 @@ exports.adminDeleteMessage = async (req, res) => {
 
 //mettre à jour un commentaire en tant qu'admin
 exports.adminUpdateMessage = async (req, res) => {
+    const idParams = req.params.id
+    let contenu = req.body.contenu
+    const idToken = req.body.decodedToken.id
+    let idPubli = req.body.id_publi
     try {
         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-        let updateComment= `UPDATE commentaire SET contenu = '${req.body.contenu}', date_comment = '${now}' 
-        WHERE commentaire.id = '${req.params.id}' AND commentaire.id_user = '${req.body.decodedToken.id}';`;
-        let [rows, fields] = await db.query(updateComment);
+        let updateComment= `UPDATE commentaire SET contenu = ?, date_comment = ? 
+        WHERE commentaire.id = ? AND commentaire.id_user = ?;`;
+        let [rows, fields] = await db.query(updateComment, [contenu, now, idParams, idToken]);
         console.log('rows: --> message modifié', rows)
         res.status(200).json("message mis a jour");
     } catch (error) {

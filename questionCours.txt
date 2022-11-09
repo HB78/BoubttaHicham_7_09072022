@@ -86,3 +86,18 @@ Etudier la partie du code brad traversy ou il donne l'illusion d'un delete pour 
 --> Ne pas oublier de rajouter les auth necessaire dans les routes
 
 --> cold steel
+
+******************************************RESTE A FAIRE *****************************************
+---> Mettre le req.auth.id dans les controller du user
+---> Mettre les placeholders dans les controllers
+--> Sécuriser l'organigramme dans le front avec le contexte et navigate
+--> Remplacer tous les localstorage consacré à l'admin par le contexte
+--> supprimer dans le contexte l'envoi du isAdmin dans le localstorage
+
+--> mettre le API URL a la place du localHost
+
+--> mettre des balise sections articles et main
+
+--> readme.md les balises aria
+
+--> timestamp des cards

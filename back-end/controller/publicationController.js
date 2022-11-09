@@ -29,6 +29,7 @@ exports.getLastPublication = async (req, res, next) => {
 //Les publications d'un utilissateur
 exports.getLastPublicationOfUser = async (req, res) => {
     try {
+        const idParams = req.params.id
         // //je vais chercher les id des utilisateurs dont j'aurais besoin pour la suite
         // let queryID = `SELECT publication.id AS publiID, users.image_profil AS userPhoto, users.id AS userID
         // FROM publication
@@ -39,7 +40,7 @@ exports.getLastPublicationOfUser = async (req, res) => {
         users.id AS userID
         from publication
         join users on publication.id_user = users.id
-        WHERE users.id = '${req.params.id}'
+        WHERE users.id = ?
         ORDER BY publication.date_publi DESC
         LIMIT 0, 5;`
 
@@ -47,17 +48,17 @@ exports.getLastPublicationOfUser = async (req, res) => {
         // if(rows.length > 0) {
         //     return res.status(200).json(row);
         // }
-        let checkUserId = `SELECT users.id, users.name AS userName, users.image_profil AS userPhoto, users.poste AS poste, users.description AS description FROM users WHERE users.id = '${req.params.id}';`
-        let [row, field] = await db.query(checkUserId)
+        let checkUserId = `SELECT users.id, users.name AS userName, users.image_profil AS userPhoto, users.poste AS poste, users.description AS description FROM users WHERE users.id = ?;`
+        let [row, field] = await db.query(checkUserId, [idParams])
         if(!row.length > 0) {
             return res.status(404).json("Cette utilisateur n'existe pas");
         }
 
         //si le user existe et qu'il n'a pas encore publié
-        let [rows, fields] = await db.query(publicationsOfOneUser)
+        let [rows, fields] = await db.query(publicationsOfOneUser, [idParams])
         console.log('rows:', rows)
         if(!rows.length > 0) {
-            let [row, field] = await db.query(checkUserId)
+            let [row, field] = await db.query(checkUserId, [idParams])
             return res.status(200).json(row);
         }
         return res.status(200).json(rows);
@@ -71,6 +72,9 @@ exports.getLastPublicationOfUser = async (req, res) => {
 
 //créer une publication
 exports.createPublication = async (req, res, next) => {
+    const idToken = res.locals.decodedToken.id
+    let contenu = req.body.contenu
+    let title = req.body.title
     console.log("start create pub")
     try {
         if (!req.body.contenu) {
@@ -84,11 +88,10 @@ exports.createPublication = async (req, res, next) => {
         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
         let createPost = `INSERT INTO publication (title, contenu, image_path, date_publi, id_user) 
         VALUES
-        ('${req.body.title}', '${req.body.contenu}', '${imgUrl}',
-        '${now}', '${res.locals.decodedToken.id}');`;
+        (?, ?, ?, ?, ?);`;
         //si la requète contient un fichier
         console.log('createPost ', createPost )
-        let [rows, fields] = await db.query(createPost);
+        let [rows, fields] = await db.query(createPost, [title, contenu, imgUrl, now, idToken]);
 
         return res.status(201).json("publication créee avec succès");
 
@@ -103,9 +106,11 @@ exports.createPublication = async (req, res, next) => {
 exports.deletePublication = async (req, res) => {
     console.log("req.body.decodedToken", req.body.decodedToken);
     console.log("req.param.id from delete publication", req.params.id)
+    const idParams = req.params.id
+    const idToken = req.body.decodedToken.id
     try {
-        let deletePost = `DELETE FROM publication WHERE publication.id = '${req.params.id}' AND publication.id_user = '${req.body.decodedToken.id}';`;
-        let [rows, fields] = await db.query(deletePost);
+        let deletePost = `DELETE FROM publication WHERE publication.id = ? AND publication.id_user = ?;`;
+        let [rows, fields] = await db.query(deletePost, [idParams, idToken]);
         console.log('rowsSetheader:', rows.affectedRows)
         if(rows.affectedRows === 0) {
             return res.status(404).json("la publication n'existe pas ou plus")

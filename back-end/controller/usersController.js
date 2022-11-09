@@ -65,6 +65,7 @@ exports.signup = async (req, res, next) => {
 
 //Login d'un utilisateur
 exports.login = async (req, res, next) => {
+    let bodyEmail = req.body.email
     try {
         //si l'utilisateur n'a pas entré de mdp ou de mail on gère l'erreur
         if (!req.body.password || !req.body.email) {
@@ -73,11 +74,11 @@ exports.login = async (req, res, next) => {
 
         //la commande est mise dans une constante
         //dans la constante on récupère tt les infos de la table users ayant le mail rentré par le user
-        const emailSQL = `SELECT * FROM users WHERE email='${req.body.email}'`
+        const emailSQL = `SELECT * FROM users WHERE email= ? `
 
         //on execute la commande avec db.query
         //on va recuperer dans le rows le resultat de emailSQL
-        let [rows, fields] = await db.query(emailSQL)
+        let [rows, fields] = await db.query(emailSQL, [bodyEmail])
 
         //dans le rows on a le resultat de la commande emailsql apres execution
         //autrement dit le mail, le mdp et le nom du user avec le mail rentré issus de la BDD
@@ -127,9 +128,10 @@ exports.getAllUsers = async (req, res) => {
 //Récupération d'un seul utilisateur pour la mise en place du profil
 
 exports.getOneUser = async (req, res, next) => {
+    const idParams = req.params.id
     try {
-        let oneUser = `SELECT id, name, poste, image_profil, description FROM users WHERE id= '${req.params.id}'; `;
-        let [rows, fields] = await db.query(oneUser);
+        let oneUser = `SELECT id, name, poste, image_profil, description FROM users WHERE id= ?; `;
+        let [rows, fields] = await db.query(oneUser, [idParams]);
         console.log('rows:', rows.length)
         if (rows.length == 0) {
             return res.status(401).json("utilisateur introuvable");
@@ -146,6 +148,8 @@ exports.getOneUser = async (req, res, next) => {
 //mise à jour du mot de passe de l'utilisateur
 
 exports.updatePasswordOfUser = async (req, res, next) => {
+    const idParams = req.params.id
+    const idToken = req.auth.id
     try {
         let idOfUser = `SELECT id FROM users WHERE id= '${req.params.id}';`
         let [row, field] = await db.query(idOfUser);
@@ -156,8 +160,8 @@ exports.updatePasswordOfUser = async (req, res, next) => {
         }
         //si le compte existe on peut modifier son mot de passe
         const hash = bcrypt.hashSync(req.body.password, 10);
-        let updatePassword = `UPDATE users SET password = '${hash}' WHERE id = '${req.params.id}';`;
-        let [rows, fields] = await db.query(updatePassword);
+        let updatePassword = `UPDATE users SET password = '${hash}' WHERE id = ? AND users.id = ? ;`;
+        let [rows, fields] = await db.query(updatePassword, [idParams, idToken]);
         return res.status(201).json("mot de passe modifié");
     } catch (error) {
         res.status(500).json(error);
@@ -167,10 +171,12 @@ exports.updatePasswordOfUser = async (req, res, next) => {
 //mise à jour de la photo de l'utilisateur
 
 exports.updatePhotoProfil = async (req, res, next) => {
+    const idParams = req.params.id
+    const idToken = req.auth.id
     try {
         console.log("photo de profil ajouter peut etre");
-        let photoProfil = `UPDATE users SET image_profil = '${req.protocol}://${req.get('host')}/images/${req.file.filename}' WHERE users.id = '${req.params.id}';`;
-        let [rows, fields] = await db.query(photoProfil);
+        let photoProfil = `UPDATE users SET image_profil = '${req.protocol}://${req.get('host')}/images/${req.file.filename}' WHERE users.id = ? AND users.id = ? ;`;
+        let [rows, fields] = await db.query(photoProfil, [idParams, idToken]);
         return res.status(201).json("photo de profil modifiée");
     } catch (error) {
         res.status(500).json(error);
@@ -180,9 +186,12 @@ exports.updatePhotoProfil = async (req, res, next) => {
 //mise à jour  de la description
 
 exports.UpdateDescription = async (req, res, next) => {
+    const idParams = req.params.id
+    let description = req.body.description
+    const idToken = req.auth.id
     try {
-        let descriptions = `UPDATE users SET description = ? WHERE id = ? ;`;
-        let [rows, fields] = await db.query(descriptions, [`${req.body.description}`, `${req.params.id}`]);
+        let descriptions = `UPDATE users SET description = ? WHERE id = ? AND users.id = ?;`;
+        let [rows, fields] = await db.query(descriptions, [description, idParams, idToken]);
         return res.status(200).json("modification de la description");
     } catch (error) {
         res.status(500).json(error);
@@ -192,9 +201,12 @@ exports.UpdateDescription = async (req, res, next) => {
 //mise à jour du poste de l'utilisateur
 
 exports.updatePoste = async (req, res, next) => {
+    const idParams = req.params.id
+    let job = req.body.poste
+    const idToken = req.auth.id
     try {
-        let poste = `UPDATE users SET poste = '${req.body.poste}' WHERE users.id = '${req.params.id}';`;
-        let [rows, fields] = await db.query(poste);
+        let poste = `UPDATE users SET poste = ? WHERE users.id = ? AND users.id = ?;`;
+        let [rows, fields] = await db.query(poste, [job, idParams, idToken]);
         return res.status(200).json("l'utilisateur a changer de poste");
     } catch (error) {
         res.status(500).json(error);
@@ -204,11 +216,13 @@ exports.updatePoste = async (req, res, next) => {
 //supression du compte de l'utilisateur
 
 exports.deleteUser = async (req, res, next) => {
+    const idParams = req.params.id
+    const idToken = req.auth.id
     try {
-        let deleteCountOfUser = `DELETE FROM users WHERE users.id = '${req.params.id}'
-        AND users.id = '${req.auth.id}';`;
+        let deleteCountOfUser = `DELETE FROM users WHERE users.id = ?
+        AND users.id = ? ;`;
         console.log('req.auth.id:', req.auth.id)
-        let [rows, fields] = await db.query(deleteCountOfUser);
+        let [rows, fields] = await db.query(deleteCountOfUser, [idParams, idToken]);
 
         //si le tableau rows contient quelque chose on supprime le compte
         // if (rows.affectedRows === 0) {
@@ -241,9 +255,10 @@ exports.searchUser = async (req, res) => {
 
 // ***********************************ADMIN*****************************************
 exports.deleteUserByAdmin = async (req, res, next) => {
+    const idParams = req.params.id
     try {
-        let deleteCountOfUser = `DELETE FROM users WHERE id = '${req.params.id}';`;
-        let [rows, fields] = await db.query(deleteCountOfUser);
+        let deleteCountOfUser = `DELETE FROM users WHERE id = ? ;`;
+        let [rows, fields] = await db.query(deleteCountOfUser, [idParams]);
 
         //si le tableau rows contient quelque chose on supprime le compte
         // if (rows.affectedRows === 0) {
