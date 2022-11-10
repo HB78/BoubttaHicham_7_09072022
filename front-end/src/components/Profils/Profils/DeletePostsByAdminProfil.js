@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import AuthContext from '../../../auth/authContext';
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import apiUrl from "./../../../api_url"
 
 function deletePostsByAdminProfil({ deletePosts, data }) {
 
@@ -19,7 +20,7 @@ function deletePostsByAdminProfil({ deletePosts, data }) {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'DELETE',
-      url: `http://localhost:3000/publication/admin/${data.id}`,
+      url: `${apiUrl}/publication/admin/${data.id}`,
       // data: JSON.stringify(localStorage.getItem("userId"))
     })
     notify()

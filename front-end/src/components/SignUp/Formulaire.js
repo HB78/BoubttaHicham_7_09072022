@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 //on import hooform resolver pour lier yup et react hook fomr
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import apiUrl from "./../../api_url"
 
 export default function Formulaire() {
 
@@ -35,7 +36,7 @@ export default function Formulaire() {
     async function onSubmit(data) {
       try {
         //e.preventDefault()
-        const response = await axios.post("http://localhost:3000/users/signup", data)
+        const response = await axios.post(`${apiUrl}/users/signup`, data)
         alert(response.data)
         console.log('hook form fonctionne')
         console.log(data)

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import "./updateProfil.css";
+import apiUrl from "./../../../../../api_url"
 
 const UpdateProfil = () => {
 const [titleOfJob, setTitleOfJob] = useState("")
@@ -22,7 +23,7 @@ const job = (e) => {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'PUT',
-      url: `http://localhost:3000/users/poste/${ID}`,
+      url: `${apiUrl}/users/poste/${ID}`,
       data: values
     })
     setTitleOfJob("")

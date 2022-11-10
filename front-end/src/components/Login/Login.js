@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../auth/authContext';
+import apiUrl from "./../../api_url"
 
 export default function Login() {
 
@@ -43,7 +44,7 @@ export default function Login() {
   async function sendData(e) {
     try {
       e.preventDefault()
-      const response = await axios.post("http://localhost:3000/users/login", values)
+      const response = await axios.post(`${apiUrl}/users/login`, values)
       console.log("response du try", response)
       authCtx.login(response.data.token, response.data.id, response.data.admin)
       console.log('response.data:', response.data)

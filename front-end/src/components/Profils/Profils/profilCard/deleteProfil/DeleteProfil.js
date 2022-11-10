@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../../../../../auth/authContext';
 import { useNavigate } from 'react-router-dom';
+import apiUrl from "./../../../../../api_url"
 
 function DeleteProfil({isAdmin, idUser, data}) {
 
@@ -27,7 +28,7 @@ function DeleteProfil({isAdmin, idUser, data}) {
             'Authorization': 'Bearer ' + localStorage.getItem("token")
           },
           method: 'DELETE',
-          url: `http://localhost:3000/users/${idUser}`,
+          url: `${apiUrl}/users/${idUser}`,
           // data: JSON.stringify(localStorage.getItem("userId"))
         })
         // modaleAlert()

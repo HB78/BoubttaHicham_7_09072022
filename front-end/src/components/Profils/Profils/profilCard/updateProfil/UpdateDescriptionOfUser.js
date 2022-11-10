@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react';
 import "./updateProfil.css";
+import apiUrl from "./../../../../../api_url"
 
 export default function UpdateDescriptionOfUser() {
   const [descriptionOfUser, setDescriptionOfUser] = useState("")
@@ -22,7 +23,7 @@ export default function UpdateDescriptionOfUser() {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'PUT',
-      url: `http://localhost:3000/users/description/${ID}`,
+      url: `${apiUrl}/users/description/${ID}`,
       data: valuesDescription
     })
     setDescriptionOfUser("")

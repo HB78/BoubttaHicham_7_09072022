@@ -4,6 +4,7 @@ import UpdateCom from "./UpdateCom";
 import DeleteCom from "./DeleteCom";
 import "./updateAndDeleteIcon.css";
 import AuthContext from '../../../../../auth/authContext';
+import apiUrl from "./../../../../../api_url"
 
 export default function Commentaire({ profil, com, getPosts }) {
 console.log('com:--->commmmm', com)
@@ -20,7 +21,7 @@ console.log('com:--->commmmm', com)
   }
 
   const authCtx = useContext(AuthContext)
-  const isAdmin = JSON.parse(localStorage.getItem("isAdmin"))
+  const isAdmin = JSON.parse(authCtx.isAdmin)
 
   const updateComment = async (e) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ console.log('com:--->commmmm', com)
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'PUT',
-      url: `http://localhost:3000/commentaires/message/${com.id}`,
+      url: `${apiUrl}/commentaires/message/${com.id}`,
       data: {
         contenu: comment
       }
@@ -48,7 +49,7 @@ console.log('com:--->commmmm', com)
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'DELETE',
-      url: `http://localhost:3000/commentaires/message/${com.id}`
+      url: `${apiUrl}/commentaires/message/${com.id}`
     })
     getPosts()
   }

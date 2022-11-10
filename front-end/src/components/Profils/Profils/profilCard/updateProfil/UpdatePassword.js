@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react';
 import "./updateProfil.css";
+import apiUrl from "./../../../../../api_url"
 
 export default function UpdatePassword() {
     const [newPassword, setNewPassword] = useState("")
@@ -18,7 +19,7 @@ export default function UpdatePassword() {
             'Authorization': 'Bearer ' + localStorage.getItem("token")
           },
           method: 'PUT',
-          url: `http://localhost:3000/users/password/${ID}`,
+          url: `${apiUrl}/users/password/${ID}`,
           data: {
             password: newPassword
           }

@@ -6,9 +6,9 @@ import ShowLike from '../../Publications/Publication/Likes/ShowLike'
 import DeletePosts from '../../Publications/Publication/Update&DeletePosts/DeletePosts'
 import UpdateAndDeletePosts from '../../Publications/Publication/Update&DeletePosts/UpdateAndDeletePosts';
 import UpdatePosts from '../../Publications/Publication/Update&DeletePosts/UpdatePosts'
-// import Profil from '../components/Profils/Profils';
 import profilImage from "./../../../assets/profil.png"
 import "./profilPost.css";
+import apiUrl from "./../../../api_url"
 
 export default function ProfilPost({ data, getPosts }) {
   console.log('data profil:', data)
@@ -36,7 +36,7 @@ export default function ProfilPost({ data, getPosts }) {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'DELETE',
-      url: `http://localhost:3000/publication/${data.publiID}`,
+      url: `${apiUrl}/publication/${data.publiID}`,
       // data: JSON.stringify(localStorage.getItem("userId"))
     })
     alert("publication effacée avec succès")

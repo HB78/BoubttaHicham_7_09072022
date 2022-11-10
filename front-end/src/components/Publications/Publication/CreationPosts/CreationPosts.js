@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import "../CreationPosts/creationPosts.css"
+import apiUrl from "./../../../../api_url"
 
 export default function CreationPosts({getPosts}) {
   //mise en place des states pour stocker les données des input
@@ -36,7 +37,7 @@ export default function CreationPosts({getPosts}) {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'POST',
-      url:"http://localhost:3000/publication",
+      url:`${apiUrl}/publication`,
       data: formData
     })
     console.log("sortie de la requete")

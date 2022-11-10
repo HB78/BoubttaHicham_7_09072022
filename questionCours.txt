@@ -88,16 +88,16 @@ Etudier la partie du code brad traversy ou il donne l'illusion d'un delete pour 
 --> cold steel
 
 ******************************************RESTE A FAIRE *****************************************
----> Mettre le req.auth.id dans les controller du user
----> Mettre les placeholders dans les controllers
---> Sécuriser l'organigramme dans le front avec le contexte et navigate
---> Remplacer tous les localstorage consacré à l'admin par le contexte
---> supprimer dans le contexte l'envoi du isAdmin dans le localstorage
+---> Mettre le req.auth.id dans les controller du user FAIT
+---> Mettre les placeholders dans les controllers FAIT 
+--> Sécuriser l'organigramme dans le front avec le contexte et navigate FAIT
+--> Remplacer tous les localstorage consacré à l'admin par le contexte FAIT
+--> supprimer dans le contexte l'envoi du isAdmin dans le localstorage FAIT
 
---> mettre le API URL a la place du localHost
+--> mettre le API URL a la place du localHost FAIT
 
 --> mettre des balise sections articles et main
 
---> readme.md les balises aria
+--> readme.md les balises aria src class/classname
 
---> timestamp des cards
+--> timestamp des cards FAIT

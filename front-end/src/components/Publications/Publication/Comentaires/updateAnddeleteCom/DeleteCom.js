@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
+import apiUrl from "./../../../../../api_url"
 
 function DeleteCom({ deleteCommentaire, getPosts, id, isAdmin }) {
 
@@ -13,7 +14,7 @@ function DeleteCom({ deleteCommentaire, getPosts, id, isAdmin }) {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'DELETE',
-      url: `http://localhost:3000/commentaires/admin/message/${id}`
+      url: `${apiUrl}/commentaires/admin/message/${id}`
     })
     alert("commentaire effacé par un administrateur")
     getPosts()

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import "./updateProfil.css";
+import apiUrl from "./../../../../../api_url"
 
 export default function UpdatePhotoProfil() {
   const [newPhotoOfProfil, setNewPhotoOfProfil] = useState(null);
@@ -22,7 +23,7 @@ export default function UpdatePhotoProfil() {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'PUT',
-      url: `http://localhost:3000/users/photo/${ID}`,
+      url: `${apiUrl}/users/photo/${ID}`,
       data: formData
     })
   }

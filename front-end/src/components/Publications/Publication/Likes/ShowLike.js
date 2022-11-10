@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { TbHeart } from "react-icons/tb";
 import AddLike from './AddLike';
-// import apiurl from "../../../api_url";
+import apiUrl from '../../../../api_url';
 
 
 export default function ShowLike({ idPubliLike }) {
@@ -34,7 +34,7 @@ export default function ShowLike({ idPubliLike }) {
             'Authorization': 'Bearer ' + localStorage.getItem("token")
           },
           method: 'GET',
-          url: `http://localhost:3000/publication/like/${idPubliLike}/userLiked`,
+          url: `${apiUrl}/publication/like/${idPubliLike}/userLiked`,
       })
       console.log(res.data, "---> test session mentorat LIKE")
       setHasLiked(res.data.hasLiked);
@@ -52,7 +52,7 @@ export default function ShowLike({ idPubliLike }) {
             'Authorization': 'Bearer ' + localStorage.getItem("token")
           },
           method: 'GET',
-          url: `http://localhost:3000/publication/dislike/${idPubliLike}/userDisliked`,
+          url: `${apiUrl}/publication/dislike/${idPubliLike}/userDisliked`,
       })
       setHasDisliked(res.data.hasDisliked);
     } catch (error) {
@@ -63,7 +63,7 @@ export default function ShowLike({ idPubliLike }) {
   //une fonction pour obtenir les dislikes
   async function getDislike() {
     try {
-      let res = await axios.get(`http://localhost:3000/publication/dislike/${idPubliLike}`);
+      let res = await axios.get(`${apiUrl}/publication/dislike/${idPubliLike}`);
       setDislike(res.data);
       console.log(dislike, 'le resultat du axios pour les likes from showlike')
     } catch (error) {
@@ -73,7 +73,7 @@ export default function ShowLike({ idPubliLike }) {
   //une fonction pour afficher les likes
   async function getLike() {
     try {
-      let res = await axios.get(`http://localhost:3000/publication/like/${idPubliLike}`);
+      let res = await axios.get(`${apiUrl}/publication/like/${idPubliLike}`);
       setLike(res.data);
       console.log(like, 'le resultat du axios pour les likes')
     } catch (error) {
@@ -89,7 +89,7 @@ export default function ShowLike({ idPubliLike }) {
           'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
         method: 'PUT',
-        url: `http://localhost:3000/publication/like/${idPubliLike}`,
+        url: `${apiUrl}/publication/like/${idPubliLike}`,
         data: {
         love: JSON.stringify(1),
         id_publi: idPubliLike
@@ -110,7 +110,7 @@ const removeLike = async (e) => {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'PUT',
-      url: `http://localhost:3000/publication/dislike/${idPubliLike}`,
+      url: `${apiUrl}/publication/dislike/${idPubliLike}`,
       data: {
       love: JSON.stringify(-1),
       id_publi: idPubliLike
@@ -129,7 +129,7 @@ const likeCanceller = async () => {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'PUT',
-      url: `http://localhost:3000/publication/cancel/${idPubliLike}`,
+      url: `${apiUrl}/publication/cancel/${idPubliLike}`,
       data: {
       love: JSON.stringify(0),
       id: idPubliLike

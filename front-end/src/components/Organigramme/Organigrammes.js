@@ -1,11 +1,14 @@
 import React from 'react';
 import OrganigrammeComponent from "./../Organigramme/organigramme/OrganigrammeComponent";
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../../src/auth/authContext';
 import Header from '../Header';
 import Footer from '../Footer';
 import Loader from '../Loader/Loader';
 
 function Organigrammes({ data }) {
+
   const [search, setSearch] = useState("")
   console.log('search:', search)
 
@@ -28,6 +31,16 @@ function Organigrammes({ data }) {
     )
   }
 
+//Si le user n'est pas connecté il sera renvoyé à la page d'acceuil
+  const authCtx = useContext(AuthContext)
+ 
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if(!authCtx.isLoggedIn){
+      navigate("/login");
+    }
+  }, [])
   return (
     <>
       {data.length > 0 ?

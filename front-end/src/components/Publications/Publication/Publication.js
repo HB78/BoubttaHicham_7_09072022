@@ -11,6 +11,7 @@ import ShowLike from './Likes/ShowLike';
 import UpdatePosts from './Update&DeletePosts/UpdatePosts';
 import DeletePosts from './Update&DeletePosts/DeletePosts';
 import UpdateAndDeletePosts from './Update&DeletePosts/UpdateAndDeletePosts';
+import apiUrl from "./../../../api_url";
 
 //Ici c'est le componant qui va afficher la card
 //C'est ce component qui va etre afficher dans le composant parent PublicationS
@@ -40,7 +41,7 @@ export default function Publication({ data, getPosts }) {
   }
 
   const authCtx = useContext(AuthContext)
-  const isAdmin = JSON.parse(localStorage.getItem("isAdmin"))  
+  const isAdmin = JSON.parse(authCtx.isAdmin)  
   console.log(authCtx.isLoggedIn, "TEST login authx")
 
   let navigate = useNavigate();
@@ -59,7 +60,7 @@ export default function Publication({ data, getPosts }) {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'DELETE',
-      url: `http://localhost:3000/publication/${data.id}`,
+      url: `${apiUrl}/publication/${data.id}`,
       // data: JSON.stringify(localStorage.getItem("userId"))
     })
     alert("publication effacée avec succès")

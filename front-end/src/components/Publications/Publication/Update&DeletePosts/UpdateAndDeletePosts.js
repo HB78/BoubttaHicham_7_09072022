@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import DeletePosts from './DeletePosts';
 import UpdatePosts from './UpdatePosts';
 import './updatedeleteicon.css';
+import apiUrl from "./../../../../api_url"
 
 function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
   console.log('getPosts:', getPosts)
@@ -44,7 +45,7 @@ function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
         'Authorization': 'Bearer ' + localStorage.getItem("token")
       },
       method: 'PUT',
-      url: `http://localhost:3000/publication/${allData.id}`,
+      url: `${apiUrl}/publication/${allData.id}`,
       data: formData
     })
     togglePosts();

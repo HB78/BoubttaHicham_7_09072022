@@ -19,11 +19,3 @@ function UpdateCom({toggleCom}) {
 }
 
 export default UpdateCom
-
-//dois-je mettre un header comme celui d'en bas ?
-// const headers = {
-//   'Authorization': 'Bearer my-token',
-//   'My-Custom-Header': 'foobar'
-// };
-
-//dois-je utiliser le useEffect pour faire appelle a axios ?
