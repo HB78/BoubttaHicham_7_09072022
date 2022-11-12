@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Comentaires from '../../Publications/Publication/Comentaires/Comentaires';
 import CreationComs from '../../Publications/Publication/Comentaires/creationComs/CreationComs';
 import ShowLike from '../../Publications/Publication/Likes/ShowLike'
@@ -30,7 +30,7 @@ export default function ProfilPost({ data, getPosts }) {
   }
   const deletePosts = async (e) => {
     e.preventDefault();
-    const deleteOnePosts = await axios({
+    await axios({
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem("token")
@@ -70,7 +70,7 @@ export default function ProfilPost({ data, getPosts }) {
           </div>
         </div>
         <div className="bar_profil"></div>
-        <button onClick={getComment} className="show_comment"><p>Commentaires</p></button>
+        <button onClick={getComment} className="show_comment" title="voir les commentaires"><p>Commentaires</p></button>
         <CreationComs idPublication={data.publiID} getPosts={getPosts} />
         {dislayCom && <Comentaires idPubli={data.publiID} datas={data} getPosts={getPosts} />}
       </div>

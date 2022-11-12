@@ -96,7 +96,7 @@ Etudier la partie du code brad traversy ou il donne l'illusion d'un delete pour 
 
 --> mettre le API URL a la place du localHost FAIT
 
---> mettre des balise sections articles et main
+--> mettre des balise sections articles et main FAIT
 
 --> readme.md les balises aria src class/classname
 

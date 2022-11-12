@@ -66,7 +66,7 @@ export default function Login() {
         <form onSubmit={sendData}>
           <TbWorld size={"35px"} color="#FD2D01" />
           <fieldset>
-            <legend>SignUp</legend>
+            <legend>SignIn</legend>
 
 
             <label htmlFor="email">email</label>

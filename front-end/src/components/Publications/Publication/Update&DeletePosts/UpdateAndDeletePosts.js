@@ -82,7 +82,7 @@ function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
               type="file"
               name='image'
               onChange={changePhoto} />
-            <input type="submit" value="envoyer" />
+            <input type="submit" value="envoyer" title="validez vos changements"/>
           </div>
         </form>
       </div>

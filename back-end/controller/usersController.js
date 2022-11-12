@@ -16,6 +16,14 @@ function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
+function validateName(name) {
+    let regex = new RegExp("[a-zA-Z]")
+    return regex.test(name);
+}
+function noNumber(name) {
+    let regexNumber = new RegExp("[0-9a-zA-Z]")
+    return regexNumber.test(name);
+}
 
 exports.signup = async (req, res, next) => {
     console.log(req.body)
@@ -26,8 +34,23 @@ exports.signup = async (req, res, next) => {
             return;
         }
         //si le user n'entre pas de mail valide ou de mdp valide
-        if (!validateEmail(req.body.email) || req.body.password.length < 4 || req.body.password.length > 80) {
+        if (!validateEmail(req.body.email) || req.body.password.length < 4 || req.body.password.length > 80 || req.body.email.length > 70) {
             res.status(400).send("L'email ou le mot de passe n'est pas correct");
+            return;
+        }
+        //si le user n'entre pas de nom valide
+        if (!validateName(req.body.name)) {
+            res.status(400).send("Il n'y pas de lettre dans votre nom");
+            return;
+        }
+        // //si le user n'entre pas de nom valide
+        // if (noNumber(req.body.name)) {
+        //     res.status(400).send("Retirez les chiffres contenus dans le nom");
+        //     return;
+        // }
+        //si le user n'entre pas de nom validen (longueur du nom)
+        if (req.body.name.length > 25 || req.body.name.length < 2) {
+            res.status(400).send("La taille du nom doit etre comprise entre 2 et 25 caractères");
             return;
         }
         const hash = bcrypt.hashSync(req.body.password, 10);

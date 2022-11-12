@@ -58,15 +58,14 @@ console.log('com:--->commmmm', com)
     <div className="messages">
       <div className="cards_message">
         <div className="card_message_header">
-          <div>
+          <div className="card_message_header_img">
             <img src={(com.image_profil === null || com === null) ? profil : com.image_profil} alt="" className="cards_autor_img_autor" />
           </div>
-          <p>{com.name}</p>
+          <p className="card_message_header_name">{com.name}</p>
           {(com.id_user === parseInt(localStorage.getItem("userId")) || isAdmin === 1) && <div className="cards_message_icone">
             <UpdateCom toggleCom={toggleCom} />
             <DeleteCom deleteCommentaire={deleteComment} getPosts={getPosts} id={com.id} isAdmin={isAdmin}/>
           </div>}
-          {/*<DeleteCom />*/}
         </div>
         {updating ?
           <div className='updateComToggledContainer'>
@@ -78,7 +77,7 @@ console.log('com:--->commmmm', com)
             <button className="updateComToggledbtn" onClick={updateComment}>{'>'}</button>
           </div>
           :
-          <p>{com.contenu}</p>
+          <p className='msg_commentaire'>{com.contenu}</p>
         }
       </div>
     </div>

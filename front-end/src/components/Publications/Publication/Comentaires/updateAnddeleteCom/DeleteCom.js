@@ -22,7 +22,7 @@ function DeleteCom({ deleteCommentaire, getPosts, id, isAdmin }) {
 
   return (
     <i
-      class="fa fa-sharp fa-solid fa-trash"
+      className="fa fa-sharp fa-solid fa-trash"
       title="effacer votre message" id="poubelle"
       onClick={isAdmin === 1 ? deleteCommentByAdmin : deleteCommentaire} >
     </i>

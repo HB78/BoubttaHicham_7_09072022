@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import "./../../profilResponsive/profilResponsive.css"
 
 
-export default function ProfilCard({ data }) {
+export default function ProfilCard({ data, getPosts }) {
   console.log('data: from profil perso', data)
 
   const [isUpdateVisible, setIsUpdateVisible] = useState(false)
@@ -20,6 +20,9 @@ export default function ProfilCard({ data }) {
   //une fonction toggle qui va donner l'inverse du useState update
   const showUpdate = () => {
     setIsUpdateVisible(!isUpdateVisible)
+    if(isUpdateVisible === true) {
+      getPosts()
+    }
   }
 
   const authx = useContext(AuthContext)
@@ -50,7 +53,7 @@ const updateAccountStyle = {
       <div>{data[0].userName}</div>
       <StyledProfilUpdate className='form_update'>
         {data[0].poste === null ? "Poste: Un petit nouveau qui n'a pas encore renseigné son champ" : data[0].poste}
-        {isUpdateVisible === true ?<UpdateJob /> : null}
+        {isUpdateVisible === true ?<UpdateJob getPosts={getPosts}/> : null}
       </StyledProfilUpdate>
       <StyledProfilUpdate className='form_update'>
         {data[0].description === null ? "Description : Un grand timide ?" : data[0].description}
@@ -62,7 +65,7 @@ const updateAccountStyle = {
       <StyledProfilUpdate className='form_update'>
         {isUpdateVisible === true ? <UpdatePhotoProfil /> : null}
       </StyledProfilUpdate>
-      {(idUser === data[0].userID || data[0].id === idUser) ? <input type="button" className='btn_update_count' value={isUpdateVisible ? "Fermer le menu" : "Mise à jour du profil"} style={updateAccountStyle} onClick={showUpdate} /> : null }
+      {(idUser === data[0].userID || data[0].id === idUser) ? <input type="button" className='btn_update_count' value={isUpdateVisible ? "Enregistrer" : "Mise à jour du profil"} style={updateAccountStyle} onClick={showUpdate} /> : null }
       <DeleteProfil isAdmin={isAdmin} idUser={idUser} data={data} />
     </section>
   )

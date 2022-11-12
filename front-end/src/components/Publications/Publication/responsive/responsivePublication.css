@@ -265,6 +265,32 @@
   .logo_groupomania_in_header img{
       width: 100% !important;
   }
+  /*message dans la card*/
+  .messages {
+    margin-top: 20px !important;
+  }
+  .cards_message {
+    border-radius: 3rem !important;
+  }
+  .card_message_header_img {
+    width: 4rem !important;
+    height: 4rem !important;
+  }
+  .card_message_header_name {
+    font-size: 1.7rem;
+  }
+  .msg_commentaire {
+    font-size: 1.7rem !important;
+  }
+  /*INPUT QUI UPDATE UN MESSAGE*/
+  .updateComToggledContainer input {
+    font-size: 2rem;
+    border-radius: 1.5rem;
+  }
+  .updateComToggledContainer button {
+    font-size: 2rem;
+    border-radius: 1.5rem;
+  }
 }
 @media (min-width:1601px) and (max-width:1701px) {
   .card {
@@ -336,6 +362,32 @@
   .logo_groupomania_in_header img{
       width: 100% !important;
   }
+  /*message dans la card*/
+  .messages {
+    margin-top: 20px !important;
+  }
+  .cards_message {
+    border-radius: 3rem !important;
+  }
+  .card_message_header_img {
+    width: 5rem !important;
+    height: 5rem !important;
+  }
+  .card_message_header_name {
+    font-size: 2rem;
+  }
+  .msg_commentaire {
+    font-size: 2rem !important;
+  }
+  /*INPUT QUI UPDATE UN MESSAGE*/
+  .updateComToggledContainer input {
+    font-size: 2.1rem;
+    border-radius: 1.9rem;
+  }
+  .updateComToggledContainer button {
+    font-size: 2.1rem;
+    border-radius: 1.5rem;
+  }
 }
 /*ecran 4K*/
 @media (min-width:1702px) and (max-width:3000px)  {
@@ -352,6 +404,9 @@
   .show_comment {
     font-size: 2.4rem;
     margin-left: 0;
+    border-radius: 1.5rem;
+    border: transparent;
+    padding: 1rem;
   }
   .sub-menu {
     font-size: 3rem;
@@ -368,10 +423,11 @@
   }
   .inputMessage {
     font-size: 2.7rem !important;
+    border-radius: 2.9rem !important;
   }
-  .btn_sendMessage {
-    width: 7.5rem !important;
-    height: 7.5rem !important;
+  .creation_com .btn_sendMessage {
+    width: 10.3rem !important;
+    height: 10.3rem !important;
     font-size: 3.5rem !important;
   }
   .sendPostContainer {
@@ -422,5 +478,33 @@
   }
   .logo_groupomania_in_header img{
       width: 100% !important;
+  }
+  /*message dans la card*/
+  .messages {
+    margin-top: 20px !important;
+  }
+  .cards_message {
+    border-radius: 3rem !important;
+  }
+  .card_message_header_img {
+    width: 10rem !important;
+    height: 10rem !important;
+  }
+  .card_message_header_name {
+    font-size: 4rem;
+  }
+  .msg_commentaire {
+    font-size: 4rem !important;
+  }
+  /*INPUT QUI UPDATE UN MESSAGE*/
+  .updateComToggledContainer input {
+    font-size: 5rem;
+    border-radius: 3.5rem;
+  }
+  .updateComToggledContainer button {
+    font-size: 4.2rem;
+    border-radius: 2.5rem;
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 }

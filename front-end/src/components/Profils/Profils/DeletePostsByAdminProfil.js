@@ -42,7 +42,7 @@ function deletePostsByAdminProfil({ deletePosts, data }) {
   return (
     <>
     <i
-      class="fa fa-sharp fa-solid fa-trash"
+      className="fa fa-sharp fa-solid fa-trash"
       title="effacer votre message" id="poubelle"
       onClick={isAdmin === 1 ? deletePostsByAdmin : deletePosts}>
     </i>

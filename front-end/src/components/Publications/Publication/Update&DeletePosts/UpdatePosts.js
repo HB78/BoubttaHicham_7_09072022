@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 function UpdatePosts({ togglePosts }) {
   return (
       <i
-        class="fa fa-solid fa-marker"
+        className="fa fa-solid fa-marker"
         title="mettre à jour votre message"
         id="editer"
         onClick={togglePosts}>

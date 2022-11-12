@@ -35,7 +35,7 @@ export default function Profils({ data, getPosts }) {
       <>
      <Header />
         <StyledPublicationPageProfil>
-          <ProfilCard data={data}/>
+          <ProfilCard data={data} getPosts={getPosts}/>
           <DisplayPosts />
         </StyledPublicationPageProfil>
       <Footer />

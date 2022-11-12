@@ -3,7 +3,7 @@ import "./publication.css";
 import "./responsive/responsivePublication.css";
 import Comentaires from "./Comentaires/Comentaires";
 import AuthContext from '../../../auth/authContext';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from "axios";
 import profil from "../../../assets/profil.png"
 import CreationComs from './Comentaires/creationComs/CreationComs';
@@ -44,14 +44,6 @@ export default function Publication({ data, getPosts }) {
   const isAdmin = JSON.parse(authCtx.isAdmin)  
   console.log(authCtx.isLoggedIn, "TEST login authx")
 
-  let navigate = useNavigate();
-
-  useEffect(() => {
-    if(!authCtx.isLoggedIn){
-      navigate("/login");
-    }
-  }, [])
-
   const deletePosts = async (e) => {
     e.preventDefault();
     await axios({
@@ -72,7 +64,7 @@ export default function Publication({ data, getPosts }) {
   }
   function DisplayPublication() {
     return (
-      <div className="card">
+      <article className="card">
         <div>
           <div className="sub-menu">
             <div className='like_dislike'>
@@ -99,10 +91,10 @@ export default function Publication({ data, getPosts }) {
           </div>
         </div>
         <div className="bar"></div>
-        <button onClick={getComment} className="show_comment"><p>Commentaires</p></button>
+        <button onClick={getComment} className="show_comment" title="voir les commentaires"><p>Commentaires</p></button>
         <CreationComs idPublication={data.id} getPosts={getPosts} />
         {dislayCom && <Comentaires idPubli={data.id} datas={data} getPosts={getPosts} />}
-      </div>
+      </article>
     )
   }
   return (

@@ -2,7 +2,8 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Publication  from '../components/Publications/Publications';
-import apiUrl from "../api_url"
+import apiUrl from "../api_url";
+import { useNavigate } from 'react-router-dom'
 
 export default function Forum() {
   const [posts, setPosts] = useState([])
@@ -11,6 +12,8 @@ export default function Forum() {
   useEffect(() => {
     getPosts()
   }, [])
+
+  let navigate = useNavigate();
 
   async function getPosts() {
     try {
@@ -26,6 +29,10 @@ export default function Forum() {
       setPosts(res.data)
     } catch (error) {
       console.log(error)
+      if(error.request.status === 401) {
+        alert("Connectez vous pour accéder au site")
+        navigate("/login");
+      }
     }
   }
 

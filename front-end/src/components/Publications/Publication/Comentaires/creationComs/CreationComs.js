@@ -46,6 +46,7 @@ function CreationComs({idPublication, getPosts}) {
         value={commentary}
         onChange={commentInsideInput} />
       <button
+        title='envoyez votre message'
         className="btn_sendMessage"
         onClick={sendCommentaire}>{'>'}
       </button>
