@@ -41,7 +41,7 @@ function Comentaires({ idPubli, datas, getPosts }) {
   function DisplayComs(props) {
     return comments.map((com, index) => {
       return (
-        <Commentaire profil={profil} com={com} getPosts={getPosts} />
+        <Commentaire key={index} profil={profil} com={com} getPosts={getPosts} />
       )
     });
   }

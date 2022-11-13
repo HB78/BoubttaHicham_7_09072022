@@ -11,6 +11,7 @@
     align-items: center;
     overflow: hidden;
     transition: 0.5s;
+    z-index: 88;
 }
 .close-menu {
   display: none;

@@ -82,8 +82,8 @@ export default function Publication({ data, getPosts }) {
           <div className="card_imagePosted"><img src={data.photoPost} alt="" /></div>
         </div>
         <div className="cards_autor">
-          <div className="cards_autor_img">
-            <img src={photos()} alt="" className="cards_autor_img_autor" />
+          <div className="cards_autor_img_name">
+            <div className="cards_autor_img"><img src={photos()} alt="" className="cards_autor_img_autor" /></div>
             <p><Link to={`/profil/${data.userID}`}>{data.userName}</Link></p>
           </div>
           <div className="cards_autor_identity">

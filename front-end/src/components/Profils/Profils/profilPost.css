@@ -33,6 +33,11 @@ body {
   width: 75%;
   border-radius: 1rem;
 }
+/*div qui a la photo de profil et le nom du user dans la publication*/
+.cards_autor_img_name_profil {
+  display: flex;
+  gap: 1.5%;
+}
 /* div ou il y a l'imagr de profil du user*/
 .cards_autor_img_profil {
   display:flex;

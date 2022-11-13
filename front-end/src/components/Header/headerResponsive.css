@@ -5,14 +5,18 @@
     }
 }
 
-/*ECRAN TV */
-@media (min-width:1440px) and (max-width:1600px) {
-
+/*PETITS ECRANS*/
+@media (min-width:250px) and (max-width:340px) {
+    .menu-box ul li a{
+        font-size: 2rem;
+    }
 }
 @media (min-width:1601px) and (max-width:1701px) {
 
 }
 /*ecran 4K*/
 @media (min-width:1702px) and (max-width:3000px) {
-
+    .menu-box ul li a{
+        font-size: 10rem;
+    }
 }

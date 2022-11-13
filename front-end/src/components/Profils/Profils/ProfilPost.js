@@ -61,8 +61,8 @@ export default function ProfilPost({ data, getPosts }) {
           <div className="card_imagePosted_profil"><img src={data.photoPost} alt="" /></div>
         </div>
         <div className="cards_autor_profil">
-          <div className="cards_autor_img_profil">
-            <img src={photos()} alt="" className="cards_autor_img_autor_profil" />
+          <div className="cards_autor_img_name_profil">
+            <div className="cards_autor_img_profil"><img src={photos()} alt="" className="cards_autor_img_autor_profil" /></div>
             <p>{data.userName}</p>
           </div>
           <div className="cards_autor_identity">

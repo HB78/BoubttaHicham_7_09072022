@@ -71,7 +71,7 @@ export default function Header({ oneUser }) {
     marginRight: '0.8rem',
     cursor: 'pointer',
     zIndex: '100',
-    transform: "scale(1.2)"
+    transform: "scale(1.3)"
   }
   const liStyleImg = {
     border: '1px solid black',

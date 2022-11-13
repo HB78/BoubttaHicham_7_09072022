@@ -9,7 +9,7 @@ const OrganigrammeComponent = ({ dataUser, item }) => {
   return (
     item.map((users, index) => {
       return (
-        <article className="container_flip_card_inner">
+        <article className="container_flip_card_inner" key={index}>
         <div className="front_face">
           <img src={users.image_profil === null ? imageProfil : users.image_profil} alt="" />
         </div>

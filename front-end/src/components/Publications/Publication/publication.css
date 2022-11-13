@@ -36,9 +36,15 @@ body {
 .card_imagePosted img {
   width: 30%;
 }
+/*div qui a la photo de profil et le nom du user dans la publication*/
+.cards_autor_img_name {
+  display: flex;
+  gap: 1.5%;
+}
 /* div ou il y a l'imagr de profil du user*/
 .cards_autor_img {
   display:flex;
+  flex-direction: row;
   gap: 1%;
   object-fit: contain;
   border-radius: 100%;
@@ -52,6 +58,8 @@ body {
   border-radius: 100%;
   width: 100%;
   height:100%;
+  max-width: 100%;
+  object-position: center;
 }
 /* le nom du user qui a posté a coté de son image*/
 .cards_autor_img p {
@@ -141,6 +149,7 @@ a {
   transition-duration: 500ms;
   border: transparent;
   font-weight: 600;
+  cursor: pointer;
 }
 .show_comment::before {
   position: absolute;
