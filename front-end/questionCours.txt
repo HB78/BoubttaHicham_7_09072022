@@ -35,7 +35,7 @@ ya t'il une librairie pour créer une card digne de ce nom ?
 comment afficher par contre les publications d'une personne seulement ?
 comment faire une requete put ?
 comment faire en sorte d'afficher les boutons de mise à jour quand c'est l'utilisateur qui connecté ?
-peut ajouter un chat dans le projet grace a une librairie ?
+peut on ajouter un chat dans le projet grace a une librairie ?
 
 --> params c'est ce qui st visible dans l'url 
 --> body c'est ce qui ne l'est pas
