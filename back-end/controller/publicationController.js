@@ -16,7 +16,7 @@ exports.getLastPublication = async (req, res, next) => {
         FROM publication
         JOIN users on publication.id_user = users.id
         ORDER BY publication.date_publi DESC
-        LIMIT 0, 5;`;
+        LIMIT 0, 10;`;
         
         let [publications, fields] = await db.query(query);
         return res.status(200).json(publications);

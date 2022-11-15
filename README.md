@@ -1,4 +1,4 @@
-# Projet P07 OpenClassrooms  - Réseau social d'entreprise
+# Projet P07 OpenClassrooms GROUPOMANIA - Réseau social d'entreprise
 
 ## Scénario
 
@@ -30,12 +30,12 @@ Il a été demandé de créer entièrement le back-end et le front-end avec un f
 ##### Backend:
 * Serveur Node.js avec Framework Express
 * Base de Données avec MySQL2 sans ORM
-* Utilisation de Xampp et de PHP MYADMIN pour géré la base de donnée
+* Utilisation de Xampp et de php myAdmin pour géré la base de donnée
 * API REST
 
 ##### Frontend:
 * Framework REACT JS, ce framework a été installé avec create react app
-* C'est la version 18.2.0, de react qui à été installé
+* C'est la version 18.2.0 de react qui à été installé
 * Utilisation du css classic et de Styled-Component
 
 ## Installation : les différentes étapes

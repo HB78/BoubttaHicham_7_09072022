@@ -5,6 +5,16 @@ import imageProfil from "./../../../assets/profil.png";
 
 const OrganigrammeComponent = ({ dataUser, item }) => {
   console.log('item:', item.length)
+
+  const noFoundStyle = {
+   color: "white",
+   fontSize: "1.5rem",
+   letterSpacing: "0.5rem"
+  }
+
+  if(item.length > 3) {
+    return <article style={noFoundStyle}>Affinez votre recherche</article>
+  }
   
   return (
     item.map((users, index) => {

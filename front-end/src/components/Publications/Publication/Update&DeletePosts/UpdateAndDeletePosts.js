@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import DeletePosts from './DeletePosts';
 import UpdatePosts from './UpdatePosts';
 import './updatedeleteicon.css';
 import apiUrl from "./../../../../api_url"
@@ -39,7 +38,7 @@ function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
   const updatePosts = async (e) => {
     console.log(allData.id)
     e.preventDefault();
-    const updateOnePost = await axios({
+    await axios({
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': 'Bearer ' + localStorage.getItem("token")

@@ -39,18 +39,19 @@ body {
 /*div qui a la photo de profil et le nom du user dans la publication*/
 .cards_autor_img_name {
   display: flex;
+  align-items: center;
   gap: 1.5%;
 }
 /* div ou il y a l'imagr de profil du user*/
-.cards_autor_img {
+.cards_autor_img_name .cards_autor_img {
   display:flex;
   flex-direction: row;
   gap: 1%;
   object-fit: contain;
   border-radius: 100%;
-  border: 1px solid black;
-  height: 50px;
-  width:50px;
+  border: 1px solid rgb(0, 255, 179);
+  height: 60px;
+  width:60px;
 }
 /* l'image de profil du user*/
 .cards_autor_img_autor {
