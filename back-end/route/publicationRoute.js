@@ -25,7 +25,7 @@ router.delete("/:id", auth, publication.adminDeletePublication);
 
 router.delete("/admin/:id", auth, admin, publication.adminDeletePublication);
 
-router.put("/admin/:id", auth, admin, multer, publication.adminUpdatePublication);
+// router.put("/admin/:id", auth, admin, multer, publication.adminUpdatePublication);
 
 //on exporte tous les routers que l'on a coder ici
 module.exports = router;

@@ -41,7 +41,7 @@ export default function Publication({ data, getPosts }) {
   }
 
   const authCtx = useContext(AuthContext)
-  const isAdmin = JSON.parse(authCtx.isAdmin)  
+  const isAdmin = JSON.parse(localStorage.getItem("isAdmin"))  
   console.log(authCtx.isLoggedIn, "TEST login authx")
 
   const deletePosts = async (e) => {

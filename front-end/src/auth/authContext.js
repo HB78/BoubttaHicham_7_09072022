@@ -22,6 +22,7 @@ const AuthContext = createContext(defaultValue);
 //le token et le userId contenu dans le localStorage
 const tokenLocalStorage = localStorage.getItem("token");
 const userIdLocalStorage = localStorage.getItem("userId");
+const isAdminLocalStorage = localStorage.getItem("isAdmin");
 
 //creation du provider qui va wrapper app.js
 export const AuthContextProvider = (props) => {
@@ -30,7 +31,7 @@ export const AuthContextProvider = (props) => {
   //si le localStorage est vide les valeurs seront null de toutes façons
     const [token, setToken] = useState(tokenLocalStorage)
     const [userId, setUserId] = useState(userIdLocalStorage)
-    const [isAdmin, setIsAdmin] = useState(null)
+    const [isAdmin, setIsAdmin] = useState(isAdminLocalStorage)
 
 //Si il y a un token --> je suis connécté : on va convertir le token en booléen avec !! La le token = false
     const userIsLoggedIn = !!token;
@@ -45,6 +46,7 @@ export const AuthContextProvider = (props) => {
         //envoie du token dans le local storage
         localStorage.setItem("token", token)
         localStorage.setItem("userId", userId)
+        localStorage.setItem("isAdmin", isAdmin)
     }
     //la fonction permet de se deconnecter en faisant passer le token à false
     const logoutHandler = () => {
@@ -57,6 +59,7 @@ export const AuthContextProvider = (props) => {
         //suppression du token dans le localStorage
         localStorage.removeItem("token")
         localStorage.removeItem("userId")
+        localStorage.removeItem("isAdmin")
         //on peut aussi faire localStorage.clear() pour tous effacer d'un coup
     }
     //stockage du token d'authentification / la valeur du contexte

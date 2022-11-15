@@ -140,7 +140,7 @@ exports.updatePublication = async (req, res) => {
         }else{
             request = `UPDATE publication SET title ='${req.body.title}', 
                 contenu = '${req.body.contenu}', date_publi = '${now}' 
-                WHERE id = '${req.params.id}';`
+                WHERE id = '${req.params.id}'AND publication.id_user= ${req.auth.id};`
         }
         
         let [rows, fields] = await db.query(request);
@@ -153,36 +153,12 @@ exports.updatePublication = async (req, res) => {
 
 //***************************************ADMIN********************************* */
 
-//mettre à jour une publication en tant que admin
-exports.adminUpdatePublication = async (req, res) => {
-    try {
-        /** Requete SQL dynamique générer en fonction de si l'utilisateur a voulu modifier l'image de sa Publication */
-        let request = "";
-        let requestPartImg = null;
-        let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-        if(req.file && req.file.filename) {
-            requestPartImg = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-            request = `UPDATE publication SET image_path = '${requestPartImg}', title ='${req.body.title}', 
-                contenu = '${req.body.contenu}', date_publi = '${now}' 
-                WHERE id = '${req.params.id}';`
-        }else{
-            request = `UPDATE publication SET title ='${req.body.title}', 
-                contenu = '${req.body.contenu}', date_publi = '${now}' 
-                WHERE id = '${req.params.id}';`
-        }
-        
-        let [rows, fields] = await db.query(request);
-        return res.status(200).json("la publication a été updaté");
-    } catch (error) {
-        console.log(error)
-        res.status(500).json(error);
-    }
-};
-
+//effacer une publication en tant que admin
 exports.adminDeletePublication = async (req, res) => {
+    const idParams = req.params.id
     try {
-        let deletePost = `DELETE FROM publication WHERE publication.id = '${req.params.id}';`;
-        let [rows, fields] = await db.query(deletePost);
+        let deletePost = `DELETE FROM publication WHERE publication.id = ?;`;
+        let [rows, fields] = await db.query(deletePost, [idParams]);
         console.log('rowsSetheader:', rows.affectedRows)
         if(rows.affectedRows === 0) {
             return res.status(404).json("la publication n'existe pas ou plus")
@@ -192,3 +168,29 @@ exports.adminDeletePublication = async (req, res) => {
         res.status(500).json(error);
     }
 };
+
+//mettre à jour une publication en tant que admin
+// exports.adminUpdatePublication = async (req, res) => {
+//     try {
+//         /** Requete SQL dynamique générer en fonction de si l'utilisateur a voulu modifier l'image de sa Publication */
+//         let request = "";
+//         let requestPartImg = null;
+//         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+//         if(req.file && req.file.filename) {
+//             requestPartImg = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+//             request = `UPDATE publication SET image_path = '${requestPartImg}', title ='${req.body.title}', 
+//                 contenu = '${req.body.contenu}', date_publi = '${now}' 
+//                 WHERE id = '${req.params.id}';`
+//         }else{
+//             request = `UPDATE publication SET title ='${req.body.title}', 
+//                 contenu = '${req.body.contenu}', date_publi = '${now}' 
+//                 WHERE id = '${req.params.id}';`
+//         }
+        
+//         let [rows, fields] = await db.query(request);
+//         return res.status(200).json("la publication a été updaté");
+//     } catch (error) {
+//         console.log(error)
+//         res.status(500).json(error);
+//     }
+// };

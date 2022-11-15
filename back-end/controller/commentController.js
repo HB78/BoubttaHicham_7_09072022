@@ -138,20 +138,20 @@ exports.adminDeleteMessage = async (req, res) => {
     }
 };
 
-//mettre à jour un commentaire en tant qu'admin
-exports.adminUpdateMessage = async (req, res) => {
-    const idParams = req.params.id
-    let contenu = req.body.contenu
-    const idToken = req.body.decodedToken.id
-    let idPubli = req.body.id_publi
-    try {
-        let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-        let updateComment= `UPDATE commentaire SET contenu = ?, date_comment = ? 
-        WHERE commentaire.id = ? AND commentaire.id_user = ?;`;
-        let [rows, fields] = await db.query(updateComment, [contenu, now, idParams, idToken]);
-        console.log('rows: --> message modifié', rows)
-        res.status(200).json("message mis a jour");
-    } catch (error) {
-        res.status(500).json(error);
-    }
-}
+// //mettre à jour un commentaire en tant qu'admin
+// exports.adminUpdateMessage = async (req, res) => {
+//     const idParams = req.params.id
+//     let contenu = req.body.contenu
+//     const idToken = req.body.decodedToken.id
+//     let idPubli = req.body.id_publi
+//     try {
+//         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+//         let updateComment= `UPDATE commentaire SET contenu = ?, date_comment = ? 
+//         WHERE commentaire.id = ? AND commentaire.id_user = ?;`;
+//         let [rows, fields] = await db.query(updateComment, [contenu, now, idParams, idToken]);
+//         console.log('rows: --> message modifié', rows)
+//         res.status(200).json("message mis a jour");
+//     } catch (error) {
+//         res.status(500).json(error);
+//     }
+// }

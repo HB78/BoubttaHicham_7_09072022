@@ -19,7 +19,7 @@ router.delete("/message/:id", auth, admin, commentaire.deleteMessage);
 
 router.delete("/admin/message/:id", auth, admin, commentaire.adminDeleteMessage);
 
-router.put("/admin/message/:id", auth, commentaire.adminUpdateMessage);
+// router.put("/admin/message/:id", auth, admin, commentaire.adminUpdateMessage);
 
 //on exporte tous les routers que l'on a coder ici
 module.exports = router;
