@@ -45,6 +45,7 @@ export const AuthContextProvider = (props) => {
         //envoie du token dans le local storage
         localStorage.setItem("token", token)
         localStorage.setItem("userId", userId)
+        localStorage.setItem("isAdmin", isAdmin)
     }
     //la fonction permet de se deconnecter en faisant passer le token à false
     const logoutHandler = () => {
@@ -57,6 +58,7 @@ export const AuthContextProvider = (props) => {
         //suppression du token dans le localStorage
         localStorage.removeItem("token")
         localStorage.removeItem("userId")
+        localStorage.removeItem("isAdmin")
         //on peut aussi faire localStorage.clear() pour tous effacer d'un coup
     }
     //stockage du token d'authentification / la valeur du contexte
