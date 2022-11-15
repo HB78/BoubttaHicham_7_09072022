@@ -13,7 +13,7 @@ router.put("/message/:id", auth, commentaire.updateMessage);
 
 router.post("/message", auth, commentaire.createMessage);
 
-router.delete("/message/:id", auth, commentaire.deleteMessage);
+router.delete("/message/:id", auth, admin, commentaire.deleteMessage);
 
 /******************************ADMIN***********************************/
 
