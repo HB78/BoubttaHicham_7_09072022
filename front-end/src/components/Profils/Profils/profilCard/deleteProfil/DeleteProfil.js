@@ -3,23 +3,33 @@ import axios from 'axios';
 import AuthContext from '../../../../../auth/authContext';
 import { useNavigate } from 'react-router-dom';
 import apiUrl from "./../../../../../api_url"
+import Swal from "sweetalert2"
 
 function DeleteProfil({isAdmin, idUser, data}) {
 
   const authcthx = useContext(AuthContext)
   let navigate = useNavigate();
 
-  // const modaleAlert = () => {
-  //   Swal.fire({
-  //     title: 'Etes vous sur de vouloir supprimer votre compte ?',
-  //     text: "Ce sera irréversible",
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: 'Oui supprimer le compte'
-  //   })
-  // }
+  const modaleAlert = () => {
+    Swal.fire({
+      title: 'Etes vous sur de vouloir supprimer votre compte ?',
+      text: "Ce sera irréversible",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui supprimer le compte'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Compte supprimé!',
+          'A bientot !'
+        )
+        authcthx.logout()
+        navigate("/login", { replace: true });
+      }
+    })
+  }
     const cancelCount = async (e) => {
         e.preventDefault();
         await axios({
@@ -31,9 +41,7 @@ function DeleteProfil({isAdmin, idUser, data}) {
           url: `${apiUrl}/users/${idUser}`,
           // data: JSON.stringify(localStorage.getItem("userId"))
         })
-        // modaleAlert()
-        authcthx.logout()
-        navigate("/login", { replace: true });
+        modaleAlert()
       }
       const deleteAccountStyle = {
         width: "57%",

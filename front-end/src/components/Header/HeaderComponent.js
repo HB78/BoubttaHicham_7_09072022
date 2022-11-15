@@ -7,6 +7,7 @@ import profilPhoto from "./../../assets/profil.png";
 import logo from "./../../assets/globe.gif"
 import AuthContext from './../../auth/authContext';
 import "./headerResponsive.css";
+import Swal from "sweetalert2";
 
 export default function Header({ oneUser }) {
   console.log('oneUser:', oneUser)
@@ -21,7 +22,14 @@ export default function Header({ oneUser }) {
 
   function logOutSession() {
     authcthx.logout()
-    alert("vous etes deconnecté")
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Déconnexion réussie',
+      showConfirmButton: false,
+      timer: 2200
+    })
+    // alert("vous etes deconnecté")
   }
   function DisplayHiddenMenu() {
     return (
