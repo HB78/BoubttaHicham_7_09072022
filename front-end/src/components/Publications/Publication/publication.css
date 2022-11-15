@@ -24,6 +24,10 @@ body {
   border: 0px solid transparent;
   box-shadow: 0px 1px 20px rgb(0, 174, 255);
 }
+/*la div qui contient la description du paragraphe*/
+.publication_description {
+  word-wrap: break-word;
+}
 /* div ou il y a l'image de celui qui publie comme son nom et la date de publication*/
 
 /* image poste par le user div qui contient l'image*/
