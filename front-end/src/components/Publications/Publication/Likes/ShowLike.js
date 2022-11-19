@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { TbHeart } from "react-icons/tb";
-import AddLike from './AddLike';
 import apiUrl from '../../../../api_url';
 
 

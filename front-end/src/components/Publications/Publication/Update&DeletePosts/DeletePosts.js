@@ -10,7 +10,7 @@ function DeletePosts({ deletePosts, data, getPosts }) {
   //Une fonction qui permet à l'admin de supprimer une publication
 
   const authCtx = useContext(AuthContext)
-  const isAdmin = JSON.parse(authCtx.isAdmin) 
+  const isAdmin = authCtx.isAdmin 
 
   const deletePostsByAdmin = async (e) => {
     e.preventDefault();

@@ -21,7 +21,7 @@ console.log('com:--->commmmm', com)
   }
 
   const authCtx = useContext(AuthContext)
-  const isAdmin = JSON.parse(authCtx.isAdmin)
+  const isAdmin = authCtx.isAdmin
 
   const updateComment = async (e) => {
     e.preventDefault();

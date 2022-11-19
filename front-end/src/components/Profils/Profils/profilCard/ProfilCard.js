@@ -26,7 +26,7 @@ export default function ProfilCard({ data, getPosts }) {
   }
 
   const authx = useContext(AuthContext)
-  const isAdmin = JSON.parse(authx.isAdmin)
+  const isAdmin = authx.isAdmin
   const idUser = JSON.parse(authx.userId)
   console.log('data:car violette profil', idUser)
   console.log(typeof isAdmin)

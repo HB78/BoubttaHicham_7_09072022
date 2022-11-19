@@ -54,7 +54,7 @@ exports.getNoLikeOfPublication = async (req, res) => {
 exports.addLike = async (req, res) => {
     const idParams = req.params.id
     let idPubli = req.body.id_publi
-    const idToken = req.body.decodedToken.id
+    const idToken = req.auth.id
     let love = req.body.love
     try {
         let selectLike = `SELECT love, id_publi, id_user FROM reaction 
@@ -102,7 +102,7 @@ exports.addLike = async (req, res) => {
 exports.removeLike = async (req, res) => {
     const idParams = req.params.id
     let idPubli = req.body.id_publi
-    const idToken = req.body.decodedToken.id
+    const idToken = req.auth.id
     let love = req.body.love
     try {
         let selectLike = `SELECT love, id_publi, id_user FROM reaction 
@@ -145,7 +145,7 @@ exports.removeLike = async (req, res) => {
 //annuler un like ou un dislike
 exports.cancelLike = async (req, res) => {
     const idParams = req.params.id
-    const idToken = req.body.decodedToken.id
+    const idToken = req.auth.id
     try {
         //On enleve 1 ou -1 et on remplace par 0 pour annuler le like ou le dislike
         let noLike = `UPDATE reaction SET love= 0 WHERE reaction.id_publi = ? AND
@@ -182,7 +182,7 @@ exports.cancelLike = async (req, res) => {
 // savoir si un utilisateur a liké une publication
 exports.hasUserLikedPublication = async (req, res) => {
     const publicationId = req.params.id;
-    const userId = req.body.decodedToken.id;
+    const userId = req.auth.id;
     try {
         let getLike = `select count(*)
         AS likes, reaction.id_publi AS id_publi
@@ -201,7 +201,7 @@ exports.hasUserLikedPublication = async (req, res) => {
 // savoir si un utilisateur a disliké une publication
 exports.hasUserDislikedPublication = async (req, res) => {
     const publicationId = req.params.id;
-    const userId = req.body.decodedToken.id;
+    const userId = req.auth.id;
     try {
         let getLike = `select count(*)
         AS dislikes, reaction.id_publi AS id_publi

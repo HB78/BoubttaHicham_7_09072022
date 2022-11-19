@@ -151,6 +151,7 @@ exports.getAllUsers = async (req, res) => {
 //Récupération d'un seul utilisateur pour la mise en place du profil
 
 exports.getOneUser = async (req, res, next) => {
+    //inutile de rajouter la restriction liée à l'id du user dans le decoded token car je veux permettre à tous les utilisateurs de rechercher les autres utilisateur dans la page organigramme.
     const idParams = req.params.id
     try {
         let oneUser = `SELECT id, name, poste, image_profil, description FROM users WHERE id= ?; `;
@@ -168,109 +169,137 @@ exports.getOneUser = async (req, res, next) => {
     }
 };
 
-//mise à jour du mot de passe de l'utilisateur
+//mise à jour du mot de passe de l'utilisateur CORRECTION
 
 exports.updatePasswordOfUser = async (req, res, next) => {
     const idParams = req.params.id
     const idToken = req.auth.id
     try {
-        let idOfUser = `SELECT id FROM users WHERE id= '${req.params.id}';`
-        let [row, field] = await db.query(idOfUser);
+        let idOfUser = `SELECT id FROM users WHERE id= ?;`
+        let [row, field] = await db.query(idOfUser, [idParams]);
 
         //pour ne pas qu'il modifie le mdp d'un compte inexistant
         if(!row.length > 0) {
             return res.status(400).json("l'utilisateur n'existe pas");
         }
-        //si le compte existe on peut modifier son mot de passe
-        const hash = bcrypt.hashSync(req.body.password, 10);
-        let updatePassword = `UPDATE users SET password = '${hash}' WHERE id = ? AND users.id = ? ;`;
-        let [rows, fields] = await db.query(updatePassword, [idParams, idToken]);
-        return res.status(201).json("mot de passe modifié");
+        //on vérifie si au départ l'id contenu dans token est bien le meme que celui des params
+       let verifyIdUser = `SELECT users.id FROM users WHERE users.id = ?`
+       let [roz, fiels] = await db.query(verifyIdUser, [idParams]);
+       if(roz[0].id === idToken) {
+           //si le compte existe on peut modifier son mot de passe
+           const hash = bcrypt.hashSync(req.body.password, 10);
+           let updatePassword = `UPDATE users SET password = ? WHERE id = ? AND users.id = ? ;`;
+           let [rows, fields] = await db.query(updatePassword, [hash, idParams, idToken]);
+           return res.status(201).json("mot de passe modifié !");
+    }
+    return res.status(401).json("Vous n'etes pas autorisez à faire cette requete")
     } catch (error) {
-        res.status(500).json(error);
+        return res.status(500).json(error);
     }
 };
 
-//mise à jour de la photo de l'utilisateur
+//mise à jour de la photo de l'utilisateur CORRECTION
 
 exports.updatePhotoProfil = async (req, res, next) => {
     const idParams = req.params.id
     const idToken = req.auth.id
     try {
-        console.log("photo de profil ajouter peut etre");
-        let photoProfil = `UPDATE users SET image_profil = '${req.protocol}://${req.get('host')}/images/${req.file.filename}' WHERE users.id = ? AND users.id = ? ;`;
-        let [rows, fields] = await db.query(photoProfil, [idParams, idToken]);
-        return res.status(201).json("photo de profil modifiée");
+        //on vérifie si au départ l'id contenu dans token est bien le meme que celui des params
+       let verifyIdUser = `SELECT users.id FROM users WHERE users.id = ?`
+       let [row, field] = await db.query(verifyIdUser, [idParams]);
+       if(row[0].id === idToken) {
+           let photoProfil = `UPDATE users SET image_profil = '${req.protocol}://${req.get('host')}/images/${req.file.filename}' WHERE users.id = ? AND users.id = ? ;`;
+           let [rows, fields] = await db.query(photoProfil, [idParams, idToken]);
+           return res.status(201).json("photo de profil modifiée");
+    }
+    return res.status(401).json("Vous n'etes pas autorisez à faire cette requete")
+
     } catch (error) {
         res.status(500).json(error);
     }
 };
 
-//mise à jour  de la description
+//mise à jour  de la description CORRECTION
 
 exports.UpdateDescription = async (req, res, next) => {
     const idParams = req.params.id
     let description = req.body.description
     const idToken = req.auth.id
     try {
-        let descriptions = `UPDATE users SET description = ? WHERE id = ? AND users.id = ?;`;
-        let [rows, fields] = await db.query(descriptions, [description, idParams, idToken]);
-        return res.status(200).json("modification de la description");
+        //on vérifie si au départ l'id contenu dans token est bien le meme que celui des params
+       let verifyIdUser = `SELECT users.id FROM users WHERE users.id = ?`
+       let [row, field] = await db.query(verifyIdUser, [idParams]);
+       if(row[0].id === idToken) {
+           let descriptions = `UPDATE users SET description = ? WHERE id = ? AND users.id = ?;`;
+           let [rows, fields] = await db.query(descriptions, [description, idParams, idToken]);
+           return res.status(200).json("modification de la description");
+    }
+        return res.status(401).json("Vous n'etes pas autorisez à faire cette requete")
     } catch (error) {
         res.status(500).json(error);
     }
 };
 
-//mise à jour du poste de l'utilisateur
+//mise à jour du poste de l'utilisateur CORRECTION
 
 exports.updatePoste = async (req, res, next) => {
     const idParams = req.params.id
     let job = req.body.poste
     const idToken = req.auth.id
     try {
-        let poste = `UPDATE users SET poste = ? WHERE users.id = ? AND users.id = ?;`;
-        let [rows, fields] = await db.query(poste, [job, idParams, idToken]);
-        return res.status(200).json("l'utilisateur a changer de poste");
+       //on vérifie si au départ l'id contenu dans token est bien le meme que celui des params
+       let verifyIdUser = `SELECT users.id FROM users WHERE users.id = ?`
+       let [row, field] = await db.query(verifyIdUser, [idParams]);
+       if(row[0].id === idToken) {
+           let poste = `UPDATE users SET poste = ? WHERE users.id = ? AND users.id = ?;`;
+           let [rows, fields] = await db.query(poste, [job, idParams, idToken]);
+           return res.status(200).json("l'utilisateur a changer de poste");
+    }
+    return res.status(401).json("Vous n'etes pas autorisez à faire cette requete")
+
     } catch (error) {
         res.status(500).json(error);
     }
 };
 
-//supression du compte de l'utilisateur
+//supression du compte de l'utilisateur CORRECTION
 
 exports.deleteUser = async (req, res, next) => {
     const idParams = req.params.id
     const idToken = req.auth.id
     try {
-        let deleteCountOfUser = `DELETE FROM users WHERE users.id = ?
-        AND users.id = ? ;`;
-        console.log('req.auth.id:', req.auth.id)
-        let [rows, fields] = await db.query(deleteCountOfUser, [idParams, idToken]);
-
+        //on vérifie si au départ l'id contenu dans token est bien le meme que celui des params
+        let verifyIdUser = `SELECT users.id FROM users WHERE users.id = ?`
+        let [row, field] = await db.query(verifyIdUser, [idParams]);
+        if(row[0].id === idToken) {
+            let deleteCountOfUser = `DELETE FROM users WHERE users.id = ?
+            AND users.id = ? ;`;
+            console.log('req.auth.id:', req.auth.id)
+            let [rows, fields] = await db.query(deleteCountOfUser, [idParams, idToken]);
+            return res.status(200).json("compte supprimé avec succes");
+        }
+        return res.status(401).json("Vous n'etes pas autorisez à faire cette requete")
+    
         //si le tableau rows contient quelque chose on supprime le compte
         // if (rows.affectedRows === 0) {
         //     return res.status(200).json("l'utilisateur n'existe pas ou plus");
         // } 
-        return res.status(200).json("compte supprimé avec succes");
     } catch (error) {
         res.status(500).json(error);
     }
 };
 
-//recherche d'un utilisateur dans la barre de recherche
-
-exports.searchUser = async (req, res) => {
+//Check si le user est admin
+exports.checkIfAdmin = async (req, res, next) => {
+    const idParams = req.params.id
+    const idToken = req.auth.id
     try {
-        let search = `SELECT id, name, poste, image_profil FROM users WHERE name like "%" + ${req.query.name} + "%" ;`;
-        let [rows, fields] = await db.query(deleteCountOfUser);
+        //on vérifie si au départ l'id contenu dans token est bien le meme que celui des params
+        let verifyIsAdmin= `SELECT users.id, users.admin, users.name FROM users WHERE users.id = ? AND users.id = ? ;`
+        let [rows, fields] = await db.query(verifyIsAdmin, [idParams, idToken]);
+        console.log('rows:admin', rows)
+        return res.status(200).json(rows);
 
-        if(!rows.length > 0) {
-            res.status(404).json("utilisateur non trouvé parmis les employés");
-            return
-        }else {
-            res.status(200).json("employé trouvé parmis les utilisateurs");
-            return
-        }
     } catch (error) {
         res.status(500).json(error);
     }

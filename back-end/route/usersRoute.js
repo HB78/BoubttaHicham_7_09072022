@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 
 const admin = require("../middleware/admin")
 
-const {UpdateDescription} = require("../controller/usersController");
+const {UpdateDescription, deleteUserByAdmin} = require("../controller/usersController");
 
 const {updatePoste} = require("../controller/usersController");
 
@@ -24,27 +24,26 @@ const {deleteUser} = require("../controller/usersController");
 
 const {updatePhotoProfil} = require("../controller/usersController");
 
-const {searchUser} = require("../controller/usersController");
-
 const {getLastPublicationOfUser} = require("../controller/usersController");
+
+//check if is admin
+const {checkIfAdmin} = require("../controller/usersController");
 
 //importation de multer
 const multer = require("../middleware/multer");
 
-//TODO: il faut revoir tous les endpoints des routes
-
 //la page qui va afficher l'organigramme de l'entreprise (ajouter le auth ?)
 router.get("/organigramme", auth, getAllUsers); 
-
-//recherche d'un utilisateur dans la barre de recherche
-router.get("/search", searchUser);
 
 //login et inscription
 router.post("/signup", signup);
 router.post("/login", login);
 
+//check if admin
+router.get("/checkadmin/:id", auth, checkIfAdmin); 
+
 //affichage de la page profil
-router.get("/:id", auth, multer, getOneUser); //dois-je remettre le auth ici ?
+router.get("/:id", auth, multer, getOneUser); 
 
 //changement du mot de passe du user
 router.put("/password/:id", auth, updatePasswordOfUser);
@@ -62,6 +61,6 @@ router.put("/poste/:id", auth, updatePoste);
 router.delete("/:id", auth, deleteUser);
 
 //suppression du compte utilisateur PAR UN ADMIN
-router.delete("/admin/:id", auth, admin, deleteUser);
+router.delete("/admin/:id", auth, admin, deleteUserByAdmin);
 
 module.exports = router;

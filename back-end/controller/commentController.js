@@ -11,7 +11,7 @@ const db = require("../dataBase/db");
 var moment = require('moment'); // require
 
 //afficher tous les commentaires
-exports.getCommentByPublication = async (req,res) => {
+exports.getCommentByPublication = async (req, res) => {
     try {
         //si le commentaire n'est lié à aucune publication
         //ou l'id de la publication n'est pas un nombre
@@ -23,7 +23,7 @@ exports.getCommentByPublication = async (req,res) => {
         let START = req.body.start || 0;
         let NB_COMMENT = 10;
         const idParams = req.params.id
-        console.log("--> req.params controller",req.params)
+        console.log("--> req.params controller", req.params)
         //on veut afficher tous les commentaires des publications
         let allcomment = `SELECT commentaire.id, commentaire.id_publi, contenu, date_comment, users.image_profil, users.name, commentaire.id_user FROM commentaire 
         INNER JOIN users ON 
@@ -39,44 +39,44 @@ exports.getCommentByPublication = async (req,res) => {
     }
 };
 
-// A l'aide dd'un tab d'id de publication obtenire un tableau de tabeau de commentaire (limit 10)
-exports.getCommentByPublications = async (req,res) => {
-    try {
-        let err = false;
-        if (!req.body.tab_id_publi || Array.isArray(req.body.tab_id_publi))  {
-            res.status(400).json("Requète mal formaté ajoutez id_publi");
-        }
-        req.body.tab_id_publi.map(id =>{
-            if (typeof id != 'number') {
-                err = true;
-            }
-        });
-        if (err) {
-            res.status(400).json("Requète mal formaté ajoutez tab_id_publi not number");
-            return;
-        }
-        // requette bien formater
-        let tab_comments = []
-        req.body.tab_id_publi.forEach(async (id_pub) =>{
-            let allcomment = `SELECT commentaire.id, contenu, date_comment, users.name, commentaire.id_user FROM commentaire 
-            INNER JOIN users ON 
-            commentaire.id_user = users.id 
-            WHERE commentaire.id_publi =  ${id_pub}
-            ORDER BY commentaire.date_comment DESC LIMIT  0, 2;`
-            let [rows, fields] = await db.query(allcomment);
-            tab_comments.push({rows, id_pub});
-        });
-        return res.status(200).json(tab_comments);
-    } catch (error) {
-        res.status(500).json(error);
-    }
-};
+// // A l'aide dd'un tab d'id de publication obtenire un tableau de tabeau de commentaire (limit 10)
+// exports.getCommentByPublications = async (req,res) => {
+//     try {
+//         let err = false;
+//         if (!req.body.tab_id_publi || Array.isArray(req.body.tab_id_publi))  {
+//             res.status(400).json("Requète mal formaté ajoutez id_publi");
+//         }
+//         req.body.tab_id_publi.map(id =>{
+//             if (typeof id != 'number') {
+//                 err = true;
+//             }
+//         });
+//         if (err) {
+//             res.status(400).json("Requète mal formaté ajoutez tab_id_publi not number");
+//             return;
+//         }
+//         // requette bien formater
+//         let tab_comments = []
+//         req.body.tab_id_publi.forEach(async (id_pub) =>{
+//             let allcomment = `SELECT commentaire.id, contenu, date_comment, users.name, commentaire.id_user FROM commentaire 
+//             INNER JOIN users ON 
+//             commentaire.id_user = users.id 
+//             WHERE commentaire.id_publi =  ${id_pub}
+//             ORDER BY commentaire.date_comment DESC LIMIT  0, 2;`
+//             let [rows, fields] = await db.query(allcomment);
+//             tab_comments.push({rows, id_pub});
+//         });
+//         return res.status(200).json(tab_comments);
+//     } catch (error) {
+//         res.status(500).json(error);
+//     }
+// };
 
 //créer un commentaire
 exports.createMessage = async (req, res) => {
     const idParams = req.params.id
     let contenu = req.body.contenu
-    const idToken = req.body.decodedToken.id
+    const idToken = req.auth.id
     let idPubli = req.body.id_publi
     try {
         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
@@ -89,34 +89,37 @@ exports.createMessage = async (req, res) => {
     }
 };
 
-//effacer un commentaire
+//effacer un commentaire CORRECTION
 exports.deleteMessage = async (req, res) => {
     const idParams = req.params.id
-    const idToken = req.body.decodedToken.id
+    const idToken = req.auth.id
     try {
+        //je met en correspondance le commentaire.id = ? AND commentaire.id_user = ? afin de vérifer l'identité du user
         let deleteComment = `DELETE FROM commentaire 
-        WHERE commentaire.id = ? AND commentaire.id_user = ?;`;
+            WHERE commentaire.id = ? AND commentaire.id_user = ?;`;
         let [rows, fields] = await db.query(deleteComment, [idParams, idToken]);
-        return res.status(200).json({info: rows.affectedRows + " message supprimé"});
+        return res.status(200).json({ info: rows.affectedRows + " message supprimé" });
     } catch (error) {
         console.log("error", error)
-        res.status(500).json({error: error});
+        res.status(500).json({ error: error });
     }
 };
 
-//mettre à jour un commentaire
+//mettre à jour un commentaire CORRECTION
 exports.updateMessage = async (req, res) => {
     const idParams = req.params.id
     let contenu = req.body.contenu
-    const idToken = req.body.decodedToken.id
+    const idToken = req.auth.id
     let idPubli = req.body.id_publi
     try {
+        //je met en correspondance le commentaire.id = ? AND commentaire.id_user = ? afin de vérifer l'identité du user
         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-        let updateComment= `UPDATE commentaire SET contenu = ?, date_comment = ?
-        WHERE commentaire.id = ? AND commentaire.id_user = ?;`;
+        let updateComment = `UPDATE commentaire SET contenu = ?, date_comment = ?
+            WHERE commentaire.id = ? AND commentaire.id_user = ?;`;
         let [rows, fields] = await db.query(updateComment, [contenu, now, idParams, idToken]);
         console.log('rows: --> message modifié', rows)
-        res.status(200).json("message mis a jour");
+        return res.status(200).json("message mis a jour");
+
     } catch (error) {
         res.status(500).json(error);
     }
@@ -128,13 +131,16 @@ exports.updateMessage = async (req, res) => {
 exports.adminDeleteMessage = async (req, res) => {
     const idParams = req.params.id
     try {
-        let deleteComment = `DELETE FROM commentaire 
-        WHERE commentaire.id = ?`;
-        let [rows, fields] = await db.query(deleteComment, [idParams]);
-        return res.status(200).json({info: rows.affectedRows + " message supprimé"});
+        if (req.auth.isAdmin == 1) {
+            let deleteComment = `DELETE FROM commentaire 
+            WHERE commentaire.id = ?`;
+            let [rows, fields] = await db.query(deleteComment, [idParams]);
+            return res.status(200).json({ info: rows.affectedRows + " message supprimé" });
+        }
+        return res.status(401).json("vous n'etes pas un admin !!!!")
     } catch (error) {
         console.log("error", error)
-        res.status(500).json({error: error});
+        res.status(500).json({ error: error });
     }
 };
 
@@ -146,7 +152,7 @@ exports.adminDeleteMessage = async (req, res) => {
 //     let idPubli = req.body.id_publi
 //     try {
 //         let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-//         let updateComment= `UPDATE commentaire SET contenu = ?, date_comment = ? 
+//         let updateComment= `UPDATE commentaire SET contenu = ?, date_comment = ?
 //         WHERE commentaire.id = ? AND commentaire.id_user = ?;`;
 //         let [rows, fields] = await db.query(updateComment, [contenu, now, idParams, idToken]);
 //         console.log('rows: --> message modifié', rows)

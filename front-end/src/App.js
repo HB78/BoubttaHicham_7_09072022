@@ -1,7 +1,7 @@
 import Connexion from "./pages/Connexion";
 import { Routes, Route} from "react-router-dom";
 import ConnexionLogin from "./pages/ConnexionLogin";
-import Forum from "./pages/Forum";
+import Publications from "./pages/Publications";
 import Organigramme from "./pages/Organigramme";
 import Profil from "./pages/Profil"
 import Accueil from "./pages/Accueil";
@@ -17,7 +17,7 @@ function App() {
         <Route exact path="/" element={<Accueil />}></Route>
         <Route exact path="/signup" element={<Connexion />}></Route>
         <Route exact path="/login" element={<ConnexionLogin />}></Route>
-        <Route path="/publication" element={<Forum />}></Route>
+        <Route path="/publication" element={<Publications />}></Route>
         <Route path="/organigramme" element={<Organigramme />}></Route>
         <Route path="/profil/:id" element={<Profil />}></Route>
         <Route path="*" element={<Error />}></Route>

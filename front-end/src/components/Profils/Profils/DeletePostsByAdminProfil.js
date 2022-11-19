@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import AuthContext from '../../../auth/authContext';
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,10 +7,11 @@ import apiUrl from "./../../../api_url"
 
 function deletePostsByAdminProfil({ deletePosts, data }) {
 
+  const authCTX = useContext
+  const contexte = authCTX(AuthContext)
+  const isAdmin = contexte.isAdmin
   //Une fonction qui permet à l'admin de supprimer une publication
 
-  // const authCtx = useContext(AuthContext)
-  const isAdmin = JSON.parse(localStorage.getItem("isAdmin")) 
 
   const deletePostsByAdmin = async (e) => {
     e.preventDefault();

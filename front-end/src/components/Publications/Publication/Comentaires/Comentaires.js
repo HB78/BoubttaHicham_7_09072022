@@ -23,7 +23,14 @@ function Comentaires({ idPubli, datas, getPosts }) {
   async function getComs() {
     if (comments.length <= 0) {
       try {
-        let res = await axios.get(`${apiurl}/commentaires/message/${idPubli}`); // ajouter id depuis props
+        let res = await axios({
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+          },
+          method: 'GET',
+          url: `${apiurl}/commentaires/message/${idPubli}`
+        }); // ajouter id depuis props
         console.log("commentaire res.data", res.data);
         setComments(res.data);
       } catch (error) {
@@ -53,4 +60,4 @@ function Comentaires({ idPubli, datas, getPosts }) {
   )
 }
 
-export default Comentaires;
+export default Comentaires

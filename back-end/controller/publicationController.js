@@ -70,9 +70,9 @@ exports.getLastPublicationOfUser = async (req, res) => {
 
 // Auth avec => req.body.decodedToken.id
 
-//créer une publication
+//créer une publication CORRECTION
 exports.createPublication = async (req, res, next) => {
-    const idToken = res.locals.decodedToken.id
+    const idToken = req.auth.id
     let contenu = req.body.contenu
     let title = req.body.title
     console.log("start create pub")
@@ -100,51 +100,65 @@ exports.createPublication = async (req, res, next) => {
     }  
 };
 
-//effacer une publication
+//effacer une publication CORRECTION
 /* DELETE http://localhost:3000/publication/5
 */
 exports.deletePublication = async (req, res) => {
-    console.log("req.body.decodedToken", req.body.decodedToken);
-    console.log("req.param.id from delete publication", req.params.id)
     const idParams = req.params.id
-    const idToken = req.body.decodedToken.id
+    const idToken = req.auth.id
     try {
-        let deletePost = `DELETE FROM publication WHERE publication.id = ? AND publication.id_user = ?;`;
-        let [rows, fields] = await db.query(deletePost, [idParams, idToken]);
-        console.log('rowsSetheader:', rows.affectedRows)
-        if(rows.affectedRows === 0) {
-            return res.status(404).json("la publication n'existe pas ou plus")
+        //CORRECTION
+        let verifyIdUser = `SELECT publication.id_user FROM publication WHERE publication.id = ?;`
+        let [row, field] = await db.query(verifyIdUser, [idParams]);
+        console.log(typeof(row[0].id_user), "ROWWWSSS")
+        let idUser = row[0].id_user
+        if(idUser === idToken) {
+            let deletePost = `DELETE FROM publication WHERE publication.id = ? AND publication.id_user = ?;`;
+            let [rows, fields] = await db.query(deletePost, [idParams, idToken]);
+            console.log('rowsSetheader:', rows.affectedRows)
+            if(rows.affectedRows === 0) {
+                return res.status(404).json("la publication n'existe pas ou plus")
+            }
+            return res.status(200).json("La publication a été effacée");
         }
-        return res.status(200).json("La publication a été effacée");
+          return res.status(401).json("vous n'etes pas le proprio de cette publication");
+
+
     } catch (error) {
         res.status(500).json(error);
         console.log('error:', error)
     }
 };
 
-//mettre à jour une publication
+//mettre à jour une publication CORRECTION
 exports.updatePublication = async (req, res) => {
     try {
-        console.log("start update publication", req.params.id)
-        console.log("req.body from back", req.body)
-        console.log("---> req.body.DECODEDTOKEN from back update Publication !", req.auth.id)
-        /** Requete SQL dynamique générer en fonction de si l'utilisateur a voulu modifier l'image de sa Publication */
-        let request = "";
-        let requestPartImg = null;
-        let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
-        if(req.file && req.file.filename) {
-            requestPartImg = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-            request = `UPDATE publication SET image_path = '${requestPartImg}', title ='${req.body.title}', 
-                contenu = '${req.body.contenu}', date_publi = '${now}' 
-                WHERE id = '${req.params.id}' AND publication.id_user= ${req.auth.id};`
-        }else{
-            request = `UPDATE publication SET title ='${req.body.title}', 
-                contenu = '${req.body.contenu}', date_publi = '${now}' 
-                WHERE id = '${req.params.id}'AND publication.id_user= ${req.auth.id};`
+    const idParams = req.params.id
+    const idToken = req.auth.id
+        //CORRECTION
+        let verifyIdUser = `SELECT publication.id_user FROM publication WHERE publication.id = ?;`
+        let [row, field] = await db.query(verifyIdUser, [idParams]);
+        console.log(typeof(row[0].id_user), "ROWWWSSS")
+        let idUser = row[0].id_user
+        if(idUser === idToken) {
+            /** Requete SQL dynamique générer en fonction de si l'utilisateur a voulu modifier l'image de sa Publication */
+            let request = "";
+            let requestPartImg = null;
+            let now = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+            if(req.file && req.file.filename) {
+                requestPartImg = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                request = `UPDATE publication SET image_path = '${requestPartImg}', title ='${req.body.title}', 
+                    contenu = '${req.body.contenu}', date_publi = '${now}' 
+                    WHERE id = '${req.params.id}' AND publication.id_user= ${req.auth.id};`
+            }else{
+                request = `UPDATE publication SET title ='${req.body.title}', 
+                    contenu = '${req.body.contenu}', date_publi = '${now}' 
+                    WHERE id = '${req.params.id}'AND publication.id_user= ${req.auth.id};`
+            }
+            let [rows, fields] = await db.query(request);
+            return res.status(200).json(rows);
         }
-        
-        let [rows, fields] = await db.query(request);
-        return res.status(200).json(rows);
+        return res.status(401).json("vous n'est pas le proprio de ce post donc vous ne pouvez pas le mettre à jour")
     } catch (error) {
         console.log(error)
         res.status(500).json(error);
@@ -157,13 +171,13 @@ exports.updatePublication = async (req, res) => {
 exports.adminDeletePublication = async (req, res) => {
     const idParams = req.params.id
     try {
-        let deletePost = `DELETE FROM publication WHERE publication.id = ?;`;
-        let [rows, fields] = await db.query(deletePost, [idParams]);
-        console.log('rowsSetheader:', rows.affectedRows)
-        if(rows.affectedRows === 0) {
-            return res.status(404).json("la publication n'existe pas ou plus")
-        }
-        return res.status(200).json("La publication a été effacée");
+            let deletePost = `DELETE FROM publication WHERE publication.id = ?;`;
+            let [rows, fields] = await db.query(deletePost, [idParams]);
+            console.log('rowsSetheader:', rows.affectedRows)
+            if(rows.affectedRows === 0) {
+                return res.status(404).json("la publication n'existe pas ou plus")
+            }
+            return res.status(200).json("La publication a été effacée");
     } catch (error) {
         res.status(500).json(error);
     }

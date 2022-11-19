@@ -7,13 +7,13 @@ const admin = require("../middleware/admin");
 
 const commentaire = require("../controller/commentController");
 
-router.get("/message/:id", commentaire.getCommentByPublication);
+router.get("/message/:id", auth, commentaire.getCommentByPublication);
 
 router.put("/message/:id", auth, commentaire.updateMessage);
 
 router.post("/message", auth, commentaire.createMessage);
 
-router.delete("/message/:id", auth, admin, commentaire.deleteMessage);
+router.delete("/message/:id", auth, commentaire.deleteMessage);
 
 /******************************ADMIN***********************************/
 

@@ -19,7 +19,7 @@ router.post("/", auth, multer, publication.createPublication);
 
 router.put("/:id", auth, multer, publication.updatePublication);
 
-router.delete("/:id", auth, publication.adminDeletePublication);
+router.delete("/:id", auth, publication.deletePublication);
 
 //***************************************ADMIN************************* */
 
