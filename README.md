@@ -57,6 +57,15 @@ Afin d'avoir un accès optimal au site il vous faudra créer un dossier .env dan
 * KEY = MIICWwIBAAKBgHCUX
 * images/
 * node_modules/
+* HOST = '127.0.0.1'
+* USER = 'root'
+* DATABASE = 'groupomania'
+
+##### Installation de la base donnée
+
+Pour installer la base donnée il vous faudra installer Xampp et utiliser php MyAdmin.
+Une fois cela fait rendez-vous dans la barre de rechercher de votre navigateur et taper **localhost** pour vous rendre sur Xampp puis cliquez sur php myadmin.
+Quand vous serez sur php myadmin cliquer sur l'onglet importer puis sur le bouton **choisir un fichier** pour aller chercher le fichier contenant la base de donnée au format .sql.zip puis descendez un peu et cliquez sur **importer**.
 
 ## Les dépendances à installer 
 
