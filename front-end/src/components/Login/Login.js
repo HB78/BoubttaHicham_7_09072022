@@ -52,6 +52,9 @@ export default function Login() {
       navigate("/publication", { replace: true });
     } catch (error) {
       console.log(error)
+      if(error.response.status === 402) {
+        return alert(error.response.data)
+      }
       alert(error.response.data.error)
     }
   }

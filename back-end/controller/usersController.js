@@ -103,8 +103,8 @@ exports.login = async (req, res, next) => {
         //on va recuperer dans le rows le resultat de emailSQL
         let [rows, fields] = await db.query(emailSQL, [bodyEmail])
 
-        if(!rows.length > 1) {
-            return res.status(400).json("Cet utilisateur n'existe pas, sinon vérifiez votre adresse mail")
+        if(!rows.length > 0) {
+            return res.status(402).json("Cet utilisateur n'existe pas, sinon vérifiez votre adresse mail")
         }
 
         //dans le rows on a le resultat de la commande emailsql apres execution
