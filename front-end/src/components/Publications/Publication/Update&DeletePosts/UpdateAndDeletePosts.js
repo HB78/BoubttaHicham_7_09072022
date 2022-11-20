@@ -50,6 +50,22 @@ function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
     togglePosts();
     getPosts()
   }
+  // FONCTION POUR MODIFIER UN POST PAR UN ADMIN
+  // const updatePostsbyAdmin = async (e) => {
+  //   console.log(allData.id)
+  //   e.preventDefault();
+  //   await axios({
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data',
+  //       'Authorization': 'Bearer ' + localStorage.getItem("token")
+  //     },
+  //     method: 'PUT',
+  //     url: `${apiUrl}/publication/admin/${allData.id}`,
+  //     data: formData
+  //   })
+  //   togglePosts();
+  //   getPosts()
+  // }
 
   return (
     <div className="card">
