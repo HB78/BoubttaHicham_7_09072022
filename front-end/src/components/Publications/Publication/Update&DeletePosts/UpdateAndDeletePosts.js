@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import UpdatePosts from './UpdatePosts';
 import './updatedeleteicon.css';
 import apiUrl from "./../../../../api_url"
+import AuthContext from '../../../../auth/authContext';
 
 function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
   console.log('getPosts:', getPosts)
@@ -12,6 +13,10 @@ function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
   const [newPostDescription, setNewPostsDescription] = useState(allData.contenu);
   const [newTitleOfPost, setNewTitleOfPost] = useState(allData.title);
   const [newPhotoOfPost, setNewPhotoOfPost] = useState(allData.photoPost);
+
+  const authCTX = useContext(AuthContext)
+  let isAdmin = authCTX.isAdmin
+
 
   const changeDescription = (e) => {
     setNewPostsDescription(e.target.value)
@@ -51,21 +56,21 @@ function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
     getPosts()
   }
   // FONCTION POUR MODIFIER UN POST PAR UN ADMIN
-  // const updatePostsbyAdmin = async (e) => {
-  //   console.log(allData.id)
-  //   e.preventDefault();
-  //   await axios({
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data',
-  //       'Authorization': 'Bearer ' + localStorage.getItem("token")
-  //     },
-  //     method: 'PUT',
-  //     url: `${apiUrl}/publication/admin/${allData.id}`,
-  //     data: formData
-  //   })
-  //   togglePosts();
-  //   getPosts()
-  // }
+  const updatePostsbyAdmin = async (e) => {
+    console.log(allData.id)
+    e.preventDefault();
+    await axios({
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      },
+      method: 'PUT',
+      url: `${apiUrl}/publication/admin/${allData.id}`,
+      data: formData
+    })
+    togglePosts();
+    getPosts()
+  }
 
   return (
     <div className="card">
@@ -77,7 +82,7 @@ function UpdateAndDeletePosts({ allData, togglePosts, getPosts }) {
             <UpdatePosts togglePosts={togglePosts} />
           </div>
         </div>
-        <form action="/upload" method="PUT" encType="multipart/form-data" onSubmit={updatePosts} className="formulairePublication">
+        <form action="/upload" method="PUT" encType="multipart/form-data" onSubmit={isAdmin === 0 ?updatePosts : updatePostsbyAdmin} className="formulairePublication">
           <div className="inputsTextAndArea">
             <input type="text"
               className='input_update_title_publication'

@@ -81,6 +81,7 @@ export const AuthContextProvider = (props) => {
         //suppression du token dans le localStorage
         localStorage.removeItem("token")
         localStorage.removeItem("userId")
+        localStorage.clear()
         //on peut aussi faire localStorage.clear() pour tous effacer d'un coup
     }
     //stockage du token d'authentification / la valeur du contexte
