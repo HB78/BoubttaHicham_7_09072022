@@ -177,37 +177,37 @@ exports.getOneUser = async (req, res, next) => {
 
 //mise à jour du mot de passe de l'utilisateur CORRECTION
 
-//update all profil 
-exports.updateProfil = async (req, res, next) => {
-    const idParams = req.params.id
-    const idToken = req.auth.id
-    let description = req.body.description
-    let job = req.body.poste
-    let photoProfil = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+// //update all profil 
+// exports.updateProfil = async (req, res, next) => {
+//     const idParams = req.params.id
+//     const idToken = req.auth.id
+//     let description = req.body.description
+//     let job = req.body.poste
+//     let photoProfil = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 
-    try {
-        //on vérifie si au départ l'id contenu dans token est bien le meme que celui des params
-       let verifyIdUser = `SELECT users.id FROM users WHERE users.id = ?`
-       let [row, field] = await db.query(verifyIdUser, [idParams]);
+//     try {
+//         //on vérifie si au départ l'id contenu dans token est bien le meme que celui des params
+//        let verifyIdUser = `SELECT users.id FROM users WHERE users.id = ?`
+//        let [row, field] = await db.query(verifyIdUser, [idParams]);
 
-       //pour ne pas qu'il modifie le mdp d'un compte inexistant
-       if(!row.length > 0) {
-        return res.status(400).json("l'utilisateur n'existe pas");
-    }
+//        //pour ne pas qu'il modifie le mdp d'un compte inexistant
+//        if(!row.length > 0) {
+//         return res.status(400).json("l'utilisateur n'existe pas");
+//     }
 
-       if(row[0].id === idToken) {
-        const hash = bcrypt.hashSync(req.body.password, 10);
-        let updatePassword = `UPDATE users SET password = ?, image_profil = ?, description = ?, poste = ? WHERE id = ? AND users.id = ? ;`;
+//        if(row[0].id === idToken) {
+//         const hash = bcrypt.hashSync(req.body.password, 10);
+//         let updatePassword = `UPDATE users SET password = ?, image_profil = ?, description = ?, poste = ? WHERE id = ? AND users.id = ? ;`;
 
-        let [rows, fields] = await db.query(updatePassword, [hash, photoProfil, decription, poste, idParams, idToken]);
+//         let [rows, fields] = await db.query(updatePassword, [hash, photoProfil, decription, poste, idParams, idToken]);
 
-        return res.status(200).json("profil mit à jour !");
-       }
-       return res.status(401).json("Vous n'etes pas autorisez à faire cette requete")
-    } catch (error) {
+//         return res.status(200).json("profil mit à jour !");
+//        }
+//        return res.status(401).json("Vous n'etes pas autorisez à faire cette requete")
+//     } catch (error) {
         
-    }
-}
+//     }
+// }
 
 exports.updatePasswordOfUser = async (req, res, next) => {
     const idParams = req.params.id

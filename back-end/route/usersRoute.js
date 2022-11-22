@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 
 const admin = require("../middleware/admin")
 
-const {updateProfil} = require("../controller/usersController");
+// const {updateProfil} = require("../controller/usersController");
 
 const {UpdateDescription, deleteUserByAdmin} = require("../controller/usersController");
 
@@ -48,7 +48,7 @@ router.get("/checkadmin/:id", auth, checkIfAdmin);
 router.get("/:id", auth, multer, getOneUser); 
 
 //changement du mot de passe du user
-router.put("/updateprofil/:id", auth, updateProfil);
+// router.put("/updateprofil/:id", auth, updateProfil);
 
 //changement du mot de passe du user
 router.put("/password/:id", auth, updatePasswordOfUser);
