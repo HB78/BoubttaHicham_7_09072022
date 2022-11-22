@@ -27,6 +27,8 @@ function noNumber(name) {
 
 exports.signup = async (req, res, next) => {
     console.log(req.body)
+    let bodyEmail = req.body.email
+    let bodyName = req.body.name
     try {
         //si le user ne rentre pas de mdp, de nom ou de mail
         if (!req.body.email || !req.body.password || !req.body.name) {
@@ -57,17 +59,17 @@ exports.signup = async (req, res, next) => {
 
         //on va chercher toutes les infos du user ayant le mail entré
         //en fait la on veut verifier si le mail existe deja avant de faire un signup
-        const verifEmailSql = `SELECT * FROM users WHERE email='${req.body.email}'; `;
+        const verifEmailSql = `SELECT * FROM users WHERE email= ?; `;
 
         //on fait deux db.query : 
         //le 1er pour verifier si le mail est dans BDD
         //LE 2em pour faire le signup si le mail n'existe pas dans la BDD
 
         //on insere la data entrée par le user mais le mdp est remplacé par le hash
-        const signupSQL = `INSERT INTO users (email, password, name) VALUES ('${req.body.email}', '${hash}', '${req.body.name}')`;
+        const signupSQL = `INSERT INTO users (email, password, name) VALUES (?, ?, ?)`;
 
         //avec db.query on envoie la commande à la BDD
-        let [rows, fields] = await db.query(verifEmailSql);
+        let [rows, fields] = await db.query(verifEmailSql, [bodyEmail]);
 
         //rows nous renvoi les données de la BDD cad un tabeau de ce qui a été enregistré
         console.log('--> rows', rows);
@@ -78,7 +80,7 @@ exports.signup = async (req, res, next) => {
             res.status(401).json("L'email existe déjà");
             return;
         }
-        await db.query(signupSQL);
+        await db.query(signupSQL, [bodyEmail, hash, bodyName]);
         res.status(200).json("comtpe bien crée");
     } catch (error) {
         res.status(500).json(error);
@@ -174,6 +176,38 @@ exports.getOneUser = async (req, res, next) => {
 };
 
 //mise à jour du mot de passe de l'utilisateur CORRECTION
+
+//update all profil 
+exports.updateProfil = async (req, res, next) => {
+    const idParams = req.params.id
+    const idToken = req.auth.id
+    let description = req.body.description
+    let job = req.body.poste
+    let photoProfil = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+
+    try {
+        //on vérifie si au départ l'id contenu dans token est bien le meme que celui des params
+       let verifyIdUser = `SELECT users.id FROM users WHERE users.id = ?`
+       let [row, field] = await db.query(verifyIdUser, [idParams]);
+
+       //pour ne pas qu'il modifie le mdp d'un compte inexistant
+       if(!row.length > 0) {
+        return res.status(400).json("l'utilisateur n'existe pas");
+    }
+
+       if(row[0].id === idToken) {
+        const hash = bcrypt.hashSync(req.body.password, 10);
+        let updatePassword = `UPDATE users SET password = ?, image_profil = ?, description = ?, poste = ? WHERE id = ? AND users.id = ? ;`;
+
+        let [rows, fields] = await db.query(updatePassword, [hash, photoProfil, decription, poste, idParams, idToken]);
+
+        return res.status(200).json("profil mit à jour !");
+       }
+       return res.status(401).json("Vous n'etes pas autorisez à faire cette requete")
+    } catch (error) {
+        
+    }
+}
 
 exports.updatePasswordOfUser = async (req, res, next) => {
     const idParams = req.params.id
